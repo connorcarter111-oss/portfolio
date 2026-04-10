@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photography — Connor Carter</title>
+  <meta name="description" content="Photography by Connor Carter — interiors, people, product.">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Override global 4-column masonry with 2-column larger layout */
+    .photo-grid {
+      columns: 2;
+      column-gap: 6px;
+    }
+    .photo-grid__item {
+      margin-bottom: 6px;
+    }
+    .photo-grid__item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+    /* Alternate tall/wide rhythm for 2-col */
+    .photo-grid__item:nth-child(odd) img  { aspect-ratio: 4/5; }
+    .photo-grid__item:nth-child(even) img { aspect-ratio: 3/4; }
+
+    @media (max-width: 600px) {
+      .photo-grid { columns: 1; }
+    }
+
+    /* Category pills */
+    .pills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .pill {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 7px 16px;
+      border: 1px solid var(--rule);
+      border-radius: 100px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .pill:hover,
+    .pill.active {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Lightbox nav */
+    .lightbox__prev,
+    .lightbox__next {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.7);
+      font-size: 32px;
+      cursor: pointer;
+      padding: 16px 20px;
+      z-index: 1001;
+      transition: color 0.2s;
+      line-height: 1;
+    }
+    .lightbox__prev { left: 20px; }
+    .lightbox__next { right: 20px; }
+    .lightbox__prev:hover,
+    .lightbox__next:hover { color: #fff; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__name">Connor Carter</a>
+      <ul class="nav__links">
+        <li><a href="index.html#work" class="nav__link">Work</a></li>
+        <li><a href="about.html" class="nav__link">About</a></li>
+        <li><a href="about.html#contact" class="nav__link nav__link--cta">Get in touch</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="page-top section--tight">
+    <div class="container">
+      <div style="max-width: 640px;">
+        <p class="t-label" style="margin-bottom: 20px; opacity:0; animation: fadeIn 0.6s var(--ease-out) 0.1s forwards;">Creative Work · 03</p>
+        <h1 class="t-display hero-line" style="margin-bottom: 24px;">
+          <span>Seeing is the job.</span>
+        </h1>
+        <p class="t-body hero-sub" style="margin-bottom: 40px;">
+          Photography is how I learn to look. Before a brief, before a deck, before a single creative decision — I'm trying to understand what something feels like, what light it lives in, what makes it worth a second glance. These images aren't separate from the brand work. They're the same instinct, applied to whatever's in front of the lens.
+        </p>
+        <p class="t-body hero-cta" style="font-size: 13px; color: var(--accent); letter-spacing: 0.06em;">Landscapes · Concerts · People</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Photo Grid -->
+  <section class="section" style="padding-top: 48px;">
+    <div class="container">
+      <div class="photo-grid reveal">
+        <!--
+          Replace img-placeholder divs with actual images:
+          <img src="images/photo-01.jpg" alt="...">
+          Aim for 10–12 images. Mix: 3–4 interiors, 3–4 people, 3–4 product/detail.
+          Keep editing tone consistent — warm and moody if Homestead palette.
+        -->
+        <!-- Landscapes -->
+        <div class="photo-grid__item"><img src="images/photo-bixby.jpg" alt="Bixby Bridge, Big Sur"></div>
+        <div class="photo-grid__item"><img src="images/photo-alabama-hills.jpg" alt="Alabama Hills, California"></div>
+        <div class="photo-grid__item"><img src="images/photo-bigsur.jpg" alt="Big Sur coastline"></div>
+        <div class="photo-grid__item"><img src="images/photo-yosemite.jpg" alt="Half Dome, Yosemite"></div>
+        <div class="photo-grid__item"><img src="images/landscapes/IMG_1009.jpg" alt="Landscape"></div>
+        <div class="photo-grid__item"><img src="images/photo-alabama-hills-2.jpg" alt="Alabama Hills, California"></div>
+        <div class="photo-grid__item"><img src="images/landscapes/IMG_0991.jpg" alt="Landscape"></div>
+        <div class="photo-grid__item"><img src="images/landscapes/IMG_1005.jpg" alt="Landscape"></div>
+        <div class="photo-grid__item"><img src="images/landscapes/IMG_1006.jpg" alt="Landscape"></div>
+        <div class="photo-grid__item"><img src="images/landscapes/IMG_1007.jpg" alt="Landscape"></div>
+        <div class="photo-grid__item"><img src="images/landscapes/IMG_1008.jpg" alt="Landscape"></div>
+        <div class="photo-grid__item" style="break-before: column;"><img src="images/photo-turkey.jpg" alt="Mediterranean coast, Turkey"></div>
+        <div class="photo-grid__item"><img src="images/landscapes/IMG_1010.jpg" alt="Landscape"></div>
+        <div class="photo-grid__item"><img src="images/landscapes/IMG_1011.jpg" alt="Landscape"></div>
+        <div class="photo-grid__item"><img src="images/marylee.jpg" alt="Marylee"></div>
+        <div class="photo-grid__item"><img src="images/photo-beach.jpg" alt="Beach"></div>
+        <!-- Concert & other -->
+        <div class="photo-grid__item"><img src="images/landscapes/IMG_0998.jpg" alt="Concert"></div>
+        <div class="photo-grid__item"><img src="images/landscapes/IMG_0999.jpg" alt="Concert"></div>
+        <div class="photo-grid__item"><img src="images/landscapes/IMG_1001.jpg" alt="Concert"></div>
+        <div class="photo-grid__item"><img src="images/landscapes/IMG_1002.jpg" alt="Concert"></div>
+        <div class="photo-grid__item"><img src="images/landscapes/IMG_1003.jpg" alt="Concert"></div>
+        <div class="photo-grid__item"><img src="images/landscapes/IMG_1004.jpg" alt="Concert"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox__close" id="lightbox-close" aria-label="Close">×</button>
+    <button class="lightbox__prev" id="lightbox-prev" aria-label="Previous">&#8592;</button>
+    <img class="lightbox__img" id="lightbox-img" src="" alt="">
+    <button class="lightbox__next" id="lightbox-next" aria-label="Next">&#8594;</button>
+  </div>
+
+  <!-- Footer -->
+  <!-- Footer -->
+  <footer class="footer" style="border-top: 1px solid #1a1a1a; overflow: hidden; margin-top: 0;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; padding: 44px 40px 28px; gap: 40px; flex-wrap: wrap;">
+      <div>
+        <a href="mailto:connor.carter111@gmail.com" style="font-size:13px; color:var(--muted); line-height:2; display:block; transition:color 0.2s;" onmouseover="this.style.color='#C4622D'" onmouseout="this.style.color='var(--muted)'">connor.carter111@gmail.com</a>
+        <p style="font-size:13px; color:var(--muted); line-height:2;">based in dallas, georgia</p>
+        <p style="font-size:13px; color:var(--muted); line-height:2;">available for creative director roles &amp; <span style="color:var(--accent);">select freelance</span></p>
+      </div>
+      <nav>
+        <ul style="display:flex; gap:64px; list-style:none;">
+          <li>
+            <p style="font-size:10px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:#444; margin-bottom:14px;">page</p>
+            <a href="index.html" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">home</a>
+            <a href="about.html" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">about</a>
+            <a href="index.html#work" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">work</a>
+          </li>
+          <li>
+            <p style="font-size:10px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:#444; margin-bottom:14px;">contact</p>
+            <a href="mailto:connor.carter111@gmail.com" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">email</a>
+            <a href="https://www.linkedin.com/in/connor-carter-3967393a9" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:6px; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              linkedin
+            </a>
+            <a href="https://www.instagram.com/connor__carter/" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:6px; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+              instagram
+            </a>
+            <a href="connor-carter-resume.html" target="_blank" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">resume ↗</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div style="overflow:hidden;">
+      <span style="display:block; font-size:clamp(72px, 14.5vw, 216px); font-weight:800; letter-spacing:-0.045em; line-height:0.88; color:var(--text); padding:0 40px;">connor carter</span>
+    </div>
+    <p style="padding:20px 40px 36px; font-size:11px; color:#333;">© 2026 Connor Carter. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // Nav scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // Scroll reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.05 });
+    reveals.forEach(el => observer.observe(el));
+
+    // Lightbox with prev/next
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxClose = document.getElementById('lightbox-close');
+    const lightboxPrev = document.getElementById('lightbox-prev');
+    const lightboxNext = document.getElementById('lightbox-next');
+
+    const items = Array.from(document.querySelectorAll('.photo-grid__item img'));
+    let currentIndex = 0;
+
+    const openLightbox = (index) => {
+      currentIndex = index;
+      lightboxImg.src = items[currentIndex].src;
+      lightboxImg.alt = items[currentIndex].alt;
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeLightbox = () => {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    };
+
+    const showPrev = () => {
+      currentIndex = (currentIndex - 1 + items.length) % items.length;
+      lightboxImg.src = items[currentIndex].src;
+      lightboxImg.alt = items[currentIndex].alt;
+    };
+
+    const showNext = () => {
+      currentIndex = (currentIndex + 1) % items.length;
+      lightboxImg.src = items[currentIndex].src;
+      lightboxImg.alt = items[currentIndex].alt;
+    };
+
+    items.forEach((img, i) => {
+      img.parentElement.addEventListener('click', () => openLightbox(i));
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightboxPrev.addEventListener('click', (e) => { e.stopPropagation(); showPrev(); });
+    lightboxNext.addEventListener('click', (e) => { e.stopPropagation(); showNext(); });
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') showPrev();
+      if (e.key === 'ArrowRight') showNext();
+    });
+  </script>
+
+</body>
+</html>

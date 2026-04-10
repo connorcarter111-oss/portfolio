@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connor Carter — Creative Director</title>
+  <meta name="description" content="Connor Carter — Creative Director, Brand Builder, Dallas, GA.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:     #111111;
+      --text:   #F0EBE3;
+      --muted:  #666666;
+      --accent: #C4622D;
+      --font:         'Space Grotesk', sans-serif;
+      --font-heading: 'Archivo', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font);
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      cursor: none;
+    }
+    a { color: inherit; text-decoration: none; cursor: none; }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+    /* ── Custom Cursor ────────────────────────────────────────── */
+    .cursor {
+      position: fixed;
+      width: 8px; height: 8px;
+      background: var(--text);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s;
+      will-change: left, top;
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 36px; height: 36px;
+      border: 1px solid rgba(240,235,227,0.35);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: width 0.4s cubic-bezier(0.16,1,0.3,1),
+                  height 0.4s cubic-bezier(0.16,1,0.3,1),
+                  border-color 0.3s;
+      will-change: left, top;
+    }
+    body.hovering .cursor { width: 0; height: 0; }
+    body.hovering .cursor-ring { width: 60px; height: 60px; border-color: rgba(240,235,227,0.65); }
+
+    /* ── Nav ─────────────────────────────────────────────────── */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 28px 40px;
+    }
+    .nav__name { font-size: 13px; font-weight: 400; color: var(--muted); }
+    .nav__links { display: flex; align-items: center; gap: 40px; list-style: none; }
+    .nav__link { font-size: 13px; font-weight: 400; color: var(--muted); transition: color 0.2s; }
+    .nav__link:hover { color: var(--text); }
+    .nav__link--cta {
+      color: var(--text);
+      border: 1px solid rgba(240,235,227,0.18);
+      padding: 9px 20px;
+      border-radius: 100px;
+      font-size: 12px;
+      transition: border-color 0.25s, color 0.25s;
+    }
+    .nav__link--cta:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Hero ────────────────────────────────────────────────── */
+    .hero { padding-top: 88px; overflow: hidden; }
+
+    .hero__name-wrap { overflow: hidden; padding: 0 40px; line-height: 0.9; }
+    .hero__name {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: clamp(72px, 14.5vw, 216px);
+      font-weight: 800;
+      letter-spacing: 0em;
+      color: var(--text);
+      transform: translateY(110%);
+      animation: slideUp 1s cubic-bezier(0.16,1,0.3,1) 0.05s forwards;
+    }
+    @keyframes slideUp { to { transform: translateY(0); } }
+
+    .hero__meta {
+      display: flex;
+      justify-content: flex-end;
+      padding: 16px 40px 32px;
+      opacity: 0;
+      animation: fadeIn 0.8s ease 0.55s forwards;
+    }
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    .hero__tagline { max-width: 320px; font-size: 14px; color: var(--muted); line-height: 1.65; }
+
+    /* ── Work Grid ───────────────────────────────────────────── */
+    .work {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 10px;
+      padding-top: 0;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .work-col { display: flex; flex-direction: column; gap: 10px; }
+    .work-col--right { padding-top: 20vh; }
+
+    .work-item { display: block; position: relative; }
+
+    /* Clip-path reveal */
+    .work-item__clip {
+      overflow: hidden;
+      border-radius: 10px;
+      clip-path: inset(100% 0 0 0 round 10px);
+      position: relative;
+    }
+    .work-item__clip.revealed {
+      clip-path: inset(0% 0 0 0 round 10px);
+      transition: clip-path 1.15s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .work-item__img {
+      width: 100%;
+      overflow: hidden;
+      transform: scale(1.08);
+      transition: transform 1.15s cubic-bezier(0.16,1,0.3,1);
+    }
+    .work-item__clip.revealed .work-item__img { transform: scale(1); }
+
+    /* Column-specific aspect ratios — mirrors Mike Bennet rhythm */
+    .work-col--left  .work-item:nth-child(1) .work-item__img { aspect-ratio: 3/4; }
+    .work-col--left  .work-item:nth-child(2) .work-item__img { aspect-ratio: 4/3; }
+    .work-col--right .work-item:nth-child(1) .work-item__img { aspect-ratio: 4/3; }
+    .work-col--right .work-item:nth-child(2) .work-item__img { aspect-ratio: 3/4; }
+
+    /* Browser card: fix aspect ratio on outer container, not inner */
+    .work-col--right .work-item--browser:nth-child(1) .work-item__img { aspect-ratio: unset; height: auto; }
+    .work-col--right .work-item--browser:nth-child(1) .work-item__clip { aspect-ratio: 4/3; }
+
+    .work-item__img img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .work-item:hover .work-item__img img { transform: scale(1.04); }
+
+    /* Hover overlay */
+    .work-item__overlay {
+      position: absolute;
+      inset: 0;
+      border-radius: 10px;
+      background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.4s cubic-bezier(0.16,1,0.3,1);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .work-item__overlay-cta {
+      position: absolute;
+      bottom: 18px;
+      right: 18px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(240,235,227,0.9);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transform: translateY(6px);
+      transition: transform 0.4s cubic-bezier(0.16,1,0.3,1), opacity 0.4s;
+      opacity: 0;
+    }
+    .work-item__overlay-cta::after {
+      content: '→';
+      display: inline-block;
+      transition: transform 0.3s cubic-bezier(0.16,1,0.3,1);
+    }
+    .work-item:hover .work-item__overlay { opacity: 1; }
+    .work-item:hover .work-item__overlay-cta { opacity: 1; transform: translateY(0); }
+    .work-item:hover .work-item__overlay-cta::after { transform: translateX(3px); }
+
+    .work-item__caption {
+      padding: 12px 2px 24px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .work-item__caption.visible { opacity: 1; transform: translateY(0); }
+    .work-item__caption-left { flex: 1; }
+    .work-item__num {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 5px;
+    }
+    .work-item__title { font-size: 14px; font-weight: 400; color: var(--text); margin-bottom: 2px; }
+    .work-item__cat { font-size: 11px; color: var(--muted); letter-spacing: 0.02em; }
+
+    /* ── Statement ───────────────────────────────────────────── */
+    .statement { padding: 130px 40px 100px; }
+    .statement__text {
+      font-size: clamp(28px, 4.8vw, 62px);
+      font-weight: 400;
+      line-height: 1.18;
+      letter-spacing: -0.025em;
+      color: var(--text);
+      max-width: 1080px;
+    }
+    .sw { /* statement word */
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: bottom;
+      margin-right: 0.22em;
+      line-height: 1.25;
+    }
+    .sw span {
+      display: inline-block;
+      transform: translateY(105%);
+      transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .sw.on span { transform: translateY(0); }
+
+    /* ── Bio Row ─────────────────────────────────────────────── */
+    .bio {
+      display: grid;
+      grid-template-columns: 280px 1fr 1fr;
+      gap: 56px;
+      padding: 0 40px 130px;
+      align-items: start;
+    }
+    .bio__photo { overflow: hidden; background: #1a1a1a; }
+    .bio__photo img {
+      width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block;
+      transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .bio__photo:hover img { transform: scale(1.03); }
+
+    .bio__col-label {
+      font-size: 10px; font-weight: 500; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 18px;
+    }
+    .bio__col-text { font-size: 14px; color: var(--muted); line-height: 1.8; }
+    .bio__btn {
+      display: inline-block; margin-top: 28px;
+      font-size: 11px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase;
+      color: var(--text); border: 1px solid rgba(240,235,227,0.2);
+      padding: 11px 22px; border-radius: 100px;
+      transition: border-color 0.25s, color 0.25s;
+    }
+    .bio__btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── CTA ─────────────────────────────────────────────────── */
+    .cta {
+      border-top: 1px solid #1e1e1e;
+      padding: 80px 40px 100px;
+      overflow: hidden;
+    }
+    .cta__inner { display: flex; flex-wrap: wrap; align-items: center; gap: 0; }
+
+    .cta__word {
+      font-size: clamp(54px, 11vw, 148px);
+      font-weight: 800;
+      letter-spacing: -0.045em;
+      line-height: 1;
+      color: var(--text);
+      display: block;
+      overflow: visible;
+      margin-right: 0.12em;
+    }
+    .cta__word span {
+      display: block;
+      transform: translateY(105%);
+      transition: transform 0.95s cubic-bezier(0.16,1,0.3,1);
+    }
+    .cta__word.on span { transform: translateY(0); }
+    .cta__word:nth-child(2) span { transition-delay: 0.08s; }
+    .cta__word:nth-child(4) span { transition-delay: 0.16s; }
+
+    .cta__photo {
+      width: clamp(90px, 11vw, 148px);
+      height: clamp(90px, 11vw, 148px);
+      overflow: hidden;
+      flex-shrink: 0;
+      margin: 0 0.2em;
+      transform: translateY(105%);
+      transition: transform 0.95s cubic-bezier(0.16,1,0.3,1) 0.05s;
+      position: relative;
+    }
+    .cta__photo.on { transform: translateY(0); }
+    .cta__photo img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center center;
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    .cta__photo img.active { opacity: 1; }
+
+    .cta__email {
+      display: block; margin-top: 44px;
+      font-size: 14px; color: var(--muted);
+      position: relative; width: fit-content;
+      transition: color 0.25s;
+    }
+    .cta__email::after {
+      content: ''; position: absolute; bottom: -2px; left: 0;
+      width: 0; height: 1px; background: var(--accent);
+      transition: width 0.35s cubic-bezier(0.16,1,0.3,1);
+    }
+    .cta__email:hover { color: var(--text); }
+    .cta__email:hover::after { width: 100%; }
+
+    /* ── Footer ──────────────────────────────────────────────── */
+    .footer { border-top: 1px solid #1a1a1a; overflow: hidden; }
+    .footer__info {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      padding: 44px 40px 28px; gap: 40px;
+    }
+    .footer__info-left p { font-size: 13px; color: var(--muted); line-height: 2; }
+    .footer__info-left span { color: var(--accent); }
+    .footer__nav { display: flex; gap: 64px; list-style: none; }
+    .footer__nav-col p { font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: #444; margin-bottom: 14px; }
+    .footer__nav-col a { display: block; font-size: 13px; color: #555; margin-bottom: 8px; transition: color 0.2s; }
+    .footer__nav-col a:hover { color: var(--text); }
+    .footer__name-wrap { overflow: hidden; }
+    .footer__name {
+      display: block;
+      font-size: clamp(72px, 14.5vw, 216px);
+      font-weight: 800; letter-spacing: -0.045em; line-height: 0.88;
+      color: var(--text); padding: 0 40px;
+    }
+    .footer__copy { padding: 20px 40px 36px; font-size: 11px; color: #333; }
+
+    /* ── Browser Mockup (Trinity card) ──────────────────────── */
+    .work-item--browser .work-item__img {
+      background: #0d0d14;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .browser-chrome {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 14px;
+      background: #1a1a2a;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      flex-shrink: 0;
+    }
+    .browser-chrome__dots {
+      display: flex;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+    .browser-chrome__dots span {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+    }
+    .browser-chrome__dots span:nth-child(1) { background: #ff5f57; }
+    .browser-chrome__dots span:nth-child(2) { background: #ffbd2e; }
+    .browser-chrome__dots span:nth-child(3) { background: #28c840; }
+    .browser-chrome__bar {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 10px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.02em;
+      font-family: var(--font);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .browser-screen {
+      position: relative;
+      flex: 1;
+      overflow: hidden;
+    }
+    .browser-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .work-item:hover .browser-screen img { transform: scale(1.03); }
+
+    .browser-badge {
+      position: absolute;
+      bottom: 14px;
+      left: 14px;
+      width: 48px;
+      height: 48px;
+      background: rgba(13,13,20,0.85);
+      backdrop-filter: blur(8px);
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+    }
+    .browser-badge img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* ── Scroll utilities ────────────────────────────────────── */
+    .fade-up {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.8s cubic-bezier(0.16,1,0.3,1);
+    }
+    .fade-up.on { opacity: 1; transform: none; }
+    .fade-up.d1 { transition-delay: 0.12s; }
+    .fade-up.d2 { transition-delay: 0.24s; }
+
+    /* ── Mobile ──────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      body { cursor: auto; }
+      .cursor, .cursor-ring { display: none; }
+      .nav { padding: 20px; }
+      .nav__links { gap: 20px; }
+      .nav__link--cta { display: none; }
+      .hero__name-wrap { padding: 0 16px; }
+      .hero__meta { padding: 14px 16px 0; }
+      .work { grid-template-columns: 1fr; padding-left: 16px; padding-right: 16px; gap: 10px; }
+      .work-col--right { padding-top: 0; }
+      .work-col--left .work-item:nth-child(1) .work-item__img,
+      .work-col--left .work-item:nth-child(2) .work-item__img,
+      .work-col--left .work-item:nth-child(3) .work-item__img,
+      .work-col--right .work-item:nth-child(1) .work-item__img,
+      .work-col--right .work-item:nth-child(2) .work-item__img { aspect-ratio: 4/3; }
+      .work-item__caption { padding: 12px 16px 36px; }
+      .statement { padding: 80px 20px 70px; }
+      .bio { grid-template-columns: 1fr; padding: 0 20px 80px; gap: 36px; }
+      .bio__photo { max-width: 220px; }
+      .cta { padding: 60px 20px 80px; }
+      .cta__word { font-size: clamp(44px, 14vw, 80px); }
+      .cta__photo { width: 72px; height: 72px; }
+      .footer__info { flex-direction: column; padding: 32px 20px 20px; }
+      .footer__name { padding: 0 20px; }
+      .footer__copy { padding: 16px 20px 28px; }
+    }
+
+    /* ── Reduced Motion ───────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+      .work-item__clip { clip-path: none !important; }
+      .hero__name { transform: none !important; animation: none !important; opacity: 1 !important; }
+      .hero__meta { opacity: 1 !important; animation: none !important; }
+    }
+
+    /* ── Selected Work Label ──────────────────────────────────── */
+    .work-label {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 0 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .work-label__text {
+      font-family: var(--font);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .work-label__line {
+      flex: 1;
+      height: 1px;
+      background: rgba(240,235,227,0.1);
+    }
+
+    /* ── Availability dot in nav ──────────────────────────────── */
+    .nav__available {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+    }
+    .nav__available-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 6px #4ade80;
+      animation: pulse-dot 2.5s ease-in-out infinite;
+    }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cur"></div>
+  <div class="cursor-ring" id="cur-ring"></div>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <a href="index.html" class="nav__name">connor carter</a>
+    <div class="nav__available">
+      <span class="nav__available-dot"></span>
+      available for work
+    </div>
+    <ul class="nav__links">
+      <li><a href="#work" class="nav__link">work</a></li>
+      <li><a href="about.html" class="nav__link">about me</a></li>
+      <li><a href="about.html#contact" class="nav__link nav__link--cta">start a project</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero__name-wrap">
+      <span class="hero__name">connor carter</span>
+    </div>
+    <div class="hero__meta">
+      <p class="hero__tagline">Creative direction across brand, digital, and space — for founders and companies building something worth believing in.</p>
+    </div>
+  </section>
+
+  <!-- Work Label -->
+  <div class="work-label">
+    <span class="work-label__text">Selected Work · 2025</span>
+    <div class="work-label__line"></div>
+  </div>
+
+  <!-- Work Grid -->
+  <section class="work" id="work">
+
+    <!-- Left column -->
+    <div class="work-col work-col--left">
+
+      <a href="homestead.html" class="work-item">
+        <div class="work-item__clip" data-reveal>
+          <div class="work-item__img">
+            <img src="images/homestead-interior.jpg" alt="Homestead Coffee Co.">
+          </div>
+          <div class="work-item__overlay">
+            <span class="work-item__overlay-cta">View project</span>
+          </div>
+        </div>
+        <div class="work-item__caption">
+          <div class="work-item__caption-left">
+            <p class="work-item__num">01</p>
+            <p class="work-item__title">Homestead Coffee Co.</p>
+            <p class="work-item__cat">brand identity · space design · digital</p>
+          </div>
+        </div>
+      </a>
+
+      <a href="homestead-photo.html" class="work-item">
+        <div class="work-item__clip" data-reveal>
+          <div class="work-item__img">
+            <img src="images/homestead-seating.jpg" alt="Homestead — photo & video direction" loading="lazy">
+          </div>
+          <div class="work-item__overlay">
+            <span class="work-item__overlay-cta">View project</span>
+          </div>
+        </div>
+        <div class="work-item__caption">
+          <div class="work-item__caption-left">
+            <p class="work-item__num">02</p>
+            <p class="work-item__title">Homestead · Photo Direction</p>
+            <p class="work-item__cat">photography · content · brand</p>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Right column (offset down) -->
+    <div class="work-col work-col--right">
+
+      <a href="trinity.html" class="work-item work-item--browser">
+        <div class="work-item__clip" data-reveal>
+          <div class="work-item__img">
+            <!-- Browser chrome -->
+            <div class="browser-chrome">
+              <div class="browser-chrome__dots">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="browser-chrome__bar">trinitysolutionsco.com</div>
+            </div>
+            <!-- Screenshot -->
+            <div class="browser-screen">
+              <img src="images/trinity-screen.jpg" alt="Trinity Solutions" loading="lazy">
+              <!-- Logo badge -->
+              <div class="browser-badge">
+                <img src="images/trinity-logo.png" alt="Trinity Solutions logo">
+              </div>
+            </div>
+          </div>
+          <div class="work-item__overlay">
+            <span class="work-item__overlay-cta">View project</span>
+          </div>
+        </div>
+        <div class="work-item__caption">
+          <div class="work-item__caption-left">
+            <p class="work-item__num">03</p>
+            <p class="work-item__title">Trinity Solutions</p>
+            <p class="work-item__cat">brand strategy · web · ai consultancy</p>
+          </div>
+        </div>
+      </a>
+
+      <a href="photography.html" class="work-item">
+        <div class="work-item__clip" data-reveal>
+          <div class="work-item__img">
+            <img src="images/photo-bixby.jpg" alt="Photography" loading="lazy">
+          </div>
+          <div class="work-item__overlay">
+            <span class="work-item__overlay-cta">View project</span>
+          </div>
+        </div>
+        <div class="work-item__caption">
+          <div class="work-item__caption-left">
+            <p class="work-item__num">04</p>
+            <p class="work-item__title">Photography</p>
+            <p class="work-item__cat">landscape · interiors · product</p>
+          </div>
+        </div>
+      </a>
+
+    </div>
+
+  </section>
+
+  <!-- Statement -->
+  <section class="statement">
+    <p class="statement__text" id="stmt">
+      <span class="sw"><span>Good</span></span>
+      <span class="sw"><span>creative</span></span>
+      <span class="sw"><span>direction</span></span>
+      <span class="sw"><span>means</span></span>
+      <span class="sw"><span>making</span></span>
+      <span class="sw"><span>the</span></span>
+      <span class="sw"><span>hard</span></span>
+      <span class="sw"><span>calls —</span></span>
+      <span class="sw"><span>what</span></span>
+      <span class="sw"><span>to</span></span>
+      <span class="sw"><span>strip</span></span>
+      <span class="sw"><span>away,</span></span>
+      <span class="sw"><span>what</span></span>
+      <span class="sw"><span>to</span></span>
+      <span class="sw"><span>amplify,</span></span>
+      <span class="sw"><span>what</span></span>
+      <span class="sw"><span>a</span></span>
+      <span class="sw"><span>brand</span></span>
+      <span class="sw"><span>refuses</span></span>
+      <span class="sw"><span>to</span></span>
+      <span class="sw"><span>be.</span></span>
+      <span class="sw"><span>I</span></span>
+      <span class="sw"><span>work</span></span>
+      <span class="sw"><span>at</span></span>
+      <span class="sw"><span>the</span></span>
+      <span class="sw"><span>intersection</span></span>
+      <span class="sw"><span>of</span></span>
+      <span class="sw"><span>strategy</span></span>
+      <span class="sw"><span>and</span></span>
+      <span class="sw"><span>aesthetics,</span></span>
+      <span class="sw"><span>where</span></span>
+      <span class="sw"><span>the</span></span>
+      <span class="sw"><span>brief</span></span>
+      <span class="sw"><span>ends</span></span>
+      <span class="sw"><span>and</span></span>
+      <span class="sw"><span>the</span></span>
+      <span class="sw"><span>real</span></span>
+      <span class="sw"><span>work</span></span>
+      <span class="sw" style="color:var(--accent)"><span>begins.</span></span>
+    </p>
+  </section>
+
+  <!-- Bio -->
+  <div class="bio">
+    <div class="bio__photo fade-up">
+      <img src="images/headshot.jpg" alt="Connor Carter">
+    </div>
+    <div class="fade-up d1">
+      <p class="bio__col-label">Why work with me</p>
+      <p class="bio__col-text">I've directed work across brand identity, physical spaces, digital, and photo — which means I think about how a brand performs across every surface, not just on a screen. I bring the strategic layer: what does this brand need to <em>mean</em> before we decide what it looks like?</p>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:28px;">
+        <a href="about.html" class="bio__btn" style="margin-top:0;">about me →</a>
+        <a href="connor-carter-resume.html" target="_blank" class="bio__btn" style="margin-top:0;">resume →</a>
+      </div>
+    </div>
+    <div class="fade-up d2">
+      <p class="bio__col-label">When I'm not working</p>
+      <p class="bio__col-text">My wife and baby daughter are my whole world. Outside of that you'll find me on the pickleball court, chasing good coffee, or somewhere outdoors — preferably all three in the same day.</p>
+    </div>
+  </div>
+
+  <!-- Contact CTA -->
+  <section class="cta">
+    <div class="cta__inner">
+      <span class="cta__word" id="cta-w1"><span>let's</span></span>
+      <span class="cta__word" id="cta-w2"><span>build</span></span>
+      <div class="cta__photo" id="cta-photo">
+        <img src="images/smallbox/283f145d-ff7f-4487-91fd-390c6a812e3c.JPG" alt="">
+        <img src="images/smallbox/49588207-fe6b-4c67-90c2-b0f0c5cf4d1d.JPG" alt="">
+        <img src="images/smallbox/IMG_0989.jpg" alt="">
+        <img src="images/smallbox/c64eb30d-0500-431f-bed1-be6af5c0e9c0.JPG" alt="">
+        <img src="images/smallbox/photo-yosemite copy.jpg" alt="">
+      </div>
+      <span class="cta__word" id="cta-w3"><span>something.</span></span>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__info">
+      <div class="footer__info-left">
+        <p>connor.carter111@gmail.com</p>
+        <p>based in dallas, georgia</p>
+        <p>available for creative director roles &amp; <span>select freelance</span></p>
+      </div>
+      <nav>
+        <ul class="footer__nav">
+          <li class="footer__nav-col">
+            <p>page</p>
+            <a href="index.html">home</a>
+            <a href="about.html">about</a>
+            <a href="index.html#work">work</a>
+          </li>
+          <li class="footer__nav-col">
+            <p>contact</p>
+            <a href="mailto:connor.carter111@gmail.com">email</a>
+            <a href="https://www.linkedin.com/in/connor-carter-3967393a9" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:6px;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              linkedin
+            </a>
+            <a href="https://www.instagram.com/connor__carter/" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:6px;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+              instagram
+            </a>
+            <a href="connor-carter-resume.html" target="_blank">resume ↗</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer__name-wrap">
+      <span class="footer__name">connor carter</span>
+    </div>
+    <p class="footer__copy">© 2026 Connor Carter. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // ── Custom Cursor ─────────────────────────────────────────
+    const cur     = document.getElementById('cur');
+    const curRing = document.getElementById('cur-ring');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cur.style.left = mx + 'px';
+      cur.style.top  = my + 'px';
+    });
+
+    (function tick() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      curRing.style.left = rx + 'px';
+      curRing.style.top  = ry + 'px';
+      requestAnimationFrame(tick);
+    })();
+
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => document.body.classList.add('hovering'));
+      el.addEventListener('mouseleave', () => document.body.classList.remove('hovering'));
+    });
+
+    // ── Image clip-path reveal ────────────────────────────────
+    const clips = document.querySelectorAll('[data-reveal]');
+    new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const clip    = e.target;
+        const caption = clip.closest('.work-item').querySelector('.work-item__caption');
+        clip.classList.add('revealed');
+        if (caption) setTimeout(() => caption.classList.add('visible'), 550);
+        e.target._obs.unobserve(clip);
+      });
+    }, { threshold: 0.1 }).observe && clips.forEach(clip => {
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          const caption = e.target.closest('.work-item').querySelector('.work-item__caption');
+          e.target.classList.add('revealed');
+          if (caption) setTimeout(() => caption.classList.add('visible'), 550);
+          obs.unobserve(e.target);
+        });
+      }, { threshold: 0.1 });
+      obs.observe(clip);
+    });
+
+    // ── Statement word-by-word ────────────────────────────────
+    const stmt = document.getElementById('stmt');
+    const words = stmt.querySelectorAll('.sw');
+    new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        words.forEach((w, i) => {
+          setTimeout(() => w.classList.add('on'), i * 38);
+        });
+      });
+    }, { threshold: 0.2 }).observe(stmt);
+
+    // ── CTA slide up ──────────────────────────────────────────
+    const ctaEl = document.querySelector('.cta__inner');
+    new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        ['cta-w1','cta-w2','cta-w3','cta-photo'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.classList.add('on');
+        });
+        // Start rotation after slide-in
+        const imgs = document.querySelectorAll('.cta__photo img');
+        let current = 0;
+        imgs[current].classList.add('active');
+        setInterval(() => {
+          imgs[current].classList.remove('active');
+          current = (current + 1) % imgs.length;
+          imgs[current].classList.add('active');
+        }, 2000);
+      });
+    }, { threshold: 0.25 }).observe(ctaEl);
+
+    // ── Fade-up elements ──────────────────────────────────────
+    document.querySelectorAll('.fade-up').forEach(el => {
+      new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('on'); }
+        });
+      }, { threshold: 0.12 }).observe(el);
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Connor Carter</title>
+  <meta name="description" content="Connor Carter — Creative Director, Brand Builder, Dallas, Georgia. Let's build something.">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── Timeline ── */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .timeline__item {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 32px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--rule);
+    }
+    .timeline__item:first-child { border-top: 1px solid var(--rule); }
+    .timeline__year {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      padding-top: 3px;
+    }
+    .timeline__title {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .timeline__body {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .resume-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--text);
+      border: 1px solid rgba(240,235,227,0.2);
+      padding: 12px 24px;
+      border-radius: 2px;
+      white-space: nowrap;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .resume-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ── Contact form ── */
+    .contact-form-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 80px;
+      align-items: start;
+      background: var(--surface);
+      border: 1px solid var(--rule);
+      border-radius: 4px;
+      padding: 64px;
+    }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .contact-form__row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .contact-form__field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .contact-form__label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .contact-form__input {
+      background: transparent;
+      border: 1px solid var(--rule);
+      border-radius: 2px;
+      padding: 12px 16px;
+      font-family: var(--font);
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+    .contact-form__input::placeholder { color: #444; }
+    .contact-form__input:focus { border-color: var(--accent); }
+    .contact-form__textarea {
+      resize: vertical;
+      min-height: 140px;
+      line-height: 1.6;
+    }
+    .contact-form__submit {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      align-self: flex-start;
+      background: none;
+      border: 1px solid rgba(240,235,227,0.2);
+      border-radius: 2px;
+      padding: 13px 28px;
+      font-family: var(--font);
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--text);
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .contact-form__submit:hover { border-color: var(--accent); color: var(--accent); }
+    .contact-form__arrow {
+      display: inline-block;
+      transition: transform 0.3s var(--ease-out);
+    }
+    .contact-form__submit:hover .contact-form__arrow { transform: translateX(4px); }
+
+    @media (max-width: 768px) {
+      .contact-form-wrap { grid-template-columns: 1fr; gap: 40px; padding: 40px 24px; }
+      .contact-form__row { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .timeline__item { grid-template-columns: 1fr; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__name">Connor Carter</a>
+      <ul class="nav__links">
+        <li><a href="index.html#work" class="nav__link">Work</a></li>
+        <li><a href="about.html" class="nav__link">About</a></li>
+        <li><a href="#contact" class="nav__link nav__link--cta">Get in touch</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Bio -->
+  <section class="page-top section">
+    <div class="container">
+
+      <div style="margin-bottom: 64px;">
+        <p class="t-label" style="margin-bottom: 20px; opacity:0; animation: fadeIn 0.6s var(--ease-out) 0.1s forwards;">About</p>
+        <h1 class="t-display hero-line" style="max-width: 700px;">
+          <span>I've never just been a designer.</span>
+        </h1>
+      </div>
+
+      <div class="about-bio reveal">
+        <div>
+          <div class="headshot">
+            <!--
+              Replace with: <img src="images/headshot.jpg" alt="Connor Carter">
+              Natural light preferred. Dark/neutral background. Square crop.
+            -->
+            <img src="images/headshot.jpg" alt="Connor Carter">
+          </div>
+        </div>
+        <div>
+          <p class="t-body" style="margin-bottom: 24px;">
+            I'm Connor Carter — a creative director, brand builder, and founder based in Dallas, Georgia. For the past eight years I've been obsessed with the same question: what makes people feel something about a brand?
+          </p>
+          <p class="t-body" style="margin-bottom: 24px;">
+            I've answered it by building specialty coffee companies in Istanbul, designing physical spaces that people make part of their daily ritual, directing photo and video shoots, building websites, and growing organic communities from zero.
+          </p>
+          <p class="t-body">
+            I think the best creative work happens when strategy and execution aren't separated — when the person who defined the brand vision is the same one deciding what the chair in the corner should look like. That's how I work.
+          </p>
+
+          <div style="display:flex; gap: 32px; margin-top: 40px; padding-top: 32px; border-top: 1px solid var(--rule);">
+            <div>
+              <p class="t-label" style="margin-bottom: 8px;">Based in</p>
+              <p style="font-size:14px; color: var(--muted);">Dallas, Georgia</p>
+            </div>
+            <div>
+              <p class="t-label" style="margin-bottom: 8px;">Experience</p>
+              <p style="font-size:14px; color: var(--muted);">8 years</p>
+            </div>
+            <div>
+              <p class="t-label" style="margin-bottom: 8px;">Open to</p>
+              <p style="font-size:14px; color: var(--accent);">CD opportunities</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Timeline -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="reveal" style="margin-bottom: 48px;">
+        <p class="t-label" style="margin-bottom: 10px;">Experience</p>
+        <h2 class="t-subheading">Not a straight line — but every step was intentional.</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline__item reveal">
+          <div class="timeline__year">2025 – Present</div>
+          <div class="timeline__content">
+            <p class="timeline__title">Founder & Creative Director — Trinity Solutions</p>
+            <p class="timeline__body">Founded a done-for-you AI automation and brand consultancy serving small businesses in the trades and service industries. Responsible for all brand development, client-facing creative strategy, website design, and go-to-market positioning.</p>
+          </div>
+        </div>
+        <div class="timeline__item reveal reveal-d1">
+          <div class="timeline__year">Feb 2023 – Jan 2026</div>
+          <div class="timeline__content">
+            <p class="timeline__title">Creative Director & Co-Owner — Homestead Coffee Company</p>
+            <p class="timeline__body">Co-founded and scaled a specialty coffee brand from a single location to three cafés across two cities (Istanbul + Antalya). Led brand identity, space design, photo direction, digital, and wholesale — growing to 8K+ organic followers and 15+ wholesale accounts with zero ad spend.</p>
+          </div>
+        </div>
+        <div class="timeline__item reveal reveal-d2">
+          <div class="timeline__year">Jan 2021 – Jan 2023</div>
+          <div class="timeline__content">
+            <p class="timeline__title">Audio Video Technician & Project Lead — Inspired Excellence</p>
+            <p class="timeline__body">Led 20+ commercial and event-based AV installations from planning through execution, managing teams of 3–8 technicians across corporate, hospitality, and event environments.</p>
+          </div>
+        </div>
+        <div class="timeline__item reveal reveal-d3">
+          <div class="timeline__year">Jan 2019 – Dec 2020</div>
+          <div class="timeline__content">
+            <p class="timeline__title">Head Barista / Bar Manager — Good Kitchen + Market</p>
+            <p class="timeline__body">Led daily bar and beverage operations serving 100+ guests per day. Developed drink menus, coffee programs, and seasonal specials. Managed inventory, vendor relationships, and beverage cost controls.</p>
+          </div>
+        </div>
+        <div class="timeline__item reveal reveal-d4">
+          <div class="timeline__year">Jan 2016 – Jan 2019</div>
+          <div class="timeline__content">
+            <p class="timeline__title">Project Manager — Alpha Air Balance Company</p>
+            <p class="timeline__body">Managed multiple concurrent commercial HVAC Test and Balance projects, coordinating with engineers, mechanical contractors, and site supervisors across 5–10 active job sites.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="reveal" style="margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--rule); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+        <p class="t-body" style="max-width: 480px;">Want the full picture? Download my resume for a complete look at experience, skills, and education.</p>
+        <a href="connor-carter-resume.html" target="_blank" class="resume-btn">View Resume →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- What I Bring -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="reveal" style="margin-bottom: 40px;">
+        <p class="t-label" style="margin-bottom: 10px;">What I Bring</p>
+        <h2 class="t-subheading">End-to-end, no handoffs.</h2>
+      </div>
+
+      <div class="three-col">
+        <div class="three-col__item reveal reveal-d1">
+          <h3 class="three-col__title">Brand systems</h3>
+          <p class="three-col__body">
+            I build identities that scale — from single cafés to multi-location businesses — without losing the specific feeling that made them worth building.
+          </p>
+        </div>
+        <div class="three-col__item reveal reveal-d2">
+          <h3 class="three-col__title">Guest experience thinking</h3>
+          <p class="three-col__body">
+            I design for how people feel at every touchpoint — in-store, digital, and everything in between.
+          </p>
+        </div>
+        <div class="three-col__item reveal reveal-d3">
+          <h3 class="three-col__title">End-to-end execution</h3>
+          <p class="three-col__body">
+            I don't hand things off. I direct the shoot, build the site, write the copy, and make sure it all holds together.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section" id="contact" style="padding-top: 40px;">
+    <div class="container">
+      <div class="reveal">
+
+        <div class="contact-form-wrap">
+          <!-- Left: copy + links -->
+          <div class="contact-form-wrap__left">
+            <p class="t-label" style="margin-bottom: 20px;">Contact</p>
+            <h2 class="t-heading" style="margin-bottom: 20px; max-width: 400px;">Let's build something.</h2>
+            <p class="t-body" style="margin-bottom: 40px; max-width: 360px;">
+              I'm currently exploring Creative Director opportunities. If you're building something that should make people feel something, I'd love to talk.
+            </p>
+            <div style="display:flex; flex-direction:column; gap:12px;">
+              <a href="mailto:connor.carter111@gmail.com" class="contact-card__link">
+                <span class="contact-card__link-dot"></span>
+                connor.carter111@gmail.com
+              </a>
+              <a href="https://www.linkedin.com/in/connor-carter-3967393a9" target="_blank" rel="noopener" class="contact-card__link">
+                <span class="contact-card__link-dot"></span>
+                linkedin.com/in/connor-carter
+              </a>
+              <a href="https://www.instagram.com/connor__carter/" target="_blank" rel="noopener" class="contact-card__link">
+                <span class="contact-card__link-dot"></span>
+                instagram.com/connor__carter
+              </a>
+              <a href="connor-carter-resume.html" target="_blank" class="contact-card__link">
+                <span class="contact-card__link-dot"></span>
+                View Resume
+              </a>
+            </div>
+          </div>
+
+          <!-- Right: form -->
+          <form class="contact-form" action="https://formspree.io/f/xdaprgek" method="POST">
+            <div class="contact-form__row">
+              <div class="contact-form__field">
+                <label class="contact-form__label" for="name">Name</label>
+                <input class="contact-form__input" type="text" id="name" name="name" placeholder="Your name" required>
+              </div>
+              <div class="contact-form__field">
+                <label class="contact-form__label" for="email">Email</label>
+                <input class="contact-form__input" type="email" id="email" name="email" placeholder="your@email.com" required>
+              </div>
+            </div>
+            <div class="contact-form__field">
+              <label class="contact-form__label" for="subject">What's this about?</label>
+              <input class="contact-form__input" type="text" id="subject" name="subject" placeholder="CD role, freelance project, collaboration...">
+            </div>
+            <div class="contact-form__field">
+              <label class="contact-form__label" for="message">Message</label>
+              <textarea class="contact-form__input contact-form__textarea" id="message" name="message" placeholder="Tell me what you're building..." required></textarea>
+            </div>
+            <button class="contact-form__submit" type="submit">
+              Send Message <span class="contact-form__arrow">→</span>
+            </button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer" style="border-top: 1px solid #1a1a1a; overflow: hidden; margin-top: 0;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; padding: 44px 40px 28px; gap: 40px; flex-wrap: wrap;">
+      <div>
+        <a href="mailto:connor.carter111@gmail.com" style="font-size:13px; color:var(--muted); line-height:2; display:block; transition:color 0.2s;" onmouseover="this.style.color='#C4622D'" onmouseout="this.style.color='var(--muted)'">connor.carter111@gmail.com</a>
+        <p style="font-size:13px; color:var(--muted); line-height:2;">based in dallas, georgia</p>
+        <p style="font-size:13px; color:var(--muted); line-height:2;">available for creative director roles &amp; <span style="color:var(--accent);">select freelance</span></p>
+      </div>
+      <nav>
+        <ul style="display:flex; gap:64px; list-style:none;">
+          <li>
+            <p style="font-size:10px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:#444; margin-bottom:14px;">page</p>
+            <a href="index.html" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">home</a>
+            <a href="about.html" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">about</a>
+            <a href="index.html#work" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">work</a>
+          </li>
+          <li>
+            <p style="font-size:10px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:#444; margin-bottom:14px;">contact</p>
+            <a href="mailto:connor.carter111@gmail.com" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">email</a>
+            <a href="https://www.linkedin.com/in/connor-carter-3967393a9" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:6px; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              linkedin
+            </a>
+            <a href="https://www.instagram.com/connor__carter/" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:6px; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+              instagram
+            </a>
+            <a href="connor-carter-resume.html" target="_blank" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">resume ↗</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div style="overflow:hidden;">
+      <span style="display:block; font-size:clamp(72px, 14.5vw, 216px); font-weight:800; letter-spacing:-0.045em; line-height:0.88; color:var(--text); padding:0 40px;">connor carter</span>
+    </div>
+    <p style="padding:20px 40px 36px; font-size:11px; color:#333;">© 2026 Connor Carter. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

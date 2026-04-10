@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homestead Coffee Co. — Connor Carter</title>
+  <meta name="description" content="Building a specialty coffee brand from the ground up — identity, spaces, and a website that does the work.">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .cs-hero__img {
+      background: linear-gradient(135deg, #1a120a 0%, #2d1e12 50%, #1a1a1a 100%);
+    }
+
+    /* ── Homestead logo card ── */
+    .homestead-logo-card {
+      background: #e7b7a0;
+      border-radius: 10px;
+      padding: 80px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 10px;
+    }
+    .homestead-logo-card__tagline {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #2c1a0e;
+      opacity: 0.7;
+    }
+    .homestead-logo-card__name {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(48px, 8vw, 96px);
+      font-weight: 400;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #2c1a0e;
+      line-height: 1;
+      margin: 8px 0 4px;
+    }
+    .homestead-logo-card__sub {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #2c1a0e;
+    }
+    .homestead-logo-card__since {
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: #2c1a0e;
+      opacity: 0.6;
+      margin-top: 4px;
+    }
+
+    /* ── Brand guidelines ── */
+    .brand-guidelines {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 32px;
+      background: var(--surface);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .brand-guidelines__type,
+    .brand-guidelines__colors {
+      padding: 32px 32px;
+    }
+    .brand-guidelines__type {
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .type-specimen {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .type-specimen:last-child { border-bottom: none; }
+    .type-specimen__label {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .type-specimen__sample {
+      color: var(--text);
+      line-height: 1.2;
+    }
+    .color-swatches {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .color-swatch {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .color-swatch__block {
+      width: 56px;
+      height: 56px;
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+    .color-swatch__info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .color-swatch__name {
+      font-size: 16px;
+      color: var(--text);
+    }
+    .color-swatch__hex {
+      font-size: 13px;
+      color: var(--muted);
+      font-family: monospace;
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 768px) {
+      .brand-guidelines {
+        position: static;
+        grid-template-columns: 1fr;
+        margin-top: 3px;
+        border-radius: 10px;
+      }
+      .brand-guidelines__type { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    }
+
+    /* ── Brand identity grid ── */
+    .brand-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto auto auto;
+      gap: 3px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .brand-grid__item {
+      overflow: hidden;
+      position: relative;
+    }
+    .brand-grid__item img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .brand-grid__item:hover img { transform: scale(1.03); }
+
+    /* size variants */
+    .brand-grid__item--wide  { grid-column: span 2; }
+    .brand-grid__item--tall  { grid-row: span 2; }
+    .brand-grid__item--full  { grid-column: span 3; }
+
+    /* aspect ratios */
+    .brand-grid__item--sq   img { aspect-ratio: 1/1; }
+    .brand-grid__item--land img { aspect-ratio: 4/3; }
+    .brand-grid__item--port img { aspect-ratio: 3/4; }
+    .brand-grid__item--wide img { aspect-ratio: 16/9; }
+    .brand-grid__item--full img { aspect-ratio: 21/9; }
+
+    /* logo tile */
+    .brand-grid__item--logo {
+      background: #1e1610;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 40px;
+      aspect-ratio: 1/1;
+    }
+    .brand-grid__item--logo img {
+      width: auto; height: auto;
+      max-height: 80px; max-width: 100%;
+      object-fit: contain;
+    }
+    .brand-grid__item--logo:hover img { transform: scale(1.04); }
+
+    @media (max-width: 768px) {
+      .brand-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .brand-grid__item--wide { grid-column: span 2; }
+      .brand-grid__item--tall { grid-row: span 1; }
+      .brand-grid__item--full { grid-column: span 2; }
+    }
+
+    /* ── Space photo grid ── */
+    .space-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 3px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .space-grid__item { overflow: hidden; }
+    .space-grid__item--wide { grid-column: span 2; }
+    .space-grid__item img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
+      aspect-ratio: 4/3;
+    }
+    .space-grid__item--tall img { aspect-ratio: 3/4; }
+    .space-grid__item:hover img { transform: scale(1.03); }
+
+    /* ── Website section ── */
+    .web-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 56px;
+      align-items: start;
+    }
+    .web-split__screens {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .web-split__copy { }
+    .web-split__screen {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .web-split__screen .browser-bar {
+      background: #1e1e1e;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .browser-bar__dots { display: flex; gap: 5px; }
+    .browser-bar__dots span {
+      width: 9px; height: 9px; border-radius: 50%;
+    }
+    .browser-bar__dots span:nth-child(1) { background: #ff5f57; }
+    .browser-bar__dots span:nth-child(2) { background: #ffbd2e; }
+    .browser-bar__dots span:nth-child(3) { background: #28c840; }
+    .browser-bar__url {
+      flex: 1;
+      background: rgba(255,255,255,0.05);
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 10px;
+      color: rgba(255,255,255,0.3);
+      font-family: 'DM Sans', sans-serif;
+    }
+    .web-split__screen img {
+      width: 100%; display: block;
+      height: auto;
+    }
+
+    .web-detail-list {
+      margin-top: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .web-detail-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .web-detail-list li::before {
+      content: '';
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+      margin-top: 8px;
+    }
+
+    @media (max-width: 768px) {
+      .brand-marks { grid-template-columns: 1fr; }
+      .brand-mark--wide { grid-column: span 1; }
+      .space-grid { grid-template-columns: 1fr 1fr; }
+      .space-grid__item--wide { grid-column: span 2; }
+      .web-split { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__name">Connor Carter</a>
+      <ul class="nav__links">
+        <li><a href="index.html#work" class="nav__link">Work</a></li>
+        <li><a href="about.html" class="nav__link">About</a></li>
+        <li><a href="about.html#contact" class="nav__link nav__link--cta">Get in touch</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="cs-hero">
+    <div class="cs-hero__img">
+      <img src="images/homestead-interior.jpg" alt="Homestead Coffee interior">
+    </div>
+    <div class="cs-hero__overlay"></div>
+    <div class="cs-hero__content">
+      <p class="t-label cs-hero__label">Case Study · 01</p>
+      <h1 class="t-display cs-hero__title">Homestead Coffee Company</h1>
+      <p class="t-body cs-hero__subtitle" style="color: rgba(245,240,232,0.7);">
+        Building a specialty coffee brand from the ground up — identity, spaces, and a website that works as hard as the team behind the counter.
+      </p>
+    </div>
+  </section>
+
+  <!-- Stat Strip -->
+  <div class="stat-strip reveal">
+    <div class="stat">
+      <p class="t-label stat__label">Locations opened</p>
+      <div class="stat__number">3</div>
+    </div>
+    <div class="stat">
+      <p class="t-label stat__label">Organic followers</p>
+      <div class="stat__number">8K+</div>
+    </div>
+    <div class="stat">
+      <p class="t-label stat__label">Wholesale accounts</p>
+      <div class="stat__number">15+</div>
+    </div>
+  </div>
+
+  <!-- Overview -->
+  <section class="section">
+    <div class="container">
+      <div class="two-col">
+        <div class="two-col__left reveal">
+          <p class="t-label section__header">Overview</p>
+          <div class="section__rule"></div>
+          <h2 class="t-heading section__title">A brand built to feel alive from day one.</h2>
+        </div>
+        <div class="two-col__right reveal reveal-d2">
+          <p class="t-label" style="margin-bottom: 10px; color: var(--accent);">The Problem</p>
+          <p class="t-body" style="margin-bottom: 28px; color: var(--text);">
+            Most new coffee brands either copy the clean-white minimalism of third-wave chains, or lean so hard into "local" that they never scale. Homestead needed a third path — a brand with genuine warmth and a specific point of view that could hold up across three locations, a roastery, and a wholesale program without losing what made it feel worth caring about.
+          </p>
+          <p class="t-body">
+            We started with a vision, a name, and a single café in Istanbul. The challenge was building a brand that felt intentional from the very beginning — one that could scale across locations and markets without losing its character.
+          </p>
+          <br>
+          <p class="t-body">
+            That meant making decisions about everything in parallel: what the space should feel like when someone walks in, what the identity communicates before they order, and what the website does when it's the first impression someone gets at 7am on their phone.
+          </p>
+          <br>
+          <p class="t-label" style="margin-bottom: 16px;">Key Decisions</p>
+          <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px;">
+            <li style="font-size: 14px; color: var(--muted); line-height: 1.7; padding-left: 18px; position: relative;"><span style="position:absolute; left:0; top:9px; width:5px; height:5px; border-radius:50%; background:var(--accent); display:block;"></span>We anchored the palette in terracotta, cream, and espresso brown rather than the clean-white aesthetic most specialty coffee brands default to — because Homestead's identity is rooted in a specific place and feeling, not a category trend.</li>
+            <li style="font-size: 14px; color: var(--muted); line-height: 1.7; padding-left: 18px; position: relative;"><span style="position:absolute; left:0; top:9px; width:5px; height:5px; border-radius:50%; background:var(--accent); display:block;"></span>The mark started hand-drawn and was then systematized — warmth first, precision second. The goal was something that felt considered without feeling designed.</li>
+            <li style="font-size: 14px; color: var(--muted); line-height: 1.7; padding-left: 18px; position: relative;"><span style="position:absolute; left:0; top:9px; width:5px; height:5px; border-radius:50%; background:var(--accent); display:block;"></span>Space design, identity, and website were developed in parallel rather than sequentially — because the brand needed to feel coherent across every surface from day one, not assembled over time.</li>
+          </ul>
+          <div style="display:flex; gap: 32px; margin-top: 8px; flex-wrap: wrap;">
+            <div>
+              <p class="t-label" style="margin-bottom: 6px;">Role</p>
+              <p style="font-size:14px; color: var(--muted);">Creative Director · Designer</p>
+            </div>
+            <div>
+              <p class="t-label" style="margin-bottom: 6px;">Timeline</p>
+              <p style="font-size:14px; color: var(--muted);">2022 – Present</p>
+            </div>
+            <div>
+              <p class="t-label" style="margin-bottom: 6px;">Website</p>
+              <p style="font-size:14px; color: var(--muted);">homestead.coffee</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────
+       01 · BRAND IDENTITY
+  ──────────────────────────────── -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+
+      <div class="reveal" style="margin-bottom: 48px;">
+        <p class="t-label" style="margin-bottom: 10px;">01 · Brand Identity</p>
+        <h2 class="t-subheading" style="max-width: 600px;">A visual system built to hold up across every surface.</h2>
+      </div>
+
+      <div class="two-col" style="margin-bottom: 56px;">
+        <div class="two-col__left reveal">
+          <p class="t-body">
+            Before the first cup was pulled, we had a mark. The Homestead identity started with a hand-drawn quality — something warm, considered, and unhurried — and then we systematized it so it could live everywhere with the same intention.
+          </p>
+          <br>
+          <p class="t-body">
+            The color palette draws from raw materials: terracotta, cream, deep espresso brown. Typography is set in a geometric sans that reads clean at small sizes and with character at large ones. Every decision in the system traces back to the same feeling: a place worth returning to.
+          </p>
+        </div>
+        <div class="two-col__right reveal reveal-d2">
+          <ul class="web-detail-list">
+            <li>Primary logo, secondary mark, and icon variants</li>
+            <li>Full color system with light/dark application rules</li>
+            <li>Typography scale across print and digital</li>
+            <li>Packaging guidelines — cups, bags, labels</li>
+            <li>Brand guidelines document delivered to all vendors</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Brand guidelines: typography + color -->
+      <div class="brand-guidelines reveal reveal-d1">
+        <div class="brand-guidelines__type">
+          <p class="t-label" style="margin-bottom: 20px;">Typography</p>
+          <div class="type-specimen">
+            <span class="type-specimen__label">Display / Logo</span>
+            <span class="type-specimen__sample" style="font-family: serif; font-weight: 900; font-style: italic; font-size: 28px; letter-spacing: -0.02em;">Negaroa</span>
+          </div>
+          <div class="type-specimen">
+            <span class="type-specimen__label">Sub Headline</span>
+            <span class="type-specimen__sample" style="font-size: 15px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;">Specter Medium</span>
+          </div>
+          <div class="type-specimen">
+            <span class="type-specimen__label">Marketing / Cards</span>
+            <span class="type-specimen__sample" style="font-family: Georgia, serif; font-style: italic; font-size: 15px;">Tiempos Headline</span>
+          </div>
+          <div class="type-specimen">
+            <span class="type-specimen__label">Sub Text</span>
+            <span class="type-specimen__sample" style="font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;">Ballinger Mono</span>
+          </div>
+        </div>
+        <div class="brand-guidelines__colors">
+          <p class="t-label" style="margin-bottom: 20px;">Color Palette</p>
+          <div class="color-swatches">
+            <div class="color-swatch">
+              <div class="color-swatch__block" style="background: #e7b7a0;"></div>
+              <div class="color-swatch__info"><span class="color-swatch__name">Terracotta</span><span class="color-swatch__hex">#e7b7a0</span></div>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__block" style="background: #f0e2ce;"></div>
+              <div class="color-swatch__info"><span class="color-swatch__name">Cream</span><span class="color-swatch__hex">#f0e2ce</span></div>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__block" style="background: #f6f5ec;"></div>
+              <div class="color-swatch__info"><span class="color-swatch__name">Ivory</span><span class="color-swatch__hex">#f6f5ec</span></div>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__block" style="background: #e3d7bd;"></div>
+              <div class="color-swatch__info"><span class="color-swatch__name">Sand</span><span class="color-swatch__hex">#e3d7bd</span></div>
+            </div>
+            <div class="color-swatch">
+              <div class="color-swatch__block" style="background: #2c1a0e;"></div>
+              <div class="color-swatch__info"><span class="color-swatch__name">Espresso</span><span class="color-swatch__hex">#2c1a0e</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Brand identity grid -->
+      <div style="position: relative;">
+        <div class="brand-grid reveal reveal-d1">
+
+        <!-- Row 1: three photos -->
+        <div class="brand-grid__item brand-grid__item--sq">
+          <img src="images/brandidentity/1.JPG" alt="Homestead brand">
+        </div>
+        <div class="brand-grid__item brand-grid__item--sq">
+          <img src="images/brandidentity/2.jpg" alt="Homestead brand">
+        </div>
+        <div class="brand-grid__item brand-grid__item--sq">
+          <img src="images/brandidentity/4.JPG" alt="Homestead brand">
+        </div>
+
+        <!-- Row 2: single + wide -->
+        <div class="brand-grid__item brand-grid__item--sq">
+          <img src="images/brandidentity/5.JPG" alt="Homestead brand">
+        </div>
+        <div class="brand-grid__item brand-grid__item--wide brand-grid__item--wide">
+          <img src="images/brandidentity/3.JPG" alt="Homestead brand">
+        </div>
+
+        <!-- Row 3: wide + single -->
+        <div class="brand-grid__item brand-grid__item--wide brand-grid__item--wide">
+          <img src="images/brandidentity/6.JPG" alt="Homestead brand">
+        </div>
+        <div class="brand-grid__item brand-grid__item--sq">
+          <img src="images/brandidentity/7.jpg" alt="Homestead brand">
+        </div>
+
+        <!-- Row 4: full-width photo -->
+        <div class="brand-grid__item brand-grid__item--full brand-grid__item--full">
+          <img src="images/brandidentity/8.jpg" alt="Homestead brand">
+        </div>
+
+      </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────
+       02 · SPACE DESIGN
+  ──────────────────────────────── -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+
+      <div class="reveal" style="margin-bottom: 48px;">
+        <p class="t-label" style="margin-bottom: 10px;">02 · Space Design</p>
+        <h2 class="t-subheading" style="max-width: 600px;">Every material choice made with a feeling in mind.</h2>
+      </div>
+
+      <div class="two-col" style="margin-bottom: 56px;">
+        <div class="two-col__left reveal">
+          <p class="t-body">
+            For our second location — a flagship café and roastery — I co-led the interior design process from concept to opening day. We wanted the space to feel like a natural extension of the brand: warm, tactile, and a little unexpected.
+          </p>
+          <br>
+          <p class="t-body">
+            Raw concrete met warm wood. The roastery sat open behind a glass wall, letting the process become part of the atmosphere. Seating was designed to invite you to stay — not to move you through.
+          </p>
+        </div>
+        <div class="two-col__right reveal reveal-d2">
+          <ul class="web-detail-list">
+            <li>Spatial layout and flow planning</li>
+            <li>Material palette — concrete, oak, terracotta tile</li>
+            <li>Custom millwork and shelving specifications</li>
+            <li>Signage and environmental graphics</li>
+            <li>Lighting design consultation</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Space photo grid -->
+      <div class="space-grid reveal reveal-d1">
+        <div class="space-grid__item space-grid__item--wide">
+          <img src="images/homestead-seating.jpg" alt="Homestead seating area">
+        </div>
+        <div class="space-grid__item space-grid__item--tall">
+          <img src="images/homestead-shelf.jpg" alt="Homestead retail shelf">
+        </div>
+        <div class="space-grid__item">
+          <img src="images/homestead-bagwindow.jpg" alt="Homestead bag display by window">
+        </div>
+        <div class="space-grid__item">
+          <img src="images/homestead-roastery.jpg" alt="Homestead roastery">
+        </div>
+        <div class="space-grid__item">
+          <img src="images/homestead-exterior.jpg" alt="Homestead exterior">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────
+       03 · DIGITAL & WEBSITE
+  ──────────────────────────────── -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+
+      <div class="reveal" style="margin-bottom: 48px;">
+        <p class="t-label" style="margin-bottom: 10px;">03 · Digital & Web</p>
+        <h2 class="t-subheading" style="max-width: 600px;">A website that works as hard as the brand it represents.</h2>
+      </div>
+
+      <div class="web-split reveal">
+        <div class="web-split__copy">
+          <p class="t-body">
+            I designed, wrote, and built <a href="https://homestead.coffee" target="_blank" rel="noopener" style="color: var(--accent);">homestead.coffee</a> from scratch — no templates, no shortcuts. The site needed to do two things at once: tell the brand story compellingly enough that a first-time visitor understood what made Homestead different, and convert that interest into action.
+          </p>
+          <br>
+          <p class="t-body">
+            Every page was treated as a design surface. Typography at scale, deliberate whitespace, and a color palette pulled directly from the identity system. The site loads fast, reads well on mobile, and feels like it belongs to the brand — not the framework it was built on.
+          </p>
+          <ul class="web-detail-list" style="margin-top: 28px;">
+            <li>UX structure and content architecture</li>
+            <li>Full copywriting — homepage, menu, about, wholesale</li>
+            <li>Custom HTML/CSS/JS build, deployed on Netlify</li>
+            <li>Mobile-first responsive design</li>
+            <li>SEO structure and metadata</li>
+          </ul>
+        </div>
+        <div class="web-split__screens">
+          <div class="web-split__screen">
+            <div class="browser-bar">
+              <div class="browser-bar__dots">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="browser-bar__url">homestead.coffee</div>
+            </div>
+            <img src="images/homestead.png" alt="Homestead Coffee website homepage" style="object-position: top center;">
+          </div>
+          <div class="web-split__screen">
+            <div class="browser-bar">
+              <div class="browser-bar__dots">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="browser-bar__url">homestead.coffee/shop</div>
+            </div>
+            <img src="images/coffeeboxes.png" alt="Homestead Coffee shop page" style="object-position: top center;">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Outcome -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="two-col">
+        <div class="two-col__left reveal">
+          <p class="t-label section__header">Outcome</p>
+          <div class="section__rule"></div>
+          <h2 class="t-heading section__title">One vision. Three locations. A brand that holds.</h2>
+        </div>
+        <div class="two-col__right reveal reveal-d2">
+          <div class="outcome-stats">
+            <div class="outcome-stat">
+              <div class="outcome-stat__number">3</div>
+              <div class="outcome-stat__label">Café locations</div>
+            </div>
+            <div class="outcome-stat">
+              <div class="outcome-stat__number">8K+</div>
+              <div class="outcome-stat__label">Organic followers</div>
+            </div>
+            <div class="outcome-stat">
+              <div class="outcome-stat__number">15+</div>
+              <div class="outcome-stat__label">Wholesale accounts</div>
+            </div>
+          </div>
+          <p class="t-body">
+            What started as one location became a brand with three cafés, a roastery, a wholesale program, and a community of over 8,000 followers who felt genuinely connected to what we were building.
+          </p>
+          <br>
+          <p class="t-body">
+            The identity held across every new surface it touched — from a cup sleeve to a website to a 2,000 sq ft café — because it was designed to. That's what a real brand system does.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Next Project -->
+  <div class="container">
+    <div class="next-project reveal">
+      <p class="t-label next-project__label">Next Case Study</p>
+      <a href="homestead-photo.html" class="next-project__link">
+        Homestead · Photo Direction <span class="next-project__arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <!-- Footer -->
+  <footer class="footer" style="border-top: 1px solid #1a1a1a; overflow: hidden; margin-top: 0;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; padding: 44px 40px 28px; gap: 40px; flex-wrap: wrap;">
+      <div>
+        <a href="mailto:connor.carter111@gmail.com" style="font-size:13px; color:var(--muted); line-height:2; display:block; transition:color 0.2s;" onmouseover="this.style.color='#C4622D'" onmouseout="this.style.color='var(--muted)'">connor.carter111@gmail.com</a>
+        <p style="font-size:13px; color:var(--muted); line-height:2;">based in dallas, georgia</p>
+        <p style="font-size:13px; color:var(--muted); line-height:2;">available for creative director roles &amp; <span style="color:var(--accent);">select freelance</span></p>
+      </div>
+      <nav>
+        <ul style="display:flex; gap:64px; list-style:none;">
+          <li>
+            <p style="font-size:10px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:#444; margin-bottom:14px;">page</p>
+            <a href="index.html" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">home</a>
+            <a href="about.html" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">about</a>
+            <a href="index.html#work" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">work</a>
+          </li>
+          <li>
+            <p style="font-size:10px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:#444; margin-bottom:14px;">contact</p>
+            <a href="mailto:connor.carter111@gmail.com" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">email</a>
+            <a href="https://www.linkedin.com/in/connor-carter-3967393a9" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:6px; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              linkedin
+            </a>
+            <a href="https://www.instagram.com/connor__carter/" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:6px; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+              instagram
+            </a>
+            <a href="connor-carter-resume.html" target="_blank" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">resume ↗</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div style="overflow:hidden;">
+      <span style="display:block; font-size:clamp(72px, 14.5vw, 216px); font-weight:800; letter-spacing:-0.045em; line-height:0.88; color:var(--text); padding:0 40px;">connor carter</span>
+    </div>
+    <p style="padding:20px 40px 36px; font-size:11px; color:#333;">© 2026 Connor Carter. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

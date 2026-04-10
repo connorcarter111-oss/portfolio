@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Homestead · Photo Direction — Connor Carter</title>
+  <meta name="description" content="Directing all photo and video production for Homestead Coffee — product, space, and content that grew an audience of 8,000+ organically.">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .cs-hero__img {
+      background: linear-gradient(135deg, #1a120a 0%, #2d1e12 50%, #1a1a1a 100%);
+    }
+
+    /* ── Masonry photo grid ── */
+    .photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .photo-grid__item { overflow: hidden; }
+    .photo-grid__item img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      aspect-ratio: 1/1;
+      transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .photo-grid__item--tall img { aspect-ratio: 2/3; }
+    .photo-grid__item--wide { grid-column: span 2; }
+    .photo-grid__item--wide img { aspect-ratio: 16/9; }
+    .photo-grid__item:hover img { transform: scale(1.04); }
+
+    /* ── Full-width photo strip ── */
+    .photo-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 3px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .photo-strip__item { overflow: hidden; }
+    .photo-strip__item img {
+      width: 100%; aspect-ratio: 3/4;
+      object-fit: cover; display: block;
+      transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .photo-strip__item:hover img { transform: scale(1.04); }
+
+    /* ── Two-up photo pair ── */
+    .photo-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .photo-pair__item { overflow: hidden; }
+    .photo-pair__item img {
+      width: 100%; aspect-ratio: 4/3;
+      object-fit: cover; display: block;
+      transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .photo-pair__item:hover img { transform: scale(1.04); }
+
+    /* ── Content strategy stat strip ── */
+    .content-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--rule);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-top: 48px;
+    }
+    .content-stat {
+      background: var(--bg);
+      padding: 32px 28px;
+    }
+    .content-stat__num {
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 300;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    .content-stat__label {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+      .photo-grid { grid-template-columns: 1fr 1fr; }
+      .photo-grid__item--wide { grid-column: span 2; }
+      .photo-strip { grid-template-columns: repeat(2, 1fr); }
+      .photo-pair { grid-template-columns: 1fr; }
+      .content-stats { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__name">Connor Carter</a>
+      <ul class="nav__links">
+        <li><a href="index.html#work" class="nav__link">Work</a></li>
+        <li><a href="about.html" class="nav__link">About</a></li>
+        <li><a href="about.html#contact" class="nav__link nav__link--cta">Get in touch</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="cs-hero">
+    <div class="cs-hero__img">
+      <img src="images/homestead-seating.jpg" alt="Homestead Coffee seating area">
+    </div>
+    <div class="cs-hero__overlay"></div>
+    <div class="cs-hero__content">
+      <p class="t-label cs-hero__label">Case Study · 02</p>
+      <h1 class="t-display cs-hero__title">Homestead · Photo Direction</h1>
+      <p class="t-body cs-hero__subtitle" style="color: rgba(245,240,232,0.7);">
+        Directing all photo and video production for Homestead Coffee — every product shot, every space image, every piece of content that built an audience of 8,000+ from nothing.
+      </p>
+    </div>
+  </section>
+
+  <!-- Stat Strip -->
+  <div class="stat-strip reveal">
+    <div class="stat">
+      <p class="t-label stat__label">Organic followers</p>
+      <div class="stat__number">8K+</div>
+    </div>
+    <div class="stat">
+      <p class="t-label stat__label">Content pieces directed</p>
+      <div class="stat__number">200+</div>
+    </div>
+    <div class="stat">
+      <p class="t-label stat__label">Paid promotion</p>
+      <div class="stat__number">$0</div>
+    </div>
+  </div>
+
+  <!-- Overview -->
+  <section class="section">
+    <div class="container">
+      <div class="two-col">
+        <div class="two-col__left reveal">
+          <p class="t-label section__header">Overview</p>
+          <div class="section__rule"></div>
+          <h2 class="t-heading section__title">Content that grew an audience organically.</h2>
+        </div>
+        <div class="two-col__right reveal reveal-d2">
+          <p class="t-label" style="margin-bottom: 10px; color: var(--accent);">The Problem</p>
+          <p class="t-body" style="margin-bottom: 28px; color: var(--text);">
+            A brand with no visual content is invisible. Homestead had great coffee, a beautiful space, and zero presence online. The challenge was building a content engine from scratch — one that felt authentic to the brand, not like a social media strategy.
+          </p>
+          <p class="t-body">
+            Great coffee deserves great photography. From the first day Homestead opened its doors, the visual content wasn't an afterthought — it was a core part of how the brand showed up in the world.</p>
+          <br>
+          <p class="t-body">
+            I directed all photo and video production for the brand — shooting campaigns, product details, space atmospherics, and social content. No paid ads, no boosted posts. Just consistent, considered creative work that gave people a reason to follow, share, and show up.
+          </p>
+          <br>
+          <p class="t-label" style="margin-bottom: 16px;">Key Decisions</p>
+          <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px;">
+            <li style="font-size: 14px; color: var(--muted); line-height: 1.7; padding-left: 18px; position: relative;"><span style="position:absolute; left:0; top:9px; width:5px; height:5px; border-radius:50%; background:var(--accent); display:block;"></span>Shot entirely on location, never in a controlled studio — because Homestead's identity is inseparable from its physical spaces, and that had to show in every image.</li>
+            <li style="font-size: 14px; color: var(--muted); line-height: 1.7; padding-left: 18px; position: relative;"><span style="position:absolute; left:0; top:9px; width:5px; height:5px; border-radius:50%; background:var(--accent); display:block;"></span>Chose natural light and imperfect detail over controlled, polished studio aesthetics — latte art drips, hands in frame, morning shadows. The images needed to feel like something you'd want to be inside of, not an advertisement for coffee.</li>
+            <li style="font-size: 14px; color: var(--muted); line-height: 1.7; padding-left: 18px; position: relative;"><span style="position:absolute; left:0; top:9px; width:5px; height:5px; border-radius:50%; background:var(--accent); display:block;"></span>Built a seasonal content cadence that gave the audience a reason to keep coming back — content that changed with the menu, the light, and the time of year rather than repeating the same product shots on a loop.</li>
+          </ul>
+          <div style="display:flex; gap: 32px; margin-top: 8px; flex-wrap: wrap;">
+            <div>
+              <p class="t-label" style="margin-bottom: 6px;">Role</p>
+              <p style="font-size:14px; color: var(--muted);">Creative Director · Photographer</p>
+            </div>
+            <div>
+              <p class="t-label" style="margin-bottom: 6px;">Timeline</p>
+              <p style="font-size:14px; color: var(--muted);">2022 – Present</p>
+            </div>
+            <div>
+              <p class="t-label" style="margin-bottom: 6px;">Medium</p>
+              <p style="font-size:14px; color: var(--muted);">Photo · Video · Social</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────
+       PRODUCT PHOTOGRAPHY
+  ──────────────────────────────── -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+
+      <div class="reveal" style="margin-bottom: 48px;">
+        <p class="t-label" style="margin-bottom: 10px;">01 · Product Photography</p>
+        <h2 class="t-subheading" style="max-width: 580px;">Making the ordinary feel worth stopping for.</h2>
+      </div>
+
+      <div class="two-col" style="margin-bottom: 48px;">
+        <div class="two-col__left reveal">
+          <p class="t-body">
+            A latte is a latte until the right light hits it. Product photography for Homestead was about finding the shot that made someone stop scrolling — the pour at the right moment, the steam curling against a muted background, the espresso pulling into cream.
+          </p>
+          <br>
+          <p class="t-body">
+            Every product image was shot to work at multiple scales: thumbnail on a phone screen, hero on the website, print in a wholesale catalog. Consistency was the goal — not sameness, but a coherent visual voice.
+          </p>
+        </div>
+        <div class="two-col__right reveal reveal-d2">
+          <p class="t-body">
+            Seasonal menus got seasonal campaigns. When we launched the peach cold brew, it got a full shoot — fresh peaches, warm afternoon light, the kind of image that sold the drink before anyone tasted it.
+          </p>
+          <br>
+          <p class="t-body">
+            The matcha, the pourover, the iced pour — each one was treated as a product launch, not just a menu addition. That's the difference between documentation and creative direction.
+          </p>
+        </div>
+      </div>
+
+      <!-- Main product grid -->
+      <div class="photo-grid reveal reveal-d1">
+        <div class="photo-grid__item photo-grid__item--tall">
+          <img src="images/homestead-espresso.jpg" alt="Homestead espresso pull">
+        </div>
+        <div class="photo-grid__item">
+          <img src="images/homestead-latte.jpg" alt="Homestead latte art">
+        </div>
+        <div class="photo-grid__item">
+          <img src="images/homestead-iced-coffee.jpg" alt="Homestead iced coffee">
+        </div>
+        <div class="photo-grid__item photo-grid__item--wide">
+          <img src="images/homestead-icedpour.jpg" alt="Homestead iced pour">
+        </div>
+        <div class="photo-grid__item photo-grid__item--tall">
+          <img src="images/homestead-pourover.jpg" alt="Homestead pourover">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────
+       SEASONAL & SIGNATURE CAMPAIGNS
+  ──────────────────────────────── -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+
+      <div class="reveal" style="margin-bottom: 48px;">
+        <p class="t-label" style="margin-bottom: 10px;">02 · Seasonal Campaigns</p>
+        <h2 class="t-subheading" style="max-width: 580px;">Every menu drop treated as a launch.</h2>
+      </div>
+
+      <p class="t-body reveal" style="max-width: 640px; margin-bottom: 48px;">
+        Seasonal offerings are an opportunity to create a moment — something people anticipate and share. The peach cold brew, the matcha latte, the pour series — each one got a distinct visual treatment that felt new while still being unmistakably Homestead.
+      </p>
+
+      <!-- Strip of seasonal shots -->
+      <div class="photo-strip reveal reveal-d1">
+        <div class="photo-strip__item">
+          <img src="images/homestead-peach.jpg" alt="Homestead peach cold brew">
+        </div>
+        <div class="photo-strip__item">
+          <img src="images/homestead-matcha.jpg" alt="Homestead matcha latte">
+        </div>
+        <div class="photo-strip__item">
+          <img src="images/homestead-pour.jpg" alt="Homestead pour">
+        </div>
+        <div class="photo-strip__item">
+          <img src="images/homestead-terracotta.jpg" alt="Homestead on terracotta">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────
+       FOOD & TABLE CONTENT
+  ──────────────────────────────── -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+
+      <div class="reveal" style="margin-bottom: 48px;">
+        <p class="t-label" style="margin-bottom: 10px;">03 · Food & Table</p>
+        <h2 class="t-subheading" style="max-width: 580px;">The full table, not just the cup.</h2>
+      </div>
+
+      <p class="t-body reveal" style="max-width: 640px; margin-bottom: 48px;">
+        Coffee is one part of a morning ritual. The croissant next to it, the plate it's served on, the table it rests on — all of that is part of the experience. Food and table content rounded out the brand story, giving followers a reason to linger in the feed the same way they linger in the café.
+      </p>
+
+      <div class="photo-pair reveal reveal-d1">
+        <div class="photo-pair__item">
+          <img src="images/homestead-croissant.jpg" alt="Homestead croissant">
+        </div>
+        <div class="photo-pair__item">
+          <img src="images/homestead-chips.jpg" alt="Homestead chips">
+        </div>
+        <div class="photo-pair__item">
+          <img src="images/homestead-plate.jpg" alt="Homestead plate">
+        </div>
+        <div class="photo-pair__item">
+          <img src="images/homestead-topdown.jpg" alt="Homestead flat lay top down">
+        </div>
+        <div class="photo-pair__item">
+          <img src="images/homestead-cup.png" alt="Homestead branded cup">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ────────────────────────────────
+       CONTENT STRATEGY
+  ──────────────────────────────── -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="two-col">
+        <div class="two-col__left reveal">
+          <p class="t-label section__header">Content Strategy</p>
+          <div class="section__rule"></div>
+          <h2 class="t-heading section__title">8,000 followers. Zero ad spend.</h2>
+        </div>
+        <div class="two-col__right reveal reveal-d2">
+          <p class="t-body">
+            The content strategy was simple in principle and disciplined in execution: post things worth looking at, consistently, with a clear point of view. No gimmicks, no trends for trend's sake. Just images that made people feel something about coffee and the place that made it.
+          </p>
+          <br>
+          <p class="t-body">
+            I built a content calendar around the rhythm of the café — seasonal drops, behind-the-scenes roastery content, quiet morning shots, product launches. Every post fit a role: some grew reach, some drove traffic, some just kept the community warm.
+          </p>
+          <div class="content-stats">
+            <div class="content-stat">
+              <div class="content-stat__num">8K+</div>
+              <div class="content-stat__label">Organic followers across platforms</div>
+            </div>
+            <div class="content-stat">
+              <div class="content-stat__num">200+</div>
+              <div class="content-stat__label">Photo &amp; video assets directed</div>
+            </div>
+            <div class="content-stat">
+              <div class="content-stat__num">$0</div>
+              <div class="content-stat__label">Paid promotion or boosted posts</div>
+            </div>
+            <div class="content-stat">
+              <div class="content-stat__num">3</div>
+              <div class="content-stat__label">Seasonal campaigns launched per year</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Next Project -->
+  <div class="container">
+    <div class="next-project reveal">
+      <p class="t-label next-project__label">Next Case Study</p>
+      <a href="trinity.html" class="next-project__link">
+        Trinity Solutions <span class="next-project__arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <!-- Footer -->
+  <footer class="footer" style="border-top: 1px solid #1a1a1a; overflow: hidden; margin-top: 0;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; padding: 44px 40px 28px; gap: 40px; flex-wrap: wrap;">
+      <div>
+        <a href="mailto:connor.carter111@gmail.com" style="font-size:13px; color:var(--muted); line-height:2; display:block; transition:color 0.2s;" onmouseover="this.style.color='#C4622D'" onmouseout="this.style.color='var(--muted)'">connor.carter111@gmail.com</a>
+        <p style="font-size:13px; color:var(--muted); line-height:2;">based in dallas, georgia</p>
+        <p style="font-size:13px; color:var(--muted); line-height:2;">available for creative director roles &amp; <span style="color:var(--accent);">select freelance</span></p>
+      </div>
+      <nav>
+        <ul style="display:flex; gap:64px; list-style:none;">
+          <li>
+            <p style="font-size:10px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:#444; margin-bottom:14px;">page</p>
+            <a href="index.html" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">home</a>
+            <a href="about.html" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">about</a>
+            <a href="index.html#work" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">work</a>
+          </li>
+          <li>
+            <p style="font-size:10px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:#444; margin-bottom:14px;">contact</p>
+            <a href="mailto:connor.carter111@gmail.com" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">email</a>
+            <a href="https://www.linkedin.com/in/connor-carter-3967393a9" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:6px; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              linkedin
+            </a>
+            <a href="https://www.instagram.com/connor__carter/" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:6px; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+              instagram
+            </a>
+            <a href="connor-carter-resume.html" target="_blank" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">resume ↗</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div style="overflow:hidden;">
+      <span style="display:block; font-size:clamp(72px, 14.5vw, 216px); font-weight:800; letter-spacing:-0.045em; line-height:0.88; color:var(--text); padding:0 40px;">connor carter</span>
+    </div>
+    <p style="padding:20px 40px 36px; font-size:11px; color:#333;">© 2026 Connor Carter. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

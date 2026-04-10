@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trinity Solutions — Connor Carter</title>
+  <meta name="description" content="A done-for-you creative and AI consultancy — built from scratch, brand and all.">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .cs-hero__img {
+      background: linear-gradient(135deg, #0d0d14 0%, #1a1a2e 50%, #1a1a1a 100%);
+    }
+    .cs-hero__img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(196,98,45,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(196,98,45,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .cs-hero__wordmark {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+    .cs-hero__wordmark span {
+      font-size: clamp(64px, 12vw, 160px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: rgba(255,255,255,0.04);
+      text-transform: uppercase;
+      font-family: 'DM Sans', sans-serif;
+      white-space: nowrap;
+    }
+
+    /* ── AI Tools section ── */
+    .ai-tools {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border-radius: 10px 10px 0 0;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .ai-tool {
+      display: flex;
+      flex-direction: column;
+      background: var(--surface);
+    }
+    .ai-tool__screen {
+      background: #000;
+      overflow: hidden;
+    }
+    .ai-tool__screen img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .ai-tool:hover .ai-tool__screen img { transform: scale(1.03); }
+    .ai-tool__copy {
+      padding: 28px 24px 32px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    @media (max-width: 768px) {
+      .ai-tools { grid-template-columns: 1fr; }
+    }
+
+    /* ── Full Automation Suite showcase ── */
+    .ai-suite {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: var(--surface);
+      border-radius: 0 0 10px 10px;
+      overflow: hidden;
+    }
+    .ai-suite__screen {
+      background: #0d0d14;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      min-height: 360px;
+    }
+    .ai-suite__screen img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      display: block;
+      object-fit: contain;
+      transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .ai-suite:hover .ai-suite__screen img { transform: scale(1.02); }
+    .ai-suite__copy {
+      padding: 48px 40px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-left: 1px solid rgba(255,255,255,0.06);
+    }
+
+    @media (max-width: 768px) {
+      .ai-suite { grid-template-columns: 1fr; }
+      .ai-suite__screen { min-height: 260px; padding: 24px; }
+      .ai-suite__copy { border-left: none; border-top: 1px solid rgba(255,255,255,0.06); padding: 28px 24px 32px; }
+    }
+
+    /* ── Full-page browser mockup ── */
+    .trinity-browser {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: #0d0d14;
+    }
+    .trinity-browser__chrome {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 16px;
+      background: #1a1a2a;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      flex-shrink: 0;
+    }
+    .trinity-browser__dots {
+      display: flex;
+      gap: 5px;
+      flex-shrink: 0;
+    }
+    .trinity-browser__dots span {
+      width: 9px; height: 9px; border-radius: 50%;
+    }
+    .trinity-browser__dots span:nth-child(1) { background: #ff5f57; }
+    .trinity-browser__dots span:nth-child(2) { background: #ffbd2e; }
+    .trinity-browser__dots span:nth-child(3) { background: #28c840; }
+    .trinity-browser__url {
+      flex: 1;
+      background: rgba(255,255,255,0.06);
+      border-radius: 4px;
+      padding: 4px 10px;
+      font-size: 10px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.02em;
+      font-family: var(--font-body, sans-serif);
+    }
+    .trinity-browser__screen img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav__inner">
+      <a href="index.html" class="nav__name">Connor Carter</a>
+      <ul class="nav__links">
+        <li><a href="index.html#work" class="nav__link">Work</a></li>
+        <li><a href="about.html" class="nav__link">About</a></li>
+        <li><a href="about.html#contact" class="nav__link nav__link--cta">Get in touch</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="cs-hero">
+    <div class="cs-hero__img">
+      <div class="cs-hero__wordmark"><span>Trinity</span></div>
+    </div>
+    <div class="cs-hero__overlay"></div>
+    <div class="cs-hero__content">
+      <p class="t-label cs-hero__label">Case Study · 02</p>
+      <h1 class="t-display cs-hero__title">Trinity Solutions</h1>
+      <p class="t-body cs-hero__subtitle" style="color: rgba(245,240,232,0.7);">
+        A done-for-you creative and AI consultancy — built from scratch, brand and all.
+      </p>
+    </div>
+  </section>
+
+  <!-- Overview -->
+  <section class="section">
+    <div class="container">
+      <div class="two-col">
+        <div class="two-col__left reveal">
+          <p class="t-label section__header">Overview</p>
+          <div class="section__rule"></div>
+          <h2 class="t-heading section__title">A live proof of concept.</h2>
+        </div>
+        <div class="two-col__right reveal reveal-d2">
+          <p class="t-label" style="margin-bottom: 10px; color: var(--accent);">The Problem</p>
+          <p class="t-body" style="margin-bottom: 28px; color: var(--text);">
+            Service businesses — HVAC, plumbing, electrical — are losing 20–30% of their leads every day to missed calls and slow follow-up. They know it. They just don't have the time or technical knowledge to fix it. Most agencies either don't understand the trades, or charge enterprise prices for cookie-cutter solutions.
+          </p>
+          <p class="t-body">
+            Trinity Solutions is my creative consultancy serving small businesses in the trades and service industries. I'm responsible for everything — the brand identity, the positioning strategy, the website, and the client experience systems.
+          </p>
+          <br>
+          <p class="t-body">
+            It's a live proof of concept: I do for my own business exactly what I do for clients. The brand is the portfolio.
+          </p>
+          <br>
+          <p class="t-label" style="margin-bottom: 16px;">Key Decisions</p>
+          <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px;">
+            <li style="font-size: 14px; color: var(--muted); line-height: 1.7; padding-left: 18px; position: relative;"><span style="position:absolute; left:0; top:9px; width:5px; height:5px; border-radius:50%; background:var(--accent); display:block;"></span>Chose a dark, premium SaaS aesthetic over the warm, approachable look most service businesses use — because Trinity's positioning is done-for-you, not do-it-yourself. The design had to communicate that before anyone read a word.</li>
+            <li style="font-size: 14px; color: var(--muted); line-height: 1.7; padding-left: 18px; position: relative;"><span style="position:absolute; left:0; top:9px; width:5px; height:5px; border-radius:50%; background:var(--accent); display:block;"></span>Built the entire business on the same AI and automation tools sold to clients — so the capabilities aren't theoretical. Every system on the site is live and running. The brand is the proof of concept.</li>
+            <li style="font-size: 14px; color: var(--muted); line-height: 1.7; padding-left: 18px; position: relative;"><span style="position:absolute; left:0; top:9px; width:5px; height:5px; border-radius:50%; background:var(--accent); display:block;"></span>Wrote the copy to speak directly to trade business owners who are tired of agencies — not to people exploring their options. The voice is direct, specific, and assumes the reader has been burned before.</li>
+          </ul>
+          <div style="display:flex; gap: 32px; margin-top: 8px;">
+            <div>
+              <p class="t-label" style="margin-bottom: 6px;">Role</p>
+              <p style="font-size:14px; color: var(--muted);">Founder · Creative Director</p>
+            </div>
+            <div>
+              <p class="t-label" style="margin-bottom: 6px;">Year</p>
+              <p style="font-size:14px; color: var(--muted);">2025 – Present</p>
+            </div>
+            <div>
+              <p class="t-label" style="margin-bottom: 6px;">Stack</p>
+              <p style="font-size:14px; color: var(--muted);">HTML · CSS · JS · Netlify</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- What I Built -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="reveal" style="margin-bottom: 40px;">
+        <p class="t-label" style="margin-bottom: 10px;">What I Built</p>
+        <h2 class="t-subheading">Brand, web, and strategy — from zero.</h2>
+      </div>
+
+      <div class="three-col">
+        <div class="three-col__item reveal reveal-d1">
+          <h3 class="three-col__title">Brand System</h3>
+          <div class="three-col__bullets">
+            <p class="three-col__bullet">Full visual identity: logo, color system, typography</p>
+            <p class="three-col__bullet">Dark SaaS aesthetic — premium, conversion-focused</p>
+            <p class="three-col__bullet">Positioned as 'done-for-you, not do-it-yourself'</p>
+            <p class="three-col__bullet">A premium alternative to self-serve platforms</p>
+          </div>
+        </div>
+        <div class="three-col__item reveal reveal-d2">
+          <h3 class="three-col__title">Web Presence</h3>
+          <div class="three-col__bullets">
+            <p class="three-col__bullet">Designed and built the full website</p>
+            <p class="three-col__bullet">Dark, conversion-focused layout</p>
+            <p class="three-col__bullet">Built in HTML/CSS/JS, deployed on Netlify</p>
+            <p class="three-col__bullet">UX, copywriting, and visual direction — all in-house</p>
+          </div>
+        </div>
+        <div class="three-col__item reveal reveal-d3">
+          <h3 class="three-col__title">Client Strategy</h3>
+          <div class="three-col__bullets">
+            <p class="three-col__bullet">Defined ICP and pricing tiers</p>
+            <p class="three-col__bullet">Go-to-market playbook for HVAC and plumbing</p>
+            <p class="three-col__bullet">Targeting Atlanta metro area service businesses</p>
+            <p class="three-col__bullet">Outbound systems and lead qualification process</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Tools -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="reveal" style="margin-bottom: 40px;">
+        <p class="t-label" style="margin-bottom: 10px;">AI Tools & Automation</p>
+        <h2 class="t-subheading" style="max-width: 600px;">The tech stack that makes the consultancy run.</h2>
+      </div>
+      <p class="t-body reveal" style="max-width: 660px; margin-bottom: 48px;">
+        Trinity isn't just a brand — it's a functioning business built on the same AI and automation tools I sell to clients. Every system below is live, running, and part of how I deliver results at a fraction of the overhead of a traditional agency.
+      </p>
+
+      <div class="ai-tools reveal reveal-d1">
+
+        <div class="ai-tool">
+          <div class="ai-tool__screen">
+            <img src="images/aireception2.png" alt="AI Reception">
+          </div>
+          <div class="ai-tool__copy">
+            <p class="t-label" style="margin-bottom: 10px;">AI Reception</p>
+            <h3 style="font-size: 20px; font-weight: 400; letter-spacing: -0.01em; color: var(--text); margin-bottom: 14px; line-height: 1.3;">A front desk that never clocks out.</h3>
+            <p class="t-body">An AI receptionist handles inbound calls, qualifies leads, answers FAQs, and books appointments — 24/7, without a single missed opportunity. For trades businesses, this alone pays for the entire engagement.</p>
+          </div>
+        </div>
+
+        <div class="ai-tool">
+          <div class="ai-tool__screen">
+            <img src="images/crm2.png" alt="CRM System">
+          </div>
+          <div class="ai-tool__copy">
+            <p class="t-label" style="margin-bottom: 10px;">CRM & Pipeline</p>
+            <h3 style="font-size: 20px; font-weight: 400; letter-spacing: -0.01em; color: var(--text); margin-bottom: 14px; line-height: 1.3;">Every lead tracked. Every follow-up sent.</h3>
+            <p class="t-body">A fully built-out CRM pipeline — from first contact to closed job — with automated follow-ups, job status tracking, and review request sequences. Built in Go High Level and customized for each client's workflow.</p>
+          </div>
+        </div>
+
+        <div class="ai-tool">
+          <div class="ai-tool__screen">
+            <img src="images/missedcall2.png" alt="Missed Call TextBack">
+          </div>
+          <div class="ai-tool__copy">
+            <p class="t-label" style="margin-bottom: 10px;">Missed Call TextBack</p>
+            <h3 style="font-size: 20px; font-weight: 400; letter-spacing: -0.01em; color: var(--text); margin-bottom: 14px; line-height: 1.3;">Turn a missed call into a booked job.</h3>
+            <p class="t-body">When a call goes unanswered, an automated text fires within seconds — keeping the lead warm and giving them an immediate path to book. Most clients recover 20–30% of previously lost leads within the first month.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Full Automation Suite showcase -->
+      <div class="reveal reveal-d2" style="margin-top: 3px;">
+        <div class="ai-suite">
+          <div class="ai-suite__screen">
+            <img src="images/alltools.png" alt="Full Automation Suite">
+          </div>
+          <div class="ai-suite__copy">
+            <p class="t-label" style="margin-bottom: 10px;">Full Automation Suite</p>
+            <h3 style="font-size: 24px; font-weight: 400; letter-spacing: -0.01em; color: var(--text); margin-bottom: 14px; line-height: 1.3;">Every workflow, connected end to end.</h3>
+            <p class="t-body" style="max-width: 520px;">From lead capture to closed job, every automation runs in sync — no manual handoffs, no dropped balls. This is the full picture of what's running under the hood at Trinity, and what gets built for every client from day one.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Full-page Site Preview -->
+  <section class="section" style="padding-top: 0;">
+    <div class="container">
+      <div class="reveal" style="margin-bottom: 28px;">
+        <p class="t-label">Site Preview</p>
+      </div>
+      <div class="trinity-browser reveal reveal-d1">
+        <div class="trinity-browser__chrome">
+          <div class="trinity-browser__dots">
+            <span></span><span></span><span></span>
+          </div>
+          <div class="trinity-browser__url">trinitysolutionsco.com</div>
+        </div>
+        <div class="trinity-browser__screen">
+          <img src="images/trinity-full.png" alt="Trinity Solutions — full landing page" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Next Project -->
+  <div class="container">
+    <div class="next-project reveal">
+      <p class="t-label next-project__label">Next</p>
+      <a href="photography.html" class="next-project__link">
+        Photography <span class="next-project__arrow">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <!-- Footer -->
+  <footer class="footer" style="border-top: 1px solid #1a1a1a; overflow: hidden; margin-top: 0;">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; padding: 44px 40px 28px; gap: 40px; flex-wrap: wrap;">
+      <div>
+        <a href="mailto:connor.carter111@gmail.com" style="font-size:13px; color:var(--muted); line-height:2; display:block; transition:color 0.2s;" onmouseover="this.style.color='#C4622D'" onmouseout="this.style.color='var(--muted)'">connor.carter111@gmail.com</a>
+        <p style="font-size:13px; color:var(--muted); line-height:2;">based in dallas, georgia</p>
+        <p style="font-size:13px; color:var(--muted); line-height:2;">available for creative director roles &amp; <span style="color:var(--accent);">select freelance</span></p>
+      </div>
+      <nav>
+        <ul style="display:flex; gap:64px; list-style:none;">
+          <li>
+            <p style="font-size:10px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:#444; margin-bottom:14px;">page</p>
+            <a href="index.html" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">home</a>
+            <a href="about.html" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">about</a>
+            <a href="index.html#work" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">work</a>
+          </li>
+          <li>
+            <p style="font-size:10px; font-weight:500; letter-spacing:2px; text-transform:uppercase; color:#444; margin-bottom:14px;">contact</p>
+            <a href="mailto:connor.carter111@gmail.com" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">email</a>
+            <a href="https://www.linkedin.com/in/connor-carter-3967393a9" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:6px; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              linkedin
+            </a>
+            <a href="https://www.instagram.com/connor__carter/" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:6px; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+              instagram
+            </a>
+            <a href="connor-carter-resume.html" target="_blank" style="display:block; font-size:13px; color:#555; margin-bottom:8px; transition:color 0.2s;" onmouseover="this.style.color='#F0EBE3'" onmouseout="this.style.color='#555'">resume ↗</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div style="overflow:hidden;">
+      <span style="display:block; font-size:clamp(72px, 14.5vw, 216px); font-weight:800; letter-spacing:-0.045em; line-height:0.88; color:var(--text); padding:0 40px;">connor carter</span>
+    </div>
+    <p style="padding:20px 40px 36px; font-size:11px; color:#333;">© 2026 Connor Carter. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
