@@ -193,6 +193,61 @@ a{text-decoration:none;color:inherit}
 /* ---------- Cable svg ---------- */
 .cable{width:220px;height:auto;stroke:var(--ink);fill:none;stroke-width:2.4}
 
+/* ---------- Meet the crew (dark photo) ---------- */
+.people{position:relative;min-height:88vh;display:flex;align-items:center;overflow:hidden;background:var(--black)}
+.people__bg{position:absolute;inset:0;z-index:0}
+.people__bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05) brightness(.5)}
+.people__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.9) 0%,rgba(0,0,0,.55) 55%,rgba(0,0,0,.75) 100%)}
+.people__inner{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:0 clamp(22px,6vw,60px);width:100%}
+.people h2{font-family:var(--font-display);font-size:clamp(38px,10vw,84px);letter-spacing:.5px;margin-bottom:26px}
+.people p{max-width:600px;font-size:clamp(16px,2.4vw,19px);line-height:1.7;color:#dcdcdc;margin-bottom:36px}
+.pill-light{
+  display:inline-block;background:var(--paper);color:var(--ink);border-radius:60px;
+  font-family:var(--font-body);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:15px;
+  padding:22px 46px;transition:transform .25s,background .25s;
+}
+.pill-light:hover{transform:translateY(-3px);background:#fff}
+
+/* ---------- Partners ---------- */
+.partners{background:var(--paper);color:var(--ink);padding:14vh clamp(22px,6vw,90px) 8vh;margin-top:-2px;border-top-left-radius:50% 70px;border-top-right-radius:50% 70px}
+.partners__inner{max-width:900px;margin:0 auto}
+.partners h2{font-family:var(--font-heading);font-weight:900;font-size:clamp(34px,7vw,64px);line-height:1.02;letter-spacing:-.5px;margin-bottom:28px}
+.partners p{font-size:clamp(16px,2.4vw,19px);line-height:1.75;color:#333;max-width:760px}
+
+.marquee{background:var(--white);color:var(--ink);padding:5vh 0;overflow:hidden;position:relative;border-top:1px solid var(--line)}
+.marquee::before,.marquee::after{content:"";position:absolute;top:0;bottom:0;width:90px;z-index:2}
+.marquee::before{left:0;background:linear-gradient(90deg,#fff,transparent)}
+.marquee::after{right:0;background:linear-gradient(270deg,#fff,transparent)}
+.marquee__track{display:flex;gap:70px;width:max-content;animation:scroll 26s linear infinite}
+.marquee:hover .marquee__track{animation-play-state:paused}
+.marquee__track span{font-family:var(--font-display);font-size:clamp(22px,4vw,34px);letter-spacing:1px;color:#111;white-space:nowrap;opacity:.8}
+@keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ---------- Services accordion (grain) ---------- */
+.services{
+  position:relative;color:var(--white);padding:13vh clamp(22px,6vw,60px) 12vh;
+  background-color:#0a0a0a;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.14'/%3E%3C/svg%3E");
+}
+.services__inner{max-width:820px;margin:0 auto}
+.services h2{font-family:var(--font-display);font-size:clamp(46px,13vw,120px);line-height:.9;letter-spacing:1px;margin-bottom:18px}
+.services__sub{font-family:var(--font-body);font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:clamp(13px,3vw,16px);color:#d8d8d8;margin-bottom:24px}
+.services__lead{font-size:clamp(16px,2.4vw,19px);line-height:1.75;color:#cfcfcf;max-width:720px;margin-bottom:60px}
+.acc{border-top:1px solid rgba(255,255,255,.22)}
+.acc__item{border-bottom:1px solid rgba(255,255,255,.22)}
+.acc__head{width:100%;background:none;border:none;color:var(--white);cursor:pointer;
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:34px 4px;text-align:left;font-family:var(--font-display);
+  font-size:clamp(28px,7vw,46px);letter-spacing:.5px;text-transform:uppercase;transition:opacity .2s}
+.acc__head:hover{opacity:.72}
+.acc__head i{font-size:22px;transition:transform .35s ease;flex-shrink:0}
+.acc__item.open .acc__head i{transform:rotate(180deg)}
+.acc__body{max-height:0;overflow:hidden;transition:max-height .45s ease}
+.acc__body ul{list-style:none;padding:0 4px 34px}
+.acc__body li{position:relative;padding:0 0 20px 26px;font-size:clamp(15px,2.3vw,18px);line-height:1.6;color:#cfcfcf}
+.acc__body li::before{content:"";position:absolute;left:2px;top:9px;width:8px;height:8px;border-radius:50%;background:var(--white)}
+.acc__body strong{color:var(--white);font-weight:700}
+
 @media(max-width:640px){
   .footer__grid{flex-direction:column;gap:32px}
   .stat{margin-bottom:38px}
@@ -333,6 +388,83 @@ a{text-decoration:none;color:inherit}
   </div>
 </section>
 
+<!-- MEET THE CREW -->
+<section class="people">
+  <div class="people__bg">
+    <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1600&q=80" alt="The Pro Bros crew" onerror="this.style.display='none'">
+  </div>
+  <div class="people__inner">
+    <h2 data-aos="fade-up">MEET THE CREW.</h2>
+    <p data-aos="fade-up">Our team is the heart of Pro Bros — directors, shooters, editors, and designers who bring energy and craft to every project. Different talents, one shared standard: make the extraordinary happen, every single time.</p>
+    <a href="#contact" class="pill-light" data-aos="fade-up">Get To Know Us</a>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<section class="partners">
+  <div class="partners__inner">
+    <h2 data-aos="fade-up">Great Work Happens With Great Partners.</h2>
+    <p data-aos="fade-up">The true measure of success isn't just what we deliver — it's how we make people feel. Our work spans industries and scales, but one thing stays constant: a commitment to creating meaningful connections and experiences that resonate long after the project is done.</p>
+  </div>
+</section>
+<div class="marquee" aria-label="Selected clients">
+  <div class="marquee__track">
+    <span>NORTHSTAR</span><span>ATLAS</span><span>MERIDIAN</span><span>VANGUARD</span><span>LUMEN</span><span>HORIZON</span>
+    <span>NORTHSTAR</span><span>ATLAS</span><span>MERIDIAN</span><span>VANGUARD</span><span>LUMEN</span><span>HORIZON</span>
+  </div>
+</div>
+
+<!-- SERVICES ACCORDION -->
+<section class="services">
+  <div class="services__inner">
+    <h2 data-aos="fade-up">SERVICES</h2>
+    <div class="services__sub" data-aos="fade-up">Your Vision, Our Expertise.</div>
+    <p class="services__lead" data-aos="fade-up">At Pro Bros, no two projects are the same — because no two clients are. We listen to your goals, tailor a plan that fits, and execute with care and creativity. Whether it's a launch film or a full rebrand, every detail reflects your vision and values.</p>
+    <div class="acc">
+      <div class="acc__item">
+        <button class="acc__head">Pre-Production <i class="fa-solid fa-chevron-down"></i></button>
+        <div class="acc__body"><ul>
+          <li><strong>Concept &amp; Strategy:</strong> Creative direction, moodboards, and messaging built around your goals.</li>
+          <li><strong>Scripting &amp; Storyboards:</strong> Scripts, shot lists, and boards that map the whole shoot before day one.</li>
+          <li><strong>Casting &amp; Location:</strong> Talent, locations, permits, and scheduling handled end to end.</li>
+        </ul></div>
+      </div>
+      <div class="acc__item">
+        <button class="acc__head">Production <i class="fa-solid fa-chevron-down"></i></button>
+        <div class="acc__body"><ul>
+          <li><strong>Directing &amp; Cinematography:</strong> Cinema cameras, lenses, and a crew that captures it right on set.</li>
+          <li><strong>Lighting &amp; Grip:</strong> Full lighting and grip packages for studio or location.</li>
+          <li><strong>Live &amp; Multi-Cam:</strong> Events, performances, and streams covered from every angle.</li>
+        </ul></div>
+      </div>
+      <div class="acc__item">
+        <button class="acc__head">Post-Production <i class="fa-solid fa-chevron-down"></i></button>
+        <div class="acc__body"><ul>
+          <li><strong>Editing:</strong> Story-first edits for long-form, spots, and social cutdowns.</li>
+          <li><strong>Color &amp; Finishing:</strong> Professional grade, cleanup, and delivery in any format.</li>
+          <li><strong>Motion &amp; Sound:</strong> Motion graphics, titles, sound design, and mix.</li>
+        </ul></div>
+      </div>
+      <div class="acc__item">
+        <button class="acc__head">Photography <i class="fa-solid fa-chevron-down"></i></button>
+        <div class="acc__body"><ul>
+          <li><strong>Campaign &amp; Editorial:</strong> Hero imagery built to headline a launch.</li>
+          <li><strong>Product &amp; Brand:</strong> Clean, consistent libraries for web, print, and social.</li>
+          <li><strong>Event Coverage:</strong> Fast-turnaround galleries that capture the room.</li>
+        </ul></div>
+      </div>
+      <div class="acc__item">
+        <button class="acc__head">Brand &amp; Web <i class="fa-solid fa-chevron-down"></i></button>
+        <div class="acc__body"><ul>
+          <li><strong>Identity:</strong> Logos, type systems, and brand guidelines that hold up everywhere.</li>
+          <li><strong>Web &amp; Digital:</strong> Fast, modern sites and landing pages built to convert.</li>
+          <li><strong>Content Systems:</strong> Templates and social kits that keep your team on-brand.</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- CTA / CONTACT -->
 <section class="cta" id="contact">
   <h2 data-aos="fade-up">Let's build something.</h2>
@@ -420,6 +552,16 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
       const el=document.querySelector(id);
       if(el){e.preventDefault();lenis?lenis.scrollTo(el,{offset:-10}):el.scrollIntoView({behavior:'smooth'});}
     }
+  });
+});
+
+/* Accordion */
+document.querySelectorAll('.acc__head').forEach(head=>{
+  head.addEventListener('click',()=>{
+    const item=head.parentElement,body=head.nextElementSibling,isOpen=item.classList.contains('open');
+    document.querySelectorAll('.acc__item.open').forEach(o=>{o.classList.remove('open');o.querySelector('.acc__body').style.maxHeight=null;});
+    if(!isOpen){item.classList.add('open');body.style.maxHeight=body.scrollHeight+'px';}
+    if(window.lenis)setTimeout(()=>window.lenis.resize&&window.lenis.resize(),460);
   });
 });
 
