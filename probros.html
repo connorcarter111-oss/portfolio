@@ -53,15 +53,10 @@ a{text-decoration:none;color:inherit}
   border-bottom:1px solid transparent;
 }
 .nav.scrolled{background:rgba(0,0,0,.92);backdrop-filter:blur(10px);padding:14px clamp(20px,5vw,60px);border-color:rgba(255,255,255,.08)}
-.badge{
-  width:74px;height:88px;display:flex;align-items:center;justify-content:center;
-  border:3px solid var(--white);border-radius:50%;
-  font-family:var(--font-display);font-size:22px;letter-spacing:1px;color:var(--white);
-  transform:scaleY(1.12);transition:transform .3s ease;
-}
-.badge span{transform:scaleY(.89);display:block}
-.badge:hover{transform:scaleY(1.12) rotate(-4deg)}
-.nav.scrolled .badge{width:58px;height:70px;font-size:18px}
+.brand{display:flex;align-items:center;line-height:0}
+.brand__mark{height:48px;width:auto;color:var(--white);transition:height .3s ease,transform .3s ease}
+.brand:hover .brand__mark{transform:rotate(-6deg)}
+.nav.scrolled .brand__mark{height:38px}
 .menu-btn{background:none;border:none;color:var(--white);cursor:pointer;display:flex;flex-direction:column;gap:6px;padding:6px}
 .menu-btn span{width:34px;height:2.5px;background:var(--white);transition:.3s;display:block}
 .menu-btn.open span:nth-child(1){transform:translateY(8.5px) rotate(45deg)}
@@ -263,9 +258,16 @@ a{text-decoration:none;color:inherit}
 
 <div class="progress" id="progress"></div>
 
+<!-- Pro Bros logo (reusable symbol) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="pb-logo" viewBox="0 0 141 148">
+    <path fill="currentColor" fill-rule="evenodd" d="M 45.048 26.250 L 45.096 36.500 50.784 40.787 C 55.866 44.617, 56.600 44.900, 57.670 43.437 C 58.403 42.435, 59.377 42.107, 60.183 42.593 C 64.388 45.125, 87.998 64.497, 87.990 65.407 C 87.985 66.008, 82.247 68.550, 75.240 71.057 L 62.500 75.613 62.202 81.807 C 62.039 85.213, 62.264 88.008, 62.702 88.017 C 64.378 88.053, 115 67.576, 115 66.862 C 115 65.846, 46.980 16, 45.592 16 C 45.266 16, 45.022 20.612, 45.048 26.250 M 19.701 24.337 C 18.872 26.498, 19.122 109.579, 19.962 110.938 C 20.521 111.842, 23.103 110.655, 29.366 106.615 L 38 101.045 38 94.034 C 38 87.360, 37.892 87.035, 35.750 87.262 L 33.500 87.500 33.500 70.083 C 33.500 58.416, 33.859 52.547, 34.589 52.304 C 35.187 52.104, 40.756 56.004, 46.963 60.970 C 53.170 65.937, 58.746 70, 59.353 70 C 59.961 70, 63.546 68.820, 67.321 67.378 C 72.914 65.240, 73.935 64.524, 72.842 63.507 C 71.127 61.913, 22.882 24.609, 21.355 23.696 C 20.725 23.319, 19.981 23.608, 19.701 24.337 M 43 94.441 C 43 110.148, 43.361 123, 43.801 123 C 45.585 123, 113.121 93.202, 113.193 92.383 C 113.235 91.898, 108.041 89.835, 101.649 87.800 L 90.029 84.101 82.475 87.543 C 75.565 90.692, 75.014 91.157, 76.005 93.009 C 76.971 94.814, 76.622 95.235, 72.794 96.896 C 70.432 97.921, 65.864 99.935, 62.642 101.372 C 59.421 102.809, 56.383 103.737, 55.892 103.434 C 55.402 103.130, 55 96.679, 55 89.098 L 55 75.313 50.250 71.342 C 47.638 69.158, 44.938 67.036, 44.250 66.627 C 43.262 66.038, 43 71.863, 43 94.441"/>
+  </symbol>
+</svg>
+
 <!-- NAV -->
 <nav class="nav" id="nav">
-  <a href="#top" class="badge" aria-label="Pro Bros home"><span>PB</span></a>
+  <a href="#top" class="brand" aria-label="Pro Bros home"><svg class="brand__mark"><use href="#pb-logo"/></svg></a>
   <button class="menu-btn" id="menuBtn" aria-label="Menu">
     <span></span><span></span><span></span>
   </button>
@@ -482,7 +484,7 @@ a{text-decoration:none;color:inherit}
   <div class="footer__grid">
     <div class="footer__col">
       <div class="footer__badge">
-        <span class="badge" style="width:56px;height:66px;font-size:17px"><span>PB</span></span>
+        <svg class="brand__mark" style="height:42px"><use href="#pb-logo"/></svg>
         <strong style="font-family:var(--font-heading);font-weight:800;letter-spacing:.02em">PRO BROS</strong>
       </div>
       <p style="color:#9a9a9a;max-width:260px">AV design, integration &amp; permanent install for worship spaces.</p>
