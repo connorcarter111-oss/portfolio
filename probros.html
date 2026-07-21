@@ -6,7 +6,6 @@
 <title>Pro Bros — Creative Media Studio</title>
 <meta name="description" content="Pro Bros is a full-service creative media studio. From brand films and campaigns to social content and live events, we create media that connects people through story and design.">
 
-<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
@@ -35,6 +34,12 @@ body{
 }
 img{display:block;max-width:100%}
 a{text-decoration:none;color:inherit}
+
+/* Scroll reveal — self-contained, no external libraries.
+   Content is visible by default (and if JS is off); JS opts into the animation. */
+.js [data-aos]{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.js [data-aos].in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.js [data-aos]{opacity:1;transform:none;transition:none}}
 
 /* ---------- Scroll progress ---------- */
 .progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--white);z-index:2000;transition:width .1s linear}
@@ -508,20 +513,17 @@ a{text-decoration:none;color:inherit}
   </div>
 </footer>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
+document.documentElement.classList.add('js');
 document.getElementById('yr').textContent=new Date().getFullYear();
 
-/* Smooth scroll (Lenis) first, then AOS */
-let lenis;
-if(window.Lenis){
-  lenis=new Lenis({duration:1.1,smoothWheel:true});
-  function raf(t){lenis.raf(t);requestAnimationFrame(raf)}
-  requestAnimationFrame(raf);
-}
-if(window.AOS){AOS.init({duration:700,once:true,offset:80});}
+/* Scroll reveal (IntersectionObserver — no external library) */
+const revealIO=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');revealIO.unobserve(e.target);}});
+},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+document.querySelectorAll('[data-aos]').forEach(el=>revealIO.observe(el));
+/* Safety net: never let content stay hidden if the observer misfires anywhere */
+setTimeout(()=>document.querySelectorAll('[data-aos]:not(.in)').forEach(el=>el.classList.add('in')),4000);
 
 /* Nav solid on scroll + progress bar */
 const nav=document.getElementById('nav'),progress=document.getElementById('progress');
@@ -550,7 +552,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
     const id=a.getAttribute('href');
     if(id.length>1){
       const el=document.querySelector(id);
-      if(el){e.preventDefault();lenis?lenis.scrollTo(el,{offset:-10}):el.scrollIntoView({behavior:'smooth'});}
+      if(el){e.preventDefault();el.scrollIntoView({behavior:'smooth'});}
     }
   });
 });
@@ -561,7 +563,6 @@ document.querySelectorAll('.acc__head').forEach(head=>{
     const item=head.parentElement,body=head.nextElementSibling,isOpen=item.classList.contains('open');
     document.querySelectorAll('.acc__item.open').forEach(o=>{o.classList.remove('open');o.querySelector('.acc__body').style.maxHeight=null;});
     if(!isOpen){item.classList.add('open');body.style.maxHeight=body.scrollHeight+'px';}
-    if(window.lenis)setTimeout(()=>window.lenis.resize&&window.lenis.resize(),460);
   });
 });
 
@@ -571,10 +572,12 @@ const io=new IntersectionObserver((entries)=>{
   entries.forEach(en=>{
     if(en.isIntersecting){
       const el=en.target,end=+el.dataset.count,suf=el.dataset.suffix||'';
-      const obj={v:0};
-      if(window.gsap){
-        gsap.to(obj,{v:end,duration:2,ease:'expo.out',onUpdate:()=>{el.textContent=Math.round(obj.v)+suf;}});
-      }else{el.textContent=end+suf;}
+      const t0=performance.now(),dur=1600;
+      (function step(now){
+        const p=Math.min((now-t0)/dur,1),eased=1-Math.pow(1-p,3);
+        el.textContent=Math.round(eased*end)+suf;
+        if(p<1)requestAnimationFrame(step);
+      })(performance.now());
       io.unobserve(el);
     }
   });
