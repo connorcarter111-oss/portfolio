@@ -310,7 +310,7 @@ h2.dsp{font-size:clamp(32px,5.6vw,60px)}
 <!-- HERO -->
 <header class="hero" id="top">
   <div class="hero__sticky">
-    <video class="hero__video" muted playsinline preload="auto" tabindex="-1"
+    <video class="hero__video" muted playsinline preload="metadata" tabindex="-1"
            poster="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/scroll-hero-poster.jpg">
       <source src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/scroll-hero.mp4" type="video/mp4">
       <source src="assets/scroll-hero.mp4" type="video/mp4">
@@ -344,13 +344,15 @@ h2.dsp{font-size:clamp(32px,5.6vw,60px)}
     <div class="marquee__track">
       <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/elevation.png" alt="Elevation Church">
       <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/live-nation.png" alt="Live Nation">
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/northpoint.png" alt="North Point Community Church">
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/village.png" alt="Village Church">
       <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/bethlehem.png" alt="Bethlehem Church">
-      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/northpoint.png" alt="Northpoint Church">
       <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/ote.png" alt="OTE">
       <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/elevation.png" alt="Elevation Church">
       <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/live-nation.png" alt="Live Nation">
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/northpoint.png" alt="North Point Community Church">
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/village.png" alt="Village Church">
       <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/bethlehem.png" alt="Bethlehem Church">
-      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/northpoint.png" alt="Northpoint Church">
       <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/ote.png" alt="OTE">
     </div>
   </div>
@@ -681,6 +683,9 @@ counters.forEach(c=>cIO.observe(c));
 (function(){
   const sec=document.querySelector('.hero'); if(!sec) return;
   const vid=sec.querySelector('.hero__video'), content=document.getElementById('heroContent'), alt=document.getElementById('heroAlt'), cue=sec.querySelector('.scrollcue');
+  /* Fully preload the clip as a blob so every scroll-seek is instant and local — no network stalls, no stutter */
+  const CDN='https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/scroll-hero.mp4';
+  fetch(CDN).then(r=>{if(!r.ok)throw 0;return r.blob();}).then(b=>{vid.src=URL.createObjectURL(b);vid.load();}).catch(()=>{});
   let dur=0;
   const clamp=x=>x<0?0:x>1?1:x, seg=(a,b,x)=>clamp((x-a)/(b-a));
   vid.addEventListener('loadedmetadata',()=>{dur=vid.duration||0;update();});
@@ -693,7 +698,7 @@ counters.forEach(c=>cIO.observe(c));
     ticking=false;
     const total=sec.offsetHeight-window.innerHeight;
     const p=clamp((-sec.getBoundingClientRect().top)/(total||1));
-    if(dur && vid.readyState>=1){ const t=p*(dur-0.05); if(Math.abs((vid.currentTime||0)-t)>0.01){try{vid.currentTime=t;}catch(e){}} }
+    if(dur && vid.readyState>=2){ const t=p*(dur-0.05); if(Math.abs((vid.currentTime||0)-t)>0.01){try{vid.currentTime=t;}catch(e){}} }
     const out=seg(0.12,0.34,p);
     content.style.opacity=String(1-out);
     content.style.transform='translateY('+(-out*40)+'px)';
