@@ -3,548 +3,549 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pro Bros — AV Integration &amp; Permanent Install for Worship Spaces</title>
-<meta name="description" content="Pro Bros designs and builds permanent audio, video, and lighting systems for churches and corporate spaces. From a single sanctuary upgrade to a ground-up install, we spec the gear, run the wiring, and hand you a system your volunteers can actually run on a Sunday.">
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+<title>Pro Bros Co — Technology That Simply Works</title>
+<meta name="description" content="Production Bros Co is a technology integration company. We design, install, and support commercial audio, video, LED walls, networking, security, automation, and smart-building systems — built to simply work.">
+<meta name="theme-color" content="#0a0b0d">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&f[]=general-sans@400,500,600,700&display=swap');
 
 :root{
-  --black:#000000;
-  --ink:#0a0a0a;
-  --white:#ffffff;
-  --paper:#f4f4f2;
-  --gray:#8a8a8a;
-  --line:#e2e2e0;
-  --font-display:'Anton',sans-serif;
-  --font-heading:'Archivo',sans-serif;
-  --font-body:'Inter',sans-serif;
+  --ink:#0a0b0d; --ink2:#111319; --bg:#ffffff; --paper:#f4f5f8; --paper2:#e9ebf0;
+  --muted:#6b7280; --muted-d:#9aa2b1; --line:rgba(10,12,16,.09); --line-d:rgba(255,255,255,.12);
+  --accent:#2f6bff; --accent-2:#7b5cff; --glow:rgba(47,107,255,.5);
+  --font-display:'Clash Display','General Sans',system-ui,sans-serif;
+  --font-body:'General Sans',system-ui,-apple-system,sans-serif;
+  --r:26px; --rs:16px;
+  --ease:cubic-bezier(.2,.7,.2,1);
 }
-
 *{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  font-family:var(--font-body);
-  background:var(--black);
-  color:var(--white);
-  overflow-x:hidden;
-  -webkit-font-smoothing:antialiased;
-}
+html{-webkit-text-size-adjust:100%}
+body{font-family:var(--font-body);background:var(--ink);color:#fff;overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.5}
 img{display:block;max-width:100%}
 a{text-decoration:none;color:inherit}
+::selection{background:var(--accent);color:#fff}
 
-/* Scroll reveal — self-contained, no external libraries.
-   Content is visible by default (and if JS is off); JS opts into the animation. */
-.js [data-aos]{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
-.js [data-aos].in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.js [data-aos]{opacity:1;transform:none;transition:none}}
+.wrap{max-width:1200px;margin:0 auto;padding:0 clamp(20px,5vw,48px)}
+.eyebrow{font-family:var(--font-body);font-weight:600;text-transform:uppercase;letter-spacing:.22em;font-size:12.5px;color:var(--accent)}
+.section-light .eyebrow{color:var(--accent)}
+.dsp{font-family:var(--font-display);font-weight:600;line-height:1.02;letter-spacing:-.015em}
+h1.dsp{font-size:clamp(40px,8.2vw,88px)}
+h2.dsp{font-size:clamp(32px,5.6vw,60px)}
 
-/* ---------- Scroll progress ---------- */
-.progress{position:fixed;top:0;left:0;height:3px;width:0;background:var(--white);z-index:2000;transition:width .1s linear}
+/* ---------- Buttons ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--font-body);font-weight:600;font-size:16px;padding:15px 28px;border-radius:100px;border:1px solid transparent;cursor:pointer;transition:transform .35s var(--ease),box-shadow .35s var(--ease),background .3s,color .3s;white-space:nowrap}
+.btn svg{width:17px;height:17px}
+.btn--primary{background:var(--accent);color:#fff;box-shadow:0 12px 34px -12px var(--glow)}
+.btn--primary:hover{box-shadow:0 20px 46px -12px var(--glow);transform:translateY(-2px)}
+.btn--glass{background:rgba(255,255,255,.07);color:#fff;border-color:rgba(255,255,255,.16);backdrop-filter:blur(12px)}
+.btn--glass:hover{background:rgba(255,255,255,.14);transform:translateY(-2px)}
+.btn--dark{background:var(--ink);color:#fff}
+.btn--dark:hover{transform:translateY(-2px);box-shadow:0 18px 40px -16px rgba(0,0,0,.5)}
+
+/* ---------- Scroll progress + loader ---------- */
+.progress{position:fixed;top:0;left:0;height:2px;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));z-index:2000;transition:width .1s linear}
+.loader{position:fixed;inset:0;z-index:3000;background:var(--ink);display:flex;align-items:center;justify-content:center;transition:opacity .7s var(--ease),visibility .7s}
+.loader.done{opacity:0;visibility:hidden}
+.loader svg{width:64px;height:64px;color:#fff;opacity:0;animation:loaderIn 1s var(--ease) forwards}
+@keyframes loaderIn{0%{opacity:0;transform:scale(.8) rotate(-12deg)}60%{opacity:1}100%{opacity:1;transform:scale(1) rotate(0)}}
 
 /* ---------- Nav ---------- */
-.nav{
-  position:fixed;top:0;left:0;width:100%;z-index:1000;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:22px clamp(20px,5vw,60px);
-  transition:background .4s ease,padding .4s ease,border-color .4s ease;
-  border-bottom:1px solid transparent;
-}
-.nav.scrolled{background:rgba(0,0,0,.92);backdrop-filter:blur(10px);padding:14px clamp(20px,5vw,60px);border-color:rgba(255,255,255,.08)}
-.brand{display:flex;align-items:center;line-height:0}
-.brand__mark{height:48px;width:auto;color:var(--white);transition:height .3s ease,transform .3s ease}
-.brand:hover .brand__mark{transform:rotate(-6deg)}
-.nav.scrolled .brand__mark{height:38px}
-.brand__name{margin-left:12px;font-family:var(--font-heading);font-weight:800;letter-spacing:.01em;color:var(--white);font-size:clamp(15px,4.4vw,20px);white-space:nowrap;line-height:1}
-.nav.scrolled .brand__name{font-size:clamp(14px,4vw,17px)}
-.menu-btn{background:none;border:none;color:var(--white);cursor:pointer;display:flex;flex-direction:column;gap:6px;padding:6px}
-.menu-btn span{width:34px;height:2.5px;background:var(--white);transition:.3s;display:block}
-.menu-btn.open span:nth-child(1){transform:translateY(8.5px) rotate(45deg)}
+.nav{position:fixed;top:0;left:0;width:100%;z-index:1000;transition:background .45s var(--ease),border-color .45s,padding .45s var(--ease)}
+.nav__in{display:flex;align-items:center;justify-content:space-between;padding:20px clamp(20px,5vw,48px);border-bottom:1px solid transparent;transition:inherit}
+.nav.scrolled{background:rgba(10,11,13,.72);backdrop-filter:blur(16px) saturate(140%)}
+.nav.scrolled .nav__in{padding-top:13px;padding-bottom:13px;border-color:var(--line-d)}
+.brand{display:flex;align-items:center;gap:12px;line-height:0}
+.brand__mark{height:38px;width:auto;color:#fff;transition:height .4s var(--ease)}
+.nav.scrolled .brand__mark{height:32px}
+.brand__name{font-family:var(--font-display);font-weight:600;font-size:19px;letter-spacing:.01em;color:#fff;line-height:1}
+.nav__links{display:flex;align-items:center;gap:34px}
+.nav__links a{font-weight:500;font-size:15.5px;color:rgba(255,255,255,.8);transition:color .25s}
+.nav__links a:hover{color:#fff}
+.nav__cta{display:flex;align-items:center;gap:14px}
+.menu-btn{display:none;background:none;border:none;cursor:pointer;flex-direction:column;gap:6px;padding:8px}
+.menu-btn span{width:26px;height:2px;background:#fff;transition:.35s var(--ease);display:block}
+.menu-btn.open span:nth-child(1){transform:translateY(8px) rotate(45deg)}
 .menu-btn.open span:nth-child(2){opacity:0}
-.menu-btn.open span:nth-child(3){transform:translateY(-8.5px) rotate(-45deg)}
-
-/* ---------- Overlay menu ---------- */
-.overlay{
-  position:fixed;inset:0;background:var(--black);z-index:999;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
-  opacity:0;visibility:hidden;transition:opacity .45s ease,visibility .45s ease;
+.menu-btn.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+@media(max-width:900px){
+  .nav__links,.nav__cta .btn{display:none}
+  .menu-btn{display:flex}
 }
+.overlay{position:fixed;inset:0;background:var(--ink);z-index:999;display:flex;flex-direction:column;justify-content:center;gap:6px;padding:0 clamp(24px,8vw,60px);opacity:0;visibility:hidden;transition:opacity .5s var(--ease),visibility .5s}
 .overlay.open{opacity:1;visibility:visible}
-.overlay a{
-  font-family:var(--font-display);font-size:clamp(34px,8vw,64px);
-  color:var(--white);letter-spacing:1px;opacity:.55;transition:opacity .25s,letter-spacing .25s;
-}
-.overlay a:hover{opacity:1;letter-spacing:4px}
+.overlay a{font-family:var(--font-display);font-weight:600;font-size:clamp(34px,9vw,58px);color:#fff;padding:8px 0;opacity:.55;transition:opacity .3s,transform .3s}
+.overlay a:hover{opacity:1;transform:translateX(10px)}
+.overlay .btn{margin-top:26px;align-self:flex-start}
 
-/* ---------- Hero ---------- */
-.hero{
-  position:relative;min-height:100vh;display:flex;align-items:flex-end;
-  padding:0 0 6vh;overflow:hidden;
-}
-.hero__bg{position:absolute;inset:0;z-index:0}
-.hero__bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05) brightness(.85)}
-.hero__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.45) 0%,rgba(0,0,0,.15) 35%,rgba(0,0,0,.85) 100%)}
-.hero__fallback{position:absolute;inset:0;background:radial-gradient(circle at 50% 40%,#1e2a3a,#000);z-index:-1}
-.hero__scroll{
-  position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;
-  color:rgba(255,255,255,.6);font-size:12px;letter-spacing:.25em;text-transform:uppercase;
-  display:flex;flex-direction:column;align-items:center;gap:8px;
-}
-.hero__scroll i{animation:bob 1.8s ease-in-out infinite}
-@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+/* ---------- Reveal / stagger ---------- */
+.js [data-reveal]{opacity:0;transform:translateY(30px);transition:opacity .85s var(--ease),transform .85s var(--ease)}
+.js [data-reveal].in{opacity:1;transform:none}
+.js [data-reveal-scale]{opacity:0;transform:scale(1.06);transition:opacity 1s var(--ease),transform 1.1s var(--ease)}
+.js [data-reveal-scale].in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.js [data-reveal],.js [data-reveal-scale]{opacity:1!important;transform:none!important;transition:none}}
 
-/* ---------- Scroll-scrub video ---------- */
-.scrollvid{position:relative;height:340vh;background:#000}
-.scrollvid__sticky{position:sticky;top:0;height:100vh;overflow:hidden;background:#000}
-.scrollvid__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;background:#000}
-.scrollvid__scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(0,0,0,.74) 0%,rgba(0,0,0,.38) 42%,rgba(0,0,0,.12) 66%,rgba(0,0,0,.5) 100%)}
-.scrollvid__text{position:absolute;z-index:2;top:50%;max-width:min(540px,84vw);padding:0 clamp(22px,6vw,72px);transform:translateY(-50%);will-change:transform,opacity}
-.scrollvid__text--a{left:0;text-align:left}
-.scrollvid__text--b{right:0;text-align:right;opacity:0}
-.scrollvid__eyebrow{font-family:var(--font-heading);font-weight:700;letter-spacing:.22em;text-transform:uppercase;font-size:13px;color:#c7d0dc;margin-bottom:16px}
-.scrollvid__text h2{font-family:var(--font-display);font-size:clamp(38px,9vw,74px);line-height:.98;letter-spacing:.5px;margin-bottom:20px}
-.scrollvid__text p{font-size:clamp(16px,2.6vw,20px);line-height:1.6;color:#e8e8e8}
-.scrollvid__hint{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:2;color:rgba(255,255,255,.5);font-size:12px;letter-spacing:.28em;text-transform:uppercase}
-@media(prefers-reduced-motion:reduce){.scrollvid__text{transition:none}}
+/* ---------- HERO (scroll-scrub video) ---------- */
+.hero{position:relative;height:320vh;background:#000}
+.hero__sticky{position:sticky;top:0;height:100vh;overflow:hidden;background:#000}
+.hero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;background:#05060a}
+.hero__scrim{position:absolute;inset:0;z-index:1;background:radial-gradient(120% 80% at 50% 0%,rgba(10,11,13,.2),transparent 40%),linear-gradient(180deg,rgba(10,11,13,.55) 0%,rgba(10,11,13,.15) 30%,rgba(10,11,13,.35) 65%,rgba(10,11,13,.9) 100%)}
+.hero__content{position:absolute;z-index:2;left:0;right:0;bottom:11vh;padding:0 clamp(20px,5vw,48px);max-width:1200px;margin:0 auto}
+.hero__eyebrow{display:inline-flex;align-items:center;gap:9px;padding:8px 16px;border:1px solid rgba(255,255,255,.2);border-radius:100px;background:rgba(255,255,255,.05);backdrop-filter:blur(8px);font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:12px;color:#dfe6ff;margin-bottom:24px}
+.hero__eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);box-shadow:0 0 12px 2px var(--glow)}
+.hero h1{max-width:14ch;margin-bottom:22px;text-shadow:0 4px 40px rgba(0,0,0,.4)}
+.hero__sub{max-width:52ch;font-size:clamp(17px,2.3vw,21px);color:rgba(255,255,255,.82);margin-bottom:34px;line-height:1.6}
+.hero__btns{display:flex;flex-wrap:wrap;gap:14px}
+.hero__alt{position:absolute;z-index:2;left:0;right:0;top:50%;transform:translateY(-50%);padding:0 clamp(20px,5vw,48px);max-width:1200px;margin:0 auto;opacity:0;pointer-events:none}
+.hero__alt h2{font-family:var(--font-display);font-weight:600;font-size:clamp(30px,5.4vw,60px);line-height:1.04;letter-spacing:-.02em;max-width:16ch}
+.hero__alt .accent{color:#9db8ff}
+.scrollcue{position:absolute;z-index:2;left:50%;bottom:26px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:9px;color:rgba(255,255,255,.6);font-size:11px;letter-spacing:.3em;text-transform:uppercase}
+.scrollcue__line{width:1px;height:34px;background:linear-gradient(rgba(255,255,255,.6),transparent);position:relative;overflow:hidden}
+.scrollcue__line::after{content:"";position:absolute;top:-34px;left:0;width:100%;height:34px;background:linear-gradient(#fff,transparent);animation:cue 2s var(--ease) infinite}
+@keyframes cue{0%{top:-34px}100%{top:34px}}
 
-/* ---------- Statement (black) ---------- */
-.statement{background:var(--black);padding:14vh clamp(22px,6vw,90px);text-align:center}
-.statement h2{
-  font-family:var(--font-heading);font-weight:900;
-  font-size:clamp(30px,6.4vw,66px);line-height:1.06;letter-spacing:-.5px;
-  max-width:1100px;margin:0 auto;
-}
+/* ---------- Section base ---------- */
+.section{padding:clamp(80px,12vw,150px) 0;position:relative}
+.section-light{background:var(--bg);color:var(--ink)}
+.section-paper{background:var(--paper);color:var(--ink)}
+.section-dark{background:var(--ink);color:#fff}
+.section-ink2{background:var(--ink2);color:#fff}
+.section-head{max-width:760px;margin-bottom:clamp(44px,7vw,72px)}
+.section-head .eyebrow{margin-bottom:18px;display:block}
+.section-head p{margin-top:20px;font-size:clamp(17px,2.2vw,20px);line-height:1.65;color:var(--muted)}
+.section-dark .section-head p,.section-ink2 .section-head p{color:var(--muted-d)}
 
-/* ---------- Circle collage ---------- */
-.collage{background:var(--black);padding:2vh 0 12vh;position:relative}
-.collage__inner{max-width:760px;margin:0 auto;padding:0 20px;position:relative}
-.circ{
-  position:relative;border-radius:50%;overflow:hidden;aspect-ratio:1/1;
-  background:linear-gradient(135deg,#222,#050505);
-}
-.circ img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05)}
-.c1{width:58%;margin-left:6%}
-.c2{width:62%;margin-left:auto;margin-right:2%;margin-top:-10%}
-.c3{width:52%;margin-left:2%;margin-top:-18%}
-.c4{width:56%;margin-left:auto;margin-right:6%;margin-top:-16%}
-.c5{width:50%;margin:-14% auto 0}
-
-/* ---------- Stats ---------- */
-.stats{background:var(--black);padding:6vh clamp(20px,6vw,80px) 4vh;text-align:center}
-.stat{margin-bottom:44px}
-.stat__num{font-family:var(--font-heading);font-weight:900;font-size:clamp(42px,8vw,60px);line-height:1}
-.stat__label{font-family:var(--font-heading);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:clamp(12px,3vw,15px);margin-top:6px;color:#d8d8d8}
-
-/* ---------- Big underlined statement ---------- */
-.bigline{
-  background:var(--black);text-align:center;color:var(--white);
-  padding:2vh clamp(20px,5vw,60px) 16vh;
-  border-bottom-left-radius:50% 70px;border-bottom-right-radius:50% 70px;
-  position:relative;z-index:2;
-}
-.bigline h2{font-family:var(--font-display);font-size:clamp(34px,8.5vw,86px);line-height:.98;letter-spacing:.5px;text-transform:capitalize}
-.bigline .u{display:inline-block;position:relative}
-.bigline .u::after{content:"";position:absolute;left:0;bottom:-6px;width:100%;height:6px;background:var(--white);border-radius:4px}
-
-/* ---------- Pills nav (white) ---------- */
-.pills{background:var(--paper);color:var(--ink);padding:14vh clamp(20px,5vw,60px) 6vh;margin-top:-40px}
-.pills__grid{max-width:640px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:center;gap:18px}
-.pill{
-  border:2px solid var(--ink);border-radius:60px;color:var(--ink);background:transparent;
-  font-family:var(--font-body);font-weight:600;font-size:clamp(15px,4vw,19px);letter-spacing:.06em;
-  padding:20px 40px;min-width:210px;text-align:center;text-transform:uppercase;
-  transition:background .25s,color .25s,transform .25s;cursor:pointer;
-}
-.pill:hover{background:var(--ink);color:var(--white);transform:translateY(-3px)}
-.pill--wide{min-width:240px}
-
-/* ---------- Intro (white) ---------- */
-.intro{background:var(--paper);color:var(--ink);padding:6vh clamp(22px,6vw,90px) 14vh}
-.intro__inner{max-width:860px;margin:0 auto}
-.intro__mark{width:200px;max-width:60%;margin-bottom:38px;opacity:.85}
-.intro h3{font-family:var(--font-heading);font-weight:800;font-size:clamp(26px,5.5vw,44px);line-height:1.12;letter-spacing:-.4px;margin-bottom:26px}
-.intro p{font-size:clamp(16px,2.4vw,19px);line-height:1.75;color:#333;margin-bottom:22px}
-
-/* ---------- Services header ---------- */
-.svc-head{background:var(--ink);padding:12vh clamp(22px,6vw,90px) 2vh}
-.svc-head h2{font-family:var(--font-display);font-size:clamp(46px,13vw,140px);line-height:.9;letter-spacing:1px}
-
-/* ---------- Service blocks (white) ---------- */
-.svc{background:var(--paper);color:var(--ink);padding:12vh clamp(22px,6vw,60px)}
-.svc:nth-child(even){background:#ecece9}
-.svc__inner{max-width:720px;margin:0 auto;text-align:center}
-.svc__img{width:min(340px,72vw);aspect-ratio:1/1;border-radius:50%;overflow:hidden;margin:0 auto 46px;background:linear-gradient(135deg,#ccc,#999)}
-.svc__img img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05)}
-.svc__eyebrow{font-family:var(--font-heading);font-weight:700;letter-spacing:.2em;text-transform:uppercase;font-size:13px;color:var(--gray);margin-bottom:14px}
-.svc h3{font-family:var(--font-display);font-size:clamp(30px,7vw,52px);letter-spacing:.5px;margin-bottom:30px;text-transform:uppercase}
-.svc p{font-size:clamp(16px,2.4vw,19px);line-height:1.75;color:#333;margin-bottom:22px}
-.btn-solid{
-  display:inline-block;margin-top:22px;background:var(--ink);color:var(--white);
-  font-family:var(--font-body);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:15px;
-  padding:20px 46px;border-radius:60px;transition:transform .25s,background .25s;cursor:pointer;
-}
-.btn-solid:hover{transform:translateY(-3px);background:#000}
-
-/* ---------- CTA / Contact ---------- */
-.cta{background:var(--black);text-align:center;padding:16vh clamp(22px,6vw,60px)}
-.cta h2{font-family:var(--font-display);font-size:clamp(40px,10vw,96px);line-height:.95;margin-bottom:26px}
-.cta p{color:#bdbdbd;font-size:clamp(16px,2.4vw,19px);max-width:560px;margin:0 auto 40px;line-height:1.7}
-.cta .btn-solid{background:var(--white);color:var(--black)}
-.cta .btn-solid:hover{background:#e8e8e8}
-
-/* ---------- Footer ---------- */
-.footer{background:var(--black);border-top:1px solid rgba(255,255,255,.1);padding:8vh clamp(22px,6vw,60px) 5vh}
-.footer__grid{max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between}
-.footer__col h4{font-family:var(--font-heading);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:13px;color:var(--gray);margin-bottom:16px}
-.footer__col a,.footer__col p{display:block;color:#d0d0d0;font-size:16px;line-height:2;transition:color .2s}
-.footer__col a:hover{color:var(--white)}
-.footer__badge{display:flex;align-items:center;gap:16px;margin-bottom:10px}
-.footer__social{display:flex;gap:16px;margin-top:10px}
-.footer__social a{width:42px;height:42px;border:1px solid rgba(255,255,255,.25);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#d0d0d0;transition:.25s}
-.footer__social a:hover{background:var(--white);color:var(--black);border-color:var(--white)}
-.footer__bottom{max-width:1000px;margin:60px auto 0;padding-top:26px;border-top:1px solid rgba(255,255,255,.08);display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;color:#7c7c7c;font-size:13px;letter-spacing:.04em}
-
-/* ---------- Cable svg ---------- */
-.cable{width:220px;height:auto;stroke:var(--ink);fill:none;stroke-width:2.4}
-
-/* ---------- Meet the crew (dark photo) ---------- */
-.people{position:relative;min-height:88vh;display:flex;align-items:center;overflow:hidden;background:var(--black)}
-.people__bg{position:absolute;inset:0;z-index:0}
-.people__bg img{width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05) brightness(.5)}
-.people__bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.9) 0%,rgba(0,0,0,.55) 55%,rgba(0,0,0,.75) 100%)}
-.people__inner{position:relative;z-index:2;max-width:1100px;margin:0 auto;padding:0 clamp(22px,6vw,60px);width:100%}
-.people h2{font-family:var(--font-display);font-size:clamp(38px,10vw,84px);letter-spacing:.5px;margin-bottom:26px}
-.people p{max-width:600px;font-size:clamp(16px,2.4vw,19px);line-height:1.7;color:#dcdcdc;margin-bottom:36px}
-.pill-light{
-  display:inline-block;background:var(--paper);color:var(--ink);border-radius:60px;
-  font-family:var(--font-body);font-weight:600;letter-spacing:.06em;text-transform:uppercase;font-size:15px;
-  padding:22px 46px;transition:transform .25s,background .25s;
-}
-.pill-light:hover{transform:translateY(-3px);background:#fff}
-
-/* ---------- Partners ---------- */
-.partners{background:var(--paper);color:var(--ink);padding:14vh clamp(22px,6vw,90px) 8vh;margin-top:-2px;border-top-left-radius:50% 70px;border-top-right-radius:50% 70px}
-.partners__inner{max-width:900px;margin:0 auto}
-.partners h2{font-family:var(--font-heading);font-weight:900;font-size:clamp(34px,7vw,64px);line-height:1.02;letter-spacing:-.5px;margin-bottom:28px}
-.partners p{font-size:clamp(16px,2.4vw,19px);line-height:1.75;color:#333;max-width:760px}
-
-.marquee{background:var(--white);color:var(--ink);padding:5vh 0;overflow:hidden;position:relative;border-top:1px solid var(--line)}
-.marquee::before,.marquee::after{content:"";position:absolute;top:0;bottom:0;width:90px;z-index:2}
-.marquee::before{left:0;background:linear-gradient(90deg,#fff,transparent)}
-.marquee::after{right:0;background:linear-gradient(270deg,#fff,transparent)}
-.marquee__track{display:flex;align-items:center;gap:70px;width:max-content;animation:scroll 26s linear infinite}
+/* ---------- Trusted / marquee ---------- */
+.trusted{padding:clamp(48px,7vw,80px) 0;background:var(--paper);color:var(--ink);border-bottom:1px solid var(--line)}
+.trusted__label{text-align:center;font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:12.5px;color:var(--muted);margin-bottom:38px}
+.marquee{overflow:hidden;position:relative;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.marquee__track{display:flex;align-items:center;gap:clamp(44px,7vw,84px);width:max-content;animation:scroll 32s linear infinite}
 .marquee:hover .marquee__track{animation-play-state:paused}
-.marquee__track span{font-family:var(--font-display);font-size:clamp(22px,4vw,34px);letter-spacing:1px;color:#111;white-space:nowrap;opacity:.8}
-.marquee__track img{height:46px;width:auto;max-width:190px;object-fit:contain;opacity:.72;transition:opacity .25s}
-.marquee__track img:hover{opacity:1}
+.marquee__track span{font-family:var(--font-display);font-weight:600;font-size:clamp(20px,3.4vw,30px);letter-spacing:.01em;color:#12141a;white-space:nowrap;opacity:.55;transition:opacity .3s}
+.marquee__track span:hover{opacity:1}
+.marquee__track img{height:40px;width:auto;max-width:170px;object-fit:contain;opacity:.55;transition:opacity .3s;filter:grayscale(1)}
+.marquee__track img:hover{opacity:1;filter:none}
 @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
-/* ---------- Services accordion (grain) ---------- */
-.services{
-  position:relative;color:var(--white);padding:13vh clamp(22px,6vw,60px) 12vh;
-  background-color:#0a0a0a;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.14'/%3E%3C/svg%3E");
-}
-.services__inner{max-width:820px;margin:0 auto}
-.services h2{font-family:var(--font-display);font-size:clamp(46px,13vw,120px);line-height:.9;letter-spacing:1px;margin-bottom:18px}
-.services__sub{font-family:var(--font-body);font-weight:600;letter-spacing:.16em;text-transform:uppercase;font-size:clamp(13px,3vw,16px);color:#d8d8d8;margin-bottom:24px}
-.services__lead{font-size:clamp(16px,2.4vw,19px);line-height:1.75;color:#cfcfcf;max-width:720px;margin-bottom:60px}
-.acc{border-top:1px solid rgba(255,255,255,.22)}
-.acc__item{border-bottom:1px solid rgba(255,255,255,.22)}
-.acc__head{width:100%;background:none;border:none;color:var(--white);cursor:pointer;
-  display:flex;align-items:center;justify-content:space-between;gap:20px;
-  padding:34px 4px;text-align:left;font-family:var(--font-display);
-  font-size:clamp(28px,7vw,46px);letter-spacing:.5px;text-transform:uppercase;transition:opacity .2s}
-.acc__head:hover{opacity:.72}
-.acc__head i{font-size:22px;transition:transform .35s ease;flex-shrink:0}
-.acc__item.open .acc__head i{transform:rotate(180deg)}
-.acc__body{max-height:0;overflow:hidden;transition:max-height .45s ease}
-.acc__body ul{list-style:none;padding:0 4px 34px}
-.acc__body li{position:relative;padding:0 0 20px 26px;font-size:clamp(15px,2.3vw,18px);line-height:1.6;color:#cfcfcf}
-.acc__body li::before{content:"";position:absolute;left:2px;top:9px;width:8px;height:8px;border-radius:50%;background:var(--white)}
-.acc__body strong{color:var(--white);font-weight:700}
+/* ---------- Solutions grid ---------- */
+.grid{display:grid;gap:20px}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+.grid-2{grid-template-columns:repeat(2,1fr)}
+@media(max-width:900px){.grid-3{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:620px){.grid-3,.grid-2{grid-template-columns:1fr}}
+.card{position:relative;border-radius:var(--r);padding:clamp(26px,3vw,36px);overflow:hidden;transition:transform .5s var(--ease),box-shadow .5s var(--ease),border-color .4s;isolation:isolate}
+.section-dark .card,.section-ink2 .card{background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08)}
+.section-dark .card:hover,.section-ink2 .card:hover{transform:translateY(-8px);border-color:rgba(255,255,255,.18)}
+.section-light .card,.section-paper .card{background:var(--bg);border:1px solid var(--line)}
+.section-paper .card{background:#fff}
+.section-light .card:hover,.section-paper .card:hover{transform:translateY(-8px);box-shadow:0 40px 80px -40px rgba(10,12,16,.28)}
+.card::before{content:"";position:absolute;inset:0;z-index:-1;background:radial-gradient(300px 200px at var(--mx,50%) var(--my,0%),rgba(47,107,255,.16),transparent 70%);opacity:0;transition:opacity .5s}
+.card:hover::before{opacity:1}
+.card__ic{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:22px;background:linear-gradient(140deg,rgba(47,107,255,.18),rgba(123,92,255,.12));color:var(--accent)}
+.section-dark .card__ic,.section-ink2 .card__ic{color:#9db8ff}
+.card__ic svg{width:26px;height:26px;stroke-width:1.6}
+.card h3{font-family:var(--font-display);font-weight:600;font-size:22px;margin-bottom:10px;letter-spacing:-.01em}
+.card p{font-size:15.5px;line-height:1.6;color:var(--muted)}
+.section-dark .card p,.section-ink2 .card p{color:var(--muted-d)}
 
-@media(max-width:640px){
-  .footer__grid{flex-direction:column;gap:32px}
-  .stat{margin-bottom:38px}
-}
+/* ---------- Why (feature list cards) ---------- */
+.feat{padding:clamp(24px,3vw,32px) 0;border-top:1px solid var(--line)}
+.section-dark .feat{border-color:var(--line-d)}
+.feat__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+@media(max-width:820px){.feat__grid{grid-template-columns:1fr}}
+.feat__item{padding:clamp(28px,3vw,40px);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.section-dark .feat__item{border-color:var(--line-d)}
+.feat__num{font-family:var(--font-display);font-weight:500;font-size:14px;color:var(--accent);margin-bottom:20px;letter-spacing:.1em}
+.feat__item h3{font-family:var(--font-display);font-weight:600;font-size:21px;margin-bottom:10px}
+.feat__item p{font-size:15.5px;color:var(--muted);line-height:1.6}
+.section-dark .feat__item p{color:var(--muted-d)}
+
+/* ---------- Projects ---------- */
+.proj{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:4/3;background:linear-gradient(150deg,#1a1f2e,#0a0b0d);display:flex;align-items:flex-end;isolation:isolate;transition:transform .55s var(--ease)}
+.proj:hover{transform:translateY(-6px)}
+.proj--wide{aspect-ratio:16/10}
+.proj img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1s var(--ease)}
+.proj:hover img{transform:scale(1.06)}
+.proj::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,transparent 30%,rgba(6,7,10,.85))}
+.proj__body{padding:clamp(24px,3vw,38px);width:100%}
+.proj__tag{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:#9db8ff;font-weight:600;margin-bottom:10px}
+.proj h3{font-family:var(--font-display);font-weight:600;font-size:clamp(22px,3vw,30px);color:#fff;letter-spacing:-.01em}
+.proj__meta{max-height:0;opacity:0;overflow:hidden;transition:max-height .5s var(--ease),opacity .5s,margin .5s;color:rgba(255,255,255,.78);font-size:15.5px;line-height:1.55}
+.proj:hover .proj__meta{max-height:80px;opacity:1;margin-top:12px}
+
+/* ---------- Industries ---------- */
+.ind{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:900px){.ind{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.ind{grid-template-columns:1fr}}
+.ind__tile{position:relative;padding:clamp(24px,2.6vw,32px);border-radius:var(--rs);border:1px solid var(--line);background:#fff;overflow:hidden;transition:transform .4s var(--ease),border-color .4s,color .4s;min-height:150px;display:flex;flex-direction:column;justify-content:space-between}
+.ind__tile:hover{transform:translateY(-5px);border-color:transparent;color:#fff}
+.ind__tile::before{content:"";position:absolute;inset:0;z-index:0;background:linear-gradient(150deg,var(--accent),var(--accent-2));opacity:0;transition:opacity .4s}
+.ind__tile:hover::before{opacity:1}
+.ind__tile span{position:relative;z-index:1}
+.ind__tile .n{font-size:13px;color:var(--muted);font-weight:600;transition:color .4s}
+.ind__tile:hover .n{color:rgba(255,255,255,.8)}
+.ind__tile .t{font-family:var(--font-display);font-weight:600;font-size:clamp(18px,2vw,22px)}
+
+/* ---------- Process ---------- */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;position:relative}
+@media(max-width:820px){.steps{grid-template-columns:1fr}}
+.step{position:relative;padding-top:34px}
+.step::before{content:"";position:absolute;top:6px;left:0;width:100%;height:1px;background:var(--line-d)}
+.step__dot{position:absolute;top:1px;left:0;width:11px;height:11px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 5px rgba(47,107,255,.16)}
+.step__n{font-family:var(--font-display);font-weight:500;font-size:13px;color:var(--accent);letter-spacing:.14em;margin-bottom:14px}
+.step h3{font-family:var(--font-display);font-weight:600;font-size:clamp(22px,2.6vw,28px);margin-bottom:10px}
+.step p{color:var(--muted-d);font-size:15.5px;line-height:1.6}
+
+/* ---------- Testimonials ---------- */
+.tmarquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.tmarquee__track{display:flex;gap:20px;width:max-content;animation:scroll 60s linear infinite}
+.tmarquee:hover .tmarquee__track{animation-play-state:paused}
+.quote{width:min(420px,84vw);flex:none;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:32px;display:flex;flex-direction:column;gap:18px}
+.quote p{font-size:17px;line-height:1.6;color:#1a1d24}
+.quote__by{display:flex;align-items:center;gap:12px;margin-top:auto}
+.quote__av{width:42px;height:42px;border-radius:50%;background:linear-gradient(140deg,var(--accent),var(--accent-2));flex:none}
+.quote__by b{font-family:var(--font-display);font-weight:600;font-size:15px;display:block}
+.quote__by span{font-size:13.5px;color:var(--muted)}
+.stars{color:var(--accent);font-size:15px;letter-spacing:2px}
+
+/* ---------- Stats ---------- */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+@media(max-width:820px){.stats{grid-template-columns:repeat(2,1fr);gap:40px 20px}}
+.stat__num{font-family:var(--font-display);font-weight:600;font-size:clamp(44px,6vw,72px);line-height:1;letter-spacing:-.02em;background:linear-gradient(120deg,#fff,#9db8ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.stat__label{margin-top:12px;color:var(--muted-d);font-size:15px;letter-spacing:.02em}
+
+/* ---------- Final CTA ---------- */
+.finalcta{position:relative;text-align:center;padding:clamp(90px,15vw,180px) 0;overflow:hidden;background:radial-gradient(70% 120% at 50% 0%,#141a2e,#07080c 70%)}
+.finalcta::before{content:"";position:absolute;left:50%;top:20%;width:min(760px,90vw);height:420px;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(47,107,255,.34),transparent);filter:blur(30px);z-index:0;animation:floaty 9s ease-in-out infinite alternate}
+@keyframes floaty{from{transform:translate(-52%,0)}to{transform:translate(-48%,26px)}}
+.finalcta .wrap{position:relative;z-index:1}
+.finalcta h2{margin:0 auto 22px;max-width:16ch}
+.finalcta p{max-width:48ch;margin:0 auto 38px;color:rgba(255,255,255,.75);font-size:clamp(17px,2.2vw,20px);line-height:1.6}
+.finalcta__btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.finalcta__phone{margin-top:28px;font-family:var(--font-display);font-weight:500;font-size:clamp(22px,3vw,30px);color:#fff}
+.finalcta__phone a:hover{color:#9db8ff}
+
+/* ---------- Footer ---------- */
+.footer{background:var(--ink);border-top:1px solid var(--line-d);padding:clamp(64px,9vw,96px) 0 40px}
+.footer__top{display:flex;flex-wrap:wrap;gap:48px;justify-content:space-between;margin-bottom:64px}
+.footer__brand{max-width:320px}
+.footer__brand .brand{margin-bottom:20px}
+.footer__brand p{color:var(--muted-d);font-size:15.5px;line-height:1.6}
+.footer__cols{display:flex;gap:clamp(40px,8vw,90px);flex-wrap:wrap}
+.footer__col h4{font-weight:600;text-transform:uppercase;letter-spacing:.14em;font-size:12px;color:var(--muted-d);margin-bottom:18px}
+.footer__col a,.footer__col p{display:block;color:rgba(255,255,255,.82);font-size:15.5px;line-height:2;transition:color .2s}
+.footer__col a:hover{color:#fff}
+.footer__big{font-family:var(--font-display);font-weight:600;font-size:clamp(48px,12vw,150px);line-height:.9;letter-spacing:-.02em;color:#fff;opacity:.06;pointer-events:none;margin:20px 0 -10px}
+.footer__bottom{display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;align-items:center;padding-top:26px;border-top:1px solid var(--line-d);color:var(--muted-d);font-size:13.5px}
+.footer__social{display:flex;gap:12px}
+.footer__social a{width:40px;height:40px;border-radius:50%;border:1px solid var(--line-d);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.8);transition:.25s}
+.footer__social a:hover{background:#fff;color:var(--ink);border-color:#fff}
+.footer__social svg{width:17px;height:17px}
 </style>
 </head>
 <body>
 
-<div class="progress" id="progress"></div>
+<div class="loader" id="loader">
+  <svg viewBox="0 0 141 148" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M 45.048 26.250 L 45.096 36.500 50.784 40.787 C 55.866 44.617, 56.600 44.900, 57.670 43.437 C 58.403 42.435, 59.377 42.107, 60.183 42.593 C 64.388 45.125, 87.998 64.497, 87.990 65.407 C 87.985 66.008, 82.247 68.550, 75.240 71.057 L 62.500 75.613 62.202 81.807 C 62.039 85.213, 62.264 88.008, 62.702 88.017 C 64.378 88.053, 115 67.576, 115 66.862 C 115 65.846, 46.980 16, 45.592 16 C 45.266 16, 45.022 20.612, 45.048 26.250 M 19.701 24.337 C 18.872 26.498, 19.122 109.579, 19.962 110.938 C 20.521 111.842, 23.103 110.655, 29.366 106.615 L 38 101.045 38 94.034 C 38 87.360, 37.892 87.035, 35.750 87.262 L 33.500 87.500 33.500 70.083 C 33.500 58.416, 33.859 52.547, 34.589 52.304 C 35.187 52.104, 40.756 56.004, 46.963 60.970 C 53.170 65.937, 58.746 70, 59.353 70 C 59.961 70, 63.546 68.820, 67.321 67.378 C 72.914 65.240, 73.935 64.524, 72.842 63.507 C 71.127 61.913, 22.882 24.609, 21.355 23.696 C 20.725 23.319, 19.981 23.608, 19.701 24.337 M 43 94.441 C 43 110.148, 43.361 123, 43.801 123 C 45.585 123, 113.121 93.202, 113.193 92.383 C 113.235 91.898, 108.041 89.835, 101.649 87.800 L 90.029 84.101 82.475 87.543 C 75.565 90.692, 75.014 91.157, 76.005 93.009 C 76.971 94.814, 76.622 95.235, 72.794 96.896 C 70.432 97.921, 65.864 99.935, 62.642 101.372 C 59.421 102.809, 56.383 103.737, 55.892 103.434 C 55.402 103.130, 55 96.679, 55 89.098 L 55 75.313 50.250 71.342 C 47.638 69.158, 44.938 67.036, 44.250 66.627 C 43.262 66.038, 43 71.863, 43 94.441"/></svg>
+</div>
 
+<div class="progress" id="progress"></div>
 
 <!-- NAV -->
 <nav class="nav" id="nav">
-  <a href="#top" class="brand" aria-label="Pro Bros home"><svg class="brand__mark" viewBox="0 0 141 148" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" fill-rule="evenodd" d="M 45.048 26.250 L 45.096 36.500 50.784 40.787 C 55.866 44.617, 56.600 44.900, 57.670 43.437 C 58.403 42.435, 59.377 42.107, 60.183 42.593 C 64.388 45.125, 87.998 64.497, 87.990 65.407 C 87.985 66.008, 82.247 68.550, 75.240 71.057 L 62.500 75.613 62.202 81.807 C 62.039 85.213, 62.264 88.008, 62.702 88.017 C 64.378 88.053, 115 67.576, 115 66.862 C 115 65.846, 46.980 16, 45.592 16 C 45.266 16, 45.022 20.612, 45.048 26.250 M 19.701 24.337 C 18.872 26.498, 19.122 109.579, 19.962 110.938 C 20.521 111.842, 23.103 110.655, 29.366 106.615 L 38 101.045 38 94.034 C 38 87.360, 37.892 87.035, 35.750 87.262 L 33.500 87.500 33.500 70.083 C 33.500 58.416, 33.859 52.547, 34.589 52.304 C 35.187 52.104, 40.756 56.004, 46.963 60.970 C 53.170 65.937, 58.746 70, 59.353 70 C 59.961 70, 63.546 68.820, 67.321 67.378 C 72.914 65.240, 73.935 64.524, 72.842 63.507 C 71.127 61.913, 22.882 24.609, 21.355 23.696 C 20.725 23.319, 19.981 23.608, 19.701 24.337 M 43 94.441 C 43 110.148, 43.361 123, 43.801 123 C 45.585 123, 113.121 93.202, 113.193 92.383 C 113.235 91.898, 108.041 89.835, 101.649 87.800 L 90.029 84.101 82.475 87.543 C 75.565 90.692, 75.014 91.157, 76.005 93.009 C 76.971 94.814, 76.622 95.235, 72.794 96.896 C 70.432 97.921, 65.864 99.935, 62.642 101.372 C 59.421 102.809, 56.383 103.737, 55.892 103.434 C 55.402 103.130, 55 96.679, 55 89.098 L 55 75.313 50.250 71.342 C 47.638 69.158, 44.938 67.036, 44.250 66.627 C 43.262 66.038, 43 71.863, 43 94.441"/></svg><span class="brand__name">Production Bros Co</span></a>
-  <button class="menu-btn" id="menuBtn" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <div class="nav__in">
+    <a href="#top" class="brand" aria-label="Production Bros Co home">
+      <svg class="brand__mark" viewBox="0 0 141 148" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" fill-rule="evenodd" d="M 45.048 26.250 L 45.096 36.500 50.784 40.787 C 55.866 44.617, 56.600 44.900, 57.670 43.437 C 58.403 42.435, 59.377 42.107, 60.183 42.593 C 64.388 45.125, 87.998 64.497, 87.990 65.407 C 87.985 66.008, 82.247 68.550, 75.240 71.057 L 62.500 75.613 62.202 81.807 C 62.039 85.213, 62.264 88.008, 62.702 88.017 C 64.378 88.053, 115 67.576, 115 66.862 C 115 65.846, 46.980 16, 45.592 16 C 45.266 16, 45.022 20.612, 45.048 26.250 M 19.701 24.337 C 18.872 26.498, 19.122 109.579, 19.962 110.938 C 20.521 111.842, 23.103 110.655, 29.366 106.615 L 38 101.045 38 94.034 C 38 87.360, 37.892 87.035, 35.750 87.262 L 33.500 87.500 33.500 70.083 C 33.500 58.416, 33.859 52.547, 34.589 52.304 C 35.187 52.104, 40.756 56.004, 46.963 60.970 C 53.170 65.937, 58.746 70, 59.353 70 C 59.961 70, 63.546 68.820, 67.321 67.378 C 72.914 65.240, 73.935 64.524, 72.842 63.507 C 71.127 61.913, 22.882 24.609, 21.355 23.696 C 20.725 23.319, 19.981 23.608, 19.701 24.337 M 43 94.441 C 43 110.148, 43.361 123, 43.801 123 C 45.585 123, 113.121 93.202, 113.193 92.383 C 113.235 91.898, 108.041 89.835, 101.649 87.800 L 90.029 84.101 82.475 87.543 C 75.565 90.692, 75.014 91.157, 76.005 93.009 C 76.971 94.814, 76.622 95.235, 72.794 96.896 C 70.432 97.921, 65.864 99.935, 62.642 101.372 C 59.421 102.809, 56.383 103.737, 55.892 103.434 C 55.402 103.130, 55 96.679, 55 89.098 L 55 75.313 50.250 71.342 C 47.638 69.158, 44.938 67.036, 44.250 66.627 C 43.262 66.038, 43 71.863, 43 94.441"/></svg>
+      <span class="brand__name">Production Bros Co</span>
+    </a>
+    <div class="nav__links">
+      <a href="#solutions" data-nav>Solutions</a>
+      <a href="#work" data-nav>Work</a>
+      <a href="#industries" data-nav>Industries</a>
+      <a href="#process" data-nav>Process</a>
+    </div>
+    <div class="nav__cta">
+      <a href="#contact" class="btn btn--primary magnetic">Schedule Consultation</a>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
 </nav>
 
-<!-- OVERLAY MENU -->
 <div class="overlay" id="overlay">
-  <a href="#story" data-nav>Our Story</a>
-  <a href="#services" data-nav>Services</a>
-  <a href="#work" data-nav>Our Work</a>
-  <a href="#culture" data-nav>About</a>
+  <a href="#solutions" data-nav>Solutions</a>
+  <a href="#work" data-nav>Work</a>
+  <a href="#industries" data-nav>Industries</a>
+  <a href="#process" data-nav>Process</a>
   <a href="#contact" data-nav>Contact</a>
+  <a href="#contact" class="btn btn--primary" data-nav>Schedule Consultation</a>
 </div>
 
-<!-- HERO — scroll-scrubbed video -->
-<section class="scrollvid" id="top" aria-label="From the system to the service">
-  <div class="scrollvid__sticky">
-    <video class="scrollvid__video" muted playsinline preload="auto" tabindex="-1"
+<!-- HERO -->
+<header class="hero" id="top">
+  <div class="hero__sticky">
+    <video class="hero__video" muted playsinline preload="auto" tabindex="-1"
            poster="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/scroll-hero-poster.jpg">
       <source src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/scroll-hero.mp4" type="video/mp4">
       <source src="assets/scroll-hero.mp4" type="video/mp4">
     </video>
-    <div class="scrollvid__scrim"></div>
-    <div class="scrollvid__text scrollvid__text--a">
-      <div class="scrollvid__eyebrow">The Craft</div>
-      <h2>It starts with the system.</h2>
-      <p>Line arrays hung to the inch. Rigging, signal flow, and lighting — engineered for your room, not a spec sheet.</p>
+    <div class="hero__scrim"></div>
+
+    <div class="hero__content" id="heroContent">
+      <span class="hero__eyebrow"><span class="dot"></span>Technology Integration</span>
+      <h1 class="dsp">Technology That Simply Works.</h1>
+      <p class="hero__sub">We design, install, and support the audio, video, and network systems behind the world's best spaces — engineered end to end, built to disappear into the experience.</p>
+      <div class="hero__btns">
+        <a href="#contact" class="btn btn--primary magnetic">Schedule Consultation</a>
+        <a href="#work" class="btn btn--glass">View Projects</a>
+      </div>
     </div>
-    <div class="scrollvid__text scrollvid__text--b">
-      <div class="scrollvid__eyebrow">The Payoff</div>
-      <h2>So the room feels like this.</h2>
-      <p>Clean sound to the back row. Light that moves with the moment. Technology that disappears — and a service people feel.</p>
+
+    <div class="hero__alt" id="heroAlt">
+      <h2 class="dsp">One partner. <span class="accent">Every system.</span> Total reliability.</h2>
     </div>
-    <div class="scrollvid__hint">Scroll</div>
+
+    <div class="scrollcue"><span>Scroll</span><div class="scrollcue__line"></div></div>
+  </div>
+</header>
+
+<!-- TRUSTED BY -->
+<section class="trusted">
+  <div class="wrap">
+    <div class="trusted__label" data-reveal>Trusted by teams who can't afford downtime</div>
+  </div>
+  <div class="marquee" aria-label="Clients">
+    <div class="marquee__track">
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/elevation.png" alt="Elevation Church">
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/live-nation.png" alt="Live Nation">
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/bethlehem.png" alt="Bethlehem Church">
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/northpoint.png" alt="Northpoint Church">
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/ote.png" alt="OTE">
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/elevation.png" alt="Elevation Church">
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/live-nation.png" alt="Live Nation">
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/bethlehem.png" alt="Bethlehem Church">
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/northpoint.png" alt="Northpoint Church">
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/ote.png" alt="OTE">
+    </div>
   </div>
 </section>
 
-<!-- STATEMENT -->
-<section class="statement">
-  <h2 data-aos="fade-up">From corporate AV to permanent sanctuary installs, we design and build audio, video, and lighting systems that connect people through technology and experience.</h2>
+<!-- FEATURED SOLUTIONS -->
+<section class="section section-dark" id="solutions">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow" data-reveal>Solutions</span>
+      <h2 class="dsp" data-reveal>Every system, engineered as one.</h2>
+      <p data-reveal>Most spaces are a patchwork of vendors. We design the whole stack together — so it's simpler to run, easier to support, and impossible to tell where one system ends and the next begins.</p>
+    </div>
+    <div class="grid grid-3" data-stagger>
+      <div class="card" data-reveal>
+        <div class="card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 10v4M7 6v12M11 3v18M15 7v10M19 10v4" stroke-linecap="round"/></svg></div>
+        <h3>Commercial Audio</h3>
+        <p>Speech-first, feedback-proof sound tuned to the room — from a single space to a whole campus.</p>
+      </div>
+      <div class="card" data-reveal>
+        <div class="card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4" stroke-linecap="round"/></svg></div>
+        <h3>Video &amp; LED Walls</h3>
+        <p>Screens, projection, cameras, and LED video walls that look intentional from every seat.</p>
+      </div>
+      <div class="card" data-reveal>
+        <div class="card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4m0 0-5 6m5-6 5 6" stroke-linecap="round"/></svg></div>
+        <h3>Networking &amp; Cabling</h3>
+        <p>Structured cabling and rock-solid networks — the invisible backbone everything else runs on.</p>
+      </div>
+      <div class="card" data-reveal>
+        <div class="card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3 5 6v5c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6z" stroke-linejoin="round"/><path d="M9.5 12l2 2 3.5-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Security &amp; Access</h3>
+        <p>Access control, surveillance, and monitoring that protect people and property, quietly.</p>
+      </div>
+      <div class="card" data-reveal>
+        <div class="card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 8h14M5 16h14" stroke-linecap="round"/><circle cx="9" cy="8" r="2.2" fill="currentColor" stroke="none"/><circle cx="15" cy="16" r="2.2" fill="currentColor" stroke="none"/></svg></div>
+        <h3>Automation &amp; Control</h3>
+        <p>One button, one app. Lights, sound, video, and climate that respond the moment you need them.</p>
+      </div>
+      <div class="card" data-reveal>
+        <div class="card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="11" rx="2"/><path d="M8 20h8M12 15v5" stroke-linecap="round"/><circle cx="12" cy="9.5" r="2"/></svg></div>
+        <h3>Conference Rooms</h3>
+        <p>Meeting spaces that just work — walk in, hit start, and every call connects on the first try.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- CIRCLE COLLAGE -->
-<section class="collage">
-  <div class="collage__inner">
-    <div class="circ c1" data-aos="fade-up"><img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80" alt="" onerror="this.style.display='none'"></div>
-    <div class="circ c2" data-aos="fade-up"><img src="https://images.unsplash.com/photo-1505236858219-8359eb29e329?w=800&q=80" alt="" onerror="this.style.display='none'"></div>
-    <div class="circ c3" data-aos="fade-up"><img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=800&q=80" alt="" onerror="this.style.display='none'"></div>
-    <div class="circ c4" data-aos="fade-up"><img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80" alt="" onerror="this.style.display='none'"></div>
-    <div class="circ c5" data-aos="fade-up"><img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=800&q=80" alt="" onerror="this.style.display='none'"></div>
+<!-- WHY PRO BROS -->
+<section class="section section-light">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow" data-reveal>Why Pro Bros</span>
+      <h2 class="dsp" data-reveal>Reliability you can plan around.</h2>
+      <p data-reveal>You're not buying equipment. You're buying the confidence that it works on the day it matters — and the team that answers when it doesn't.</p>
+    </div>
+    <div class="feat">
+      <div class="feat__grid" data-stagger>
+        <div class="feat__item" data-reveal><div class="feat__num">01</div><h3>Fast response</h3><p>When something needs attention, we're already moving — real people, real timelines.</p></div>
+        <div class="feat__item" data-reveal><div class="feat__num">02</div><h3>Certified technicians</h3><p>Manufacturer-trained and field-proven, so it's done right the first time.</p></div>
+        <div class="feat__item" data-reveal><div class="feat__num">03</div><h3>End-to-end design</h3><p>One team from first walkthrough to final sign-off. No finger-pointing, no gaps.</p></div>
+        <div class="feat__item" data-reveal><div class="feat__num">04</div><h3>Nationwide support</h3><p>Multi-site rollouts and remote monitoring that keep every location running.</p></div>
+        <div class="feat__item" data-reveal><div class="feat__num">05</div><h3>Built to last</h3><p>Documented, labeled, and future-ready — designed to grow instead of get replaced.</p></div>
+        <div class="feat__item" data-reveal><div class="feat__num">06</div><h3>Modern technology</h3><p>Current platforms and clean standards, so your systems stay supported for years.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PROJECTS -->
+<section class="section section-ink2" id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow" data-reveal>Selected work</span>
+      <h2 class="dsp" data-reveal>Spaces we made effortless.</h2>
+    </div>
+    <div class="grid grid-2" data-stagger>
+      <a class="proj proj--wide" data-reveal-scale style="grid-column:1/-1">
+        <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/projects/project-1.jpg" alt="" loading="lazy" onerror="this.remove()">
+        <div class="proj__body">
+          <div class="proj__tag">Worship · Full Integration</div>
+          <h3>A sanctuary that runs itself on Sunday</h3>
+          <div class="proj__meta">Line-array audio, IMAG video, stage lighting, and streaming — one system a volunteer team runs with confidence.</div>
+        </div>
+      </a>
+      <a class="proj" data-reveal-scale>
+        <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/projects/project-2.jpg" alt="" loading="lazy" onerror="this.remove()">
+        <div class="proj__body">
+          <div class="proj__tag">Corporate · AV + Network</div>
+          <h3>Boardrooms that connect first try</h3>
+          <div class="proj__meta">Conferencing, digital signage, and structured cabling across a corporate campus.</div>
+        </div>
+      </a>
+      <a class="proj" data-reveal-scale>
+        <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/projects/project-3.jpg" alt="" loading="lazy" onerror="this.remove()">
+        <div class="proj__body">
+          <div class="proj__tag">Live Events · Video Walls</div>
+          <h3>An arena-grade LED experience</h3>
+          <div class="proj__meta">High-density LED walls, camera switching, and control built for a live audience.</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- INDUSTRIES -->
+<section class="section section-light" id="industries">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow" data-reveal>Industries</span>
+      <h2 class="dsp" data-reveal>Built for spaces people depend on.</h2>
+    </div>
+    <div class="ind" data-stagger>
+      <div class="ind__tile" data-reveal><span class="n">01</span><span class="t">House of Worship</span></div>
+      <div class="ind__tile" data-reveal><span class="n">02</span><span class="t">Corporate</span></div>
+      <div class="ind__tile" data-reveal><span class="n">03</span><span class="t">Education</span></div>
+      <div class="ind__tile" data-reveal><span class="n">04</span><span class="t">Hospitality</span></div>
+      <div class="ind__tile" data-reveal><span class="n">05</span><span class="t">Government</span></div>
+      <div class="ind__tile" data-reveal><span class="n">06</span><span class="t">Retail</span></div>
+      <div class="ind__tile" data-reveal><span class="n">07</span><span class="t">Manufacturing</span></div>
+      <div class="ind__tile" data-reveal><span class="n">08</span><span class="t">Live Events</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="section section-dark" id="process">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow" data-reveal>Our process</span>
+      <h2 class="dsp" data-reveal>Four steps. One accountable team.</h2>
+    </div>
+    <div class="steps" data-stagger>
+      <div class="step" data-reveal><div class="step__dot"></div><div class="step__n">01</div><h3>Design</h3><p>We walk the space, learn how you use it, and engineer a system around the outcome.</p></div>
+      <div class="step" data-reveal><div class="step__dot"></div><div class="step__n">02</div><h3>Engineer</h3><p>Signal flow, networks, and gear specced to spec — documented before a wire is pulled.</p></div>
+      <div class="step" data-reveal><div class="step__dot"></div><div class="step__n">03</div><h3>Install</h3><p>Clean, labeled, on-schedule installation by certified techs who sweat the details.</p></div>
+      <div class="step" data-reveal><div class="step__dot"></div><div class="step__n">04</div><h3>Support</h3><p>Training, monitoring, and managed service that keep it running long after go-live.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section section-light">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow" data-reveal>Testimonials</span>
+      <h2 class="dsp" data-reveal>The room speaks for itself.</h2>
+    </div>
+  </div>
+  <div class="tmarquee">
+    <div class="tmarquee__track">
+      <div class="quote"><div class="stars">★★★★★</div><p>"They handed us a system our volunteers actually run. Sunday mornings just work now — no scrambling, no dead mics."</p><div class="quote__by"><span class="quote__av"></span><span><b>Worship Production Lead</b><span>House of Worship</span></span></div></div>
+      <div class="quote"><div class="stars">★★★★★</div><p>"Every conference room connects on the first try. That sounds small until you've lived without it."</p><div class="quote__by"><span class="quote__av"></span><span><b>Director of IT</b><span>Corporate Campus</span></span></div></div>
+      <div class="quote"><div class="stars">★★★★★</div><p>"One partner for audio, video, and network. When we call, someone who knows our building picks up."</p><div class="quote__by"><span class="quote__av"></span><span><b>Facilities Manager</b><span>Multi-site Client</span></span></div></div>
+      <div class="quote"><div class="stars">★★★★★</div><p>"The install was spotless — labeled, documented, on time. It's the cleanest rack I've ever seen."</p><div class="quote__by"><span class="quote__av"></span><span><b>Operations Director</b><span>Live Events</span></span></div></div>
+      <div class="quote"><div class="stars">★★★★★</div><p>"They handed us a system our volunteers actually run. Sunday mornings just work now — no scrambling, no dead mics."</p><div class="quote__by"><span class="quote__av"></span><span><b>Worship Production Lead</b><span>House of Worship</span></span></div></div>
+      <div class="quote"><div class="stars">★★★★★</div><p>"Every conference room connects on the first try. That sounds small until you've lived without it."</p><div class="quote__by"><span class="quote__av"></span><span><b>Director of IT</b><span>Corporate Campus</span></span></div></div>
+    </div>
   </div>
 </section>
 
 <!-- STATS -->
-<section class="stats" id="story">
-  <div class="stat" data-aos="fade-up">
-    <div class="stat__num" data-count="250" data-suffix="+">0</div>
-    <div class="stat__label">Systems Installed</div>
-  </div>
-  <div class="stat" data-aos="fade-up">
-    <div class="stat__num" data-count="100" data-suffix="+">0</div>
-    <div class="stat__label">Worship Spaces Equipped</div>
-  </div>
-  <div class="stat" data-aos="fade-up">
-    <div class="stat__num" data-count="15" data-suffix="+">0</div>
-    <div class="stat__label">Techs On the Team</div>
-  </div>
-</section>
-
-<!-- BIG UNDERLINED LINE -->
-<section class="bigline">
-  <h2 data-aos="fade-up">Integrated AV <span class="u">Solutions</span></h2>
-</section>
-
-<!-- PILLS -->
-<section class="pills">
-  <div class="pills__grid">
-    <a href="#story" class="pill" data-aos="fade-up">Our Story</a>
-    <a href="#services" class="pill" data-aos="fade-up">Services</a>
-    <a href="#work" class="pill" data-aos="fade-up">Our Work</a>
-    <a href="#culture" class="pill" data-aos="fade-up">About</a>
-    <a href="#contact" class="pill pill--wide" data-aos="fade-up">Contact</a>
-  </div>
-</section>
-
-<!-- INTRO -->
-<section class="intro" id="culture">
-  <div class="intro__inner">
-    <svg class="cable intro__mark" viewBox="0 0 300 90" data-aos="fade-up" aria-hidden="true">
-      <path class="cable" d="M2 20 C 60 4, 120 10, 175 34 C 205 47, 222 62, 236 70" />
-      <rect class="cable" x="232" y="52" width="46" height="30" rx="6" transform="rotate(28 255 67)"/>
-      <line class="cable" x1="262" y1="58" x2="272" y2="76"/>
-    </svg>
-    <h3 data-aos="fade-up">At Pro Bros, we build AV that disappears into the worship experience.</h3>
-    <h3 data-aos="fade-up">From corporate boardrooms to permanent sanctuary installs, we help people feel part of something bigger than themselves.</h3>
-    <p data-aos="fade-up">We collaborate with you every step of the way — walking the room, spec'ing the gear, engineering the signal flow, and running the wiring. Whether it's a single sanctuary upgrade or a ground-up build, we hand off a system your volunteers can actually run on a Sunday, and we're here to support it long after install day.</p>
-  </div>
-</section>
-
-<!-- SERVICES HEADER -->
-<section class="svc-head" id="services">
-  <h2 data-aos="fade-up">WHAT WE DO:</h2>
-</section>
-
-<!-- SERVICE 1 -->
-<section class="svc" id="work">
-  <div class="svc__inner">
-    <div class="svc__img" data-aos="fade-up"><img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=800&q=80" alt="AV system design and integration" onerror="this.style.display='none'"></div>
-    <div class="svc__eyebrow" data-aos="fade-up">Core Service</div>
-    <h3 data-aos="fade-up">AV Design &amp; Integration</h3>
-    <p data-aos="fade-up">Full design-build of permanent audio, video, and lighting systems for worship spaces — from a single sanctuary upgrade to a ground-up install. We spec the gear, engineer the signal flow, and run the wiring.</p>
-    <p data-aos="fade-up">Then we hand you a system your volunteers can actually run on a Sunday — documented, labeled, and dialed in, with training so nobody's guessing during the countdown.</p>
-    <a href="#contact" class="btn-solid" data-aos="fade-up">Book a Walkthrough</a>
-  </div>
-</section>
-
-<!-- SERVICE 2 -->
-<section class="svc">
-  <div class="svc__inner">
-    <div class="svc__img" data-aos="fade-up"><img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/sanctuary-sound.jpg" alt="Line array sanctuary sound system" onerror="this.onerror=null;this.src='assets/sanctuary-sound.jpg'"></div>
-    <div class="svc__eyebrow" data-aos="fade-up">Core Service</div>
-    <h3 data-aos="fade-up">Sanctuary Sound</h3>
-    <p data-aos="fade-up">Speech-intelligible, feedback-resistant audio built for the room, not the spec sheet. Line arrays, point-source, and distributed systems designed so the back row hears as clearly as the front.</p>
-    <p data-aos="fade-up">We tune the system to the space so spoken word stays crisp, the platform mix stays clean, and your team stops fighting the room every weekend.</p>
-    <a href="#contact" class="btn-solid" data-aos="fade-up">Talk Through Your Room</a>
-  </div>
-</section>
-
-<!-- SERVICE 3 -->
-<section class="svc">
-  <div class="svc__inner">
-    <div class="svc__img" data-aos="fade-up"><img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80" alt="Video and projection" onerror="this.style.display='none'"></div>
-    <div class="svc__eyebrow" data-aos="fade-up">Core Service</div>
-    <h3 data-aos="fade-up">Video &amp; Projection</h3>
-    <p data-aos="fade-up">Screens, projectors, LED walls, cameras, and switching for IMAG, livestream, and lyrics/media playback — designed so a small team can produce a service that looks intentional, week after week.</p>
-    <p data-aos="fade-up">We build the workflow around your volunteers, not against them, so going live never turns into a scramble.</p>
-    <a href="#contact" class="btn-solid" data-aos="fade-up">See What's Possible</a>
-  </div>
-</section>
-
-<!-- MEET THE CREW -->
-<section class="people">
-  <div class="people__bg">
-    <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/team.jpg" alt="The Pro Bros crew — Nathan, Rich and Joe" onerror="this.onerror=null;this.src='assets/team.jpg'">
-  </div>
-  <div class="people__inner">
-    <h2 data-aos="fade-up">MEET THE CREW.</h2>
-    <p data-aos="fade-up">Our team is the heart of Pro Bros — system designers, install techs, and audio engineers who show up, do it right, and train your volunteers to run it. Different specialties, one shared standard: a system that works every single Sunday.</p>
-    <a href="#contact" class="pill-light" data-aos="fade-up">Get To Know Us</a>
-  </div>
-</section>
-
-<!-- PARTNERS -->
-<section class="partners">
-  <div class="partners__inner">
-    <h2 data-aos="fade-up">Great Work Happens With Great Partners.</h2>
-    <p data-aos="fade-up">The true measure of a good install isn't just the gear list — it's how the room feels when the lights come up and the first word is spoken. Our work spans sanctuaries and corporate spaces, but one thing stays constant: a commitment to systems that serve the moment and keep serving long after install day.</p>
-  </div>
-</section>
-<div class="marquee" aria-label="Churches and organizations we've worked with">
-  <div class="marquee__track">
-    <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/elevation.png" alt="Elevation Church">
-    <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/live-nation.png" alt="Live Nation">
-    <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/bethlehem.png" alt="Bethlehem Church">
-    <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/northpoint.png" alt="Northpoint Church">
-    <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/ote.png" alt="OTE">
-    <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/elevation.png" alt="Elevation Church">
-    <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/live-nation.png" alt="Live Nation">
-    <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/bethlehem.png" alt="Bethlehem Church">
-    <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/northpoint.png" alt="Northpoint Church">
-    <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/ote.png" alt="OTE">
-  </div>
-</div>
-
-<!-- SERVICES ACCORDION -->
-<section class="services">
-  <div class="services__inner">
-    <h2 data-aos="fade-up">SERVICES</h2>
-    <div class="services__sub" data-aos="fade-up">Your Room, Our Expertise.</div>
-    <p class="services__lead" data-aos="fade-up">No two rooms are the same — because no two ministries are. We listen to how you actually use the space, spec a system that fits the room and the volunteers running it, and install it clean. Whether it's a single upgrade or a ground-up build, every detail is engineered around your Sunday.</p>
-    <div class="acc">
-      <div class="acc__item">
-        <button class="acc__head">AV System Design &amp; Integration <i class="fa-solid fa-chevron-down"></i></button>
-        <div class="acc__body"><ul>
-          <li><strong>Design-Build:</strong> End-to-end design and installation of permanent audio, video, and lighting — a single sanctuary upgrade or a ground-up install.</li>
-          <li><strong>Engineering:</strong> We spec the gear, engineer the signal flow, and run the wiring so the whole system works as one.</li>
-          <li><strong>Handoff &amp; Training:</strong> Documented, labeled, and turned over to your team with training so volunteers can run it on a Sunday.</li>
-        </ul></div>
-      </div>
-      <div class="acc__item">
-        <button class="acc__head">Sanctuary Sound <i class="fa-solid fa-chevron-down"></i></button>
-        <div class="acc__body"><ul>
-          <li><strong>System Design:</strong> Line arrays, point-source, and distributed systems built for the room, not the spec sheet.</li>
-          <li><strong>Intelligibility:</strong> Speech-first, feedback-resistant coverage so the back row hears as clearly as the front.</li>
-          <li><strong>Tuning:</strong> Room tuning and gain structure that keeps the platform mix clean week after week.</li>
-        </ul></div>
-      </div>
-      <div class="acc__item">
-        <button class="acc__head">Video &amp; Projection <i class="fa-solid fa-chevron-down"></i></button>
-        <div class="acc__body"><ul>
-          <li><strong>Displays:</strong> Screens, projectors, and LED walls sized and placed for the space.</li>
-          <li><strong>Cameras &amp; Switching:</strong> IMAG, multi-cam, and switching for a service that looks intentional.</li>
-          <li><strong>Media Playback:</strong> Lyrics, media, and presentation workflows a small team can drive.</li>
-        </ul></div>
-      </div>
-      <div class="acc__item">
-        <button class="acc__head">Lighting Design &amp; Install <i class="fa-solid fa-chevron-down"></i></button>
-        <div class="acc__body"><ul>
-          <li><strong>Stage &amp; Architectural:</strong> Lighting that supports the service instead of distracting from it.</li>
-          <li><strong>Scenes &amp; Presets:</strong> Programmed looks your team can trigger without a lighting operator.</li>
-          <li><strong>Control:</strong> Simple, reliable control that holds up service after service.</li>
-        </ul></div>
-      </div>
-      <div class="acc__item">
-        <button class="acc__head">Livestream &amp; Broadcast Systems <i class="fa-solid fa-chevron-down"></i></button>
-        <div class="acc__body"><ul>
-          <li><strong>Permanent Streaming:</strong> Cameras, encoding, and audio routing dialed in so you go live without a scramble.</li>
-          <li><strong>Broadcast Audio:</strong> A dedicated stream mix so online church sounds like you meant it.</li>
-          <li><strong>Reliability:</strong> Repeatable, documented setups your volunteers can run every week.</li>
-        </ul></div>
-      </div>
+<section class="section section-dark">
+  <div class="wrap">
+    <div class="stats" data-stagger>
+      <div data-reveal><div class="stat__num" data-count="500" data-suffix="+">0</div><div class="stat__label">Projects completed</div></div>
+      <div data-reveal><div class="stat__num" data-count="120" data-suffix="+">0</div><div class="stat__label">Miles of cable installed</div></div>
+      <div data-reveal><div class="stat__num" data-count="10" data-suffix="+">0</div><div class="stat__label">Years of experience</div></div>
+      <div data-reveal><div class="stat__num" data-count="99" data-suffix="%">0</div><div class="stat__label">Customer satisfaction</div></div>
     </div>
   </div>
 </section>
 
-<!-- CTA / CONTACT -->
-<section class="cta" id="contact">
-  <h2 data-aos="fade-up">Let's build your system.</h2>
-  <p data-aos="fade-up">Tell us about your room — a sanctuary upgrade, a ground-up install, or a corporate AV build. We'll walk the space, spec it, wire it, and hand it off ready to run.</p>
-  <a href="mailto:nathan@productionbros.co?subject=Walkthrough%20Request" class="btn-solid" data-aos="fade-up">Book a Walkthrough</a>
+<!-- FINAL CTA -->
+<section class="finalcta" id="contact">
+  <div class="wrap">
+    <h2 class="dsp" data-reveal>Let's build technology that works.</h2>
+    <p data-reveal>Tell us about your space — a single room, a full campus, or a multi-site rollout. We'll design it, install it, and stand behind it.</p>
+    <div class="finalcta__btns" data-reveal>
+      <a href="mailto:nathan@productionbros.co?subject=Consultation%20Request" class="btn btn--primary magnetic">Schedule Consultation</a>
+      <a href="#work" class="btn btn--glass">View Projects</a>
+    </div>
+    <div class="finalcta__phone" data-reveal><a href="tel:+17703557828">(770) 355-7828</a></div>
+  </div>
 </section>
 
 <!-- FOOTER -->
 <footer class="footer">
-  <div class="footer__grid">
-    <div class="footer__col">
-      <div class="footer__badge">
-        <svg class="brand__mark" style="height:42px" viewBox="0 0 141 148" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" fill-rule="evenodd" d="M 45.048 26.250 L 45.096 36.500 50.784 40.787 C 55.866 44.617, 56.600 44.900, 57.670 43.437 C 58.403 42.435, 59.377 42.107, 60.183 42.593 C 64.388 45.125, 87.998 64.497, 87.990 65.407 C 87.985 66.008, 82.247 68.550, 75.240 71.057 L 62.500 75.613 62.202 81.807 C 62.039 85.213, 62.264 88.008, 62.702 88.017 C 64.378 88.053, 115 67.576, 115 66.862 C 115 65.846, 46.980 16, 45.592 16 C 45.266 16, 45.022 20.612, 45.048 26.250 M 19.701 24.337 C 18.872 26.498, 19.122 109.579, 19.962 110.938 C 20.521 111.842, 23.103 110.655, 29.366 106.615 L 38 101.045 38 94.034 C 38 87.360, 37.892 87.035, 35.750 87.262 L 33.500 87.500 33.500 70.083 C 33.500 58.416, 33.859 52.547, 34.589 52.304 C 35.187 52.104, 40.756 56.004, 46.963 60.970 C 53.170 65.937, 58.746 70, 59.353 70 C 59.961 70, 63.546 68.820, 67.321 67.378 C 72.914 65.240, 73.935 64.524, 72.842 63.507 C 71.127 61.913, 22.882 24.609, 21.355 23.696 C 20.725 23.319, 19.981 23.608, 19.701 24.337 M 43 94.441 C 43 110.148, 43.361 123, 43.801 123 C 45.585 123, 113.121 93.202, 113.193 92.383 C 113.235 91.898, 108.041 89.835, 101.649 87.800 L 90.029 84.101 82.475 87.543 C 75.565 90.692, 75.014 91.157, 76.005 93.009 C 76.971 94.814, 76.622 95.235, 72.794 96.896 C 70.432 97.921, 65.864 99.935, 62.642 101.372 C 59.421 102.809, 56.383 103.737, 55.892 103.434 C 55.402 103.130, 55 96.679, 55 89.098 L 55 75.313 50.250 71.342 C 47.638 69.158, 44.938 67.036, 44.250 66.627 C 43.262 66.038, 43 71.863, 43 94.441"/></svg>
-        <strong style="font-family:var(--font-heading);font-weight:800;letter-spacing:.02em">Production Bros Co</strong>
+  <div class="wrap">
+    <div class="footer__top">
+      <div class="footer__brand">
+        <a href="#top" class="brand" aria-label="Production Bros Co home">
+          <svg class="brand__mark" viewBox="0 0 141 148" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" fill-rule="evenodd" d="M 45.048 26.250 L 45.096 36.500 50.784 40.787 C 55.866 44.617, 56.600 44.900, 57.670 43.437 C 58.403 42.435, 59.377 42.107, 60.183 42.593 C 64.388 45.125, 87.998 64.497, 87.990 65.407 C 87.985 66.008, 82.247 68.550, 75.240 71.057 L 62.500 75.613 62.202 81.807 C 62.039 85.213, 62.264 88.008, 62.702 88.017 C 64.378 88.053, 115 67.576, 115 66.862 C 115 65.846, 46.980 16, 45.592 16 C 45.266 16, 45.022 20.612, 45.048 26.250 M 19.701 24.337 C 18.872 26.498, 19.122 109.579, 19.962 110.938 C 20.521 111.842, 23.103 110.655, 29.366 106.615 L 38 101.045 38 94.034 C 38 87.360, 37.892 87.035, 35.750 87.262 L 33.500 87.500 33.500 70.083 C 33.500 58.416, 33.859 52.547, 34.589 52.304 C 35.187 52.104, 40.756 56.004, 46.963 60.970 C 53.170 65.937, 58.746 70, 59.353 70 C 59.961 70, 63.546 68.820, 67.321 67.378 C 72.914 65.240, 73.935 64.524, 72.842 63.507 C 71.127 61.913, 22.882 24.609, 21.355 23.696 C 20.725 23.319, 19.981 23.608, 19.701 24.337 M 43 94.441 C 43 110.148, 43.361 123, 43.801 123 C 45.585 123, 113.121 93.202, 113.193 92.383 C 113.235 91.898, 108.041 89.835, 101.649 87.800 L 90.029 84.101 82.475 87.543 C 75.565 90.692, 75.014 91.157, 76.005 93.009 C 76.971 94.814, 76.622 95.235, 72.794 96.896 C 70.432 97.921, 65.864 99.935, 62.642 101.372 C 59.421 102.809, 56.383 103.737, 55.892 103.434 C 55.402 103.130, 55 96.679, 55 89.098 L 55 75.313 50.250 71.342 C 47.638 69.158, 44.938 67.036, 44.250 66.627 C 43.262 66.038, 43 71.863, 43 94.441"/></svg>
+          <span class="brand__name">Production Bros Co</span>
+        </a>
+        <p>Technology integration for the spaces people depend on — designed, installed, and supported end to end.</p>
       </div>
-      <p style="color:#9a9a9a;max-width:260px">AV design, integration &amp; permanent install for worship spaces.</p>
+      <div class="footer__cols">
+        <div class="footer__col">
+          <h4>Company</h4>
+          <a href="#solutions">Solutions</a>
+          <a href="#work">Work</a>
+          <a href="#industries">Industries</a>
+          <a href="#process">Process</a>
+        </div>
+        <div class="footer__col">
+          <h4>Contact</h4>
+          <a href="mailto:nathan@productionbros.co">nathan@productionbros.co</a>
+          <a href="tel:+17703557828">(770) 355-7828</a>
+          <p>2850 Maple Ln<br>Cumming, GA 30041</p>
+        </div>
+      </div>
+    </div>
+    <div class="footer__big" aria-hidden="true">PRO BROS</div>
+    <div class="footer__bottom">
+      <span>© <span id="yr"></span> Production Bros Co. All rights reserved.</span>
       <div class="footer__social">
-        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-        <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-        <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="6" width="18" height="12" rx="4"/><path d="M11 9.5l4 2.5-4 2.5z" fill="currentColor" stroke="none"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M7 10v7M7 7v.01M11 17v-4a2 2 0 0 1 4 0v4M11 17v-7" stroke-linecap="round"/></svg></a>
       </div>
     </div>
-    <div class="footer__col">
-      <h4>Studio</h4>
-      <a href="#story">Our Story</a>
-      <a href="#services">Services</a>
-      <a href="#work">Our Work</a>
-      <a href="#culture">About</a>
-    </div>
-    <div class="footer__col">
-      <h4>Contact</h4>
-      <a href="mailto:nathan@productionbros.co">nathan@productionbros.co</a>
-      <a href="tel:+17703557828">(770) 355‑7828</a>
-      <p>2850 Maple Ln<br>Cumming, GA 30041</p>
-    </div>
-  </div>
-  <div class="footer__bottom">
-    <span>© <span id="yr"></span> Pro Bros. All rights reserved.</span>
-    <span>AV Integration &amp; Permanent Install</span>
   </div>
 </footer>
 
@@ -552,120 +553,98 @@ a{text-decoration:none;color:inherit}
 document.documentElement.classList.add('js');
 document.getElementById('yr').textContent=new Date().getFullYear();
 
-/* Client marquee: show the logo image if present, else fall back to the name as text */
-(function(){
-  const swap=img=>{ if(img.dataset.fb)return; img.dataset.fb=1;
+/* Loader */
+window.addEventListener('load',()=>setTimeout(()=>document.getElementById('loader').classList.add('done'),450));
+setTimeout(()=>document.getElementById('loader').classList.add('done'),2600); // safety
+
+/* Client logos: swap to text name if the image file isn't there yet */
+document.querySelectorAll('.marquee__track img').forEach(img=>{
+  const swap=()=>{ if(img.dataset.fb)return; img.dataset.fb=1;
     const s=document.createElement('span'); s.textContent=(img.getAttribute('alt')||'').toUpperCase(); img.replaceWith(s); };
-  document.querySelectorAll('.marquee__track img').forEach(img=>{
-    if(img.complete){ if(img.naturalWidth===0) swap(img); }
-    else { img.addEventListener('error',()=>swap(img)); }
-  });
-})();
+  if(img.complete){ if(img.naturalWidth===0) swap(); } else { img.addEventListener('error',swap); }
+});
 
-/* Scroll reveal (IntersectionObserver — no external library) */
-const revealIO=new IntersectionObserver((entries)=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');revealIO.unobserve(e.target);}});
-},{threshold:.12,rootMargin:'0px 0px -8% 0px'});
-document.querySelectorAll('[data-aos]').forEach(el=>revealIO.observe(el));
-/* Safety net: never let content stay hidden if the observer misfires anywhere */
-setTimeout(()=>document.querySelectorAll('[data-aos]:not(.in)').forEach(el=>el.classList.add('in')),4000);
+/* Reveal + stagger (self-contained) */
+document.querySelectorAll('[data-stagger]').forEach(group=>{
+  [...group.children].forEach((c,i)=>{ c.style.transitionDelay=(i%3?'':'')+(i*80)+'ms'; });
+});
+const revealIO=new IntersectionObserver((es)=>{
+  es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); revealIO.unobserve(e.target); } });
+},{threshold:.14,rootMargin:'0px 0px -6% 0px'});
+document.querySelectorAll('[data-reveal],[data-reveal-scale]').forEach(el=>revealIO.observe(el));
+setTimeout(()=>document.querySelectorAll('[data-reveal]:not(.in),[data-reveal-scale]:not(.in)').forEach(el=>el.classList.add('in')),4500);
 
-/* Nav solid on scroll + progress bar */
+/* Nav blur + scroll progress */
 const nav=document.getElementById('nav'),progress=document.getElementById('progress');
 function onScroll(){
   const y=window.scrollY;
-  nav.classList.toggle('scrolled',y>60);
+  nav.classList.toggle('scrolled',y>40);
   const h=document.documentElement.scrollHeight-window.innerHeight;
   progress.style.width=(h>0?(y/h)*100:0)+'%';
 }
-window.addEventListener('scroll',onScroll);onScroll();
+window.addEventListener('scroll',onScroll,{passive:true}); onScroll();
 
-/* Overlay menu */
+/* Mobile menu */
 const menuBtn=document.getElementById('menuBtn'),overlay=document.getElementById('overlay');
-function toggleMenu(force){
-  const open=force!==undefined?force:!overlay.classList.contains('open');
-  overlay.classList.toggle('open',open);
-  menuBtn.classList.toggle('open',open);
-  document.body.style.overflow=open?'hidden':'';
-}
+function toggleMenu(f){const open=f!==undefined?f:!overlay.classList.contains('open');overlay.classList.toggle('open',open);menuBtn.classList.toggle('open',open);document.body.style.overflow=open?'hidden':'';}
 menuBtn.addEventListener('click',()=>toggleMenu());
 document.querySelectorAll('[data-nav]').forEach(a=>a.addEventListener('click',()=>toggleMenu(false)));
 
-/* Smooth-scroll anchors through Lenis */
+/* Smooth anchor scroll */
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
-  a.addEventListener('click',e=>{
-    const id=a.getAttribute('href');
-    if(id.length>1){
-      const el=document.querySelector(id);
-      if(el){e.preventDefault();el.scrollIntoView({behavior:'smooth'});}
-    }
-  });
+  a.addEventListener('click',e=>{const id=a.getAttribute('href');if(id.length>1){const el=document.querySelector(id);if(el){e.preventDefault();el.scrollIntoView({behavior:'smooth'});}}});
 });
 
-/* Scroll-scrubbed video: playback follows scroll, text swaps L->R */
+/* Card cursor glow */
+document.querySelectorAll('.card').forEach(card=>{
+  card.addEventListener('pointermove',e=>{const r=card.getBoundingClientRect();card.style.setProperty('--mx',(e.clientX-r.left)+'px');card.style.setProperty('--my',(e.clientY-r.top)+'px');});
+});
+
+/* Magnetic buttons (pointer devices) */
+if(matchMedia('(pointer:fine)').matches){
+  document.querySelectorAll('.magnetic').forEach(el=>{
+    el.addEventListener('pointermove',e=>{const r=el.getBoundingClientRect();const x=e.clientX-r.left-r.width/2,y=e.clientY-r.top-r.height/2;el.style.transform=`translate(${x*.25}px,${y*.35}px)`;});
+    el.addEventListener('pointerleave',()=>{el.style.transform='';});
+  });
+}
+
+/* Count-up stats */
+const counters=document.querySelectorAll('[data-count]');
+const cIO=new IntersectionObserver((es)=>{es.forEach(en=>{if(en.isIntersecting){const el=en.target,end=+el.dataset.count,suf=el.dataset.suffix||'',t0=performance.now(),dur=1700;
+  (function step(now){const p=Math.min((now-t0)/dur,1),e=1-Math.pow(1-p,3);el.textContent=Math.round(e*end)+suf;if(p<1)requestAnimationFrame(step);})(performance.now());
+  cIO.unobserve(el);}});},{threshold:.6});
+counters.forEach(c=>cIO.observe(c));
+
+/* Hero scroll-scrub video + text transition */
 (function(){
-  const sec=document.querySelector('.scrollvid');
-  if(!sec) return;
-  const vid=sec.querySelector('.scrollvid__video');
-  const a=sec.querySelector('.scrollvid__text--a');
-  const b=sec.querySelector('.scrollvid__text--b');
-  let dur=0, ticking=false;
-  const clamp=x=>x<0?0:x>1?1:x;
-  const seg=(e0,e1,x)=>clamp((x-e0)/(e1-e0));
+  const sec=document.querySelector('.hero'); if(!sec) return;
+  const vid=sec.querySelector('.hero__video'), content=document.getElementById('heroContent'), alt=document.getElementById('heroAlt'), cue=sec.querySelector('.scrollcue');
+  let dur=0;
+  const clamp=x=>x<0?0:x>1?1:x, seg=(a,b,x)=>clamp((x-a)/(b-a));
   vid.addEventListener('loadedmetadata',()=>{dur=vid.duration||0;update();});
   vid.addEventListener('loadeddata',update);
-  // Prime decoding on first interaction (helps iOS seek without a gesture)
-  let primed=false;
-  const prime=()=>{ if(primed)return; primed=true; const p=vid.play(); if(p&&p.then)p.then(()=>vid.pause()).catch(()=>{}); };
+  let primed=false; const prime=()=>{if(primed)return;primed=true;const p=vid.play();if(p&&p.then)p.then(()=>vid.pause()).catch(()=>{});};
   window.addEventListener('touchstart',prime,{once:true,passive:true});
   window.addEventListener('wheel',prime,{once:true,passive:true});
+  let ticking=false;
   function update(){
     ticking=false;
     const total=sec.offsetHeight-window.innerHeight;
     const p=clamp((-sec.getBoundingClientRect().top)/(total||1));
-    if(dur && vid.readyState>=1){
-      const t=p*(dur-0.05);
-      if(Math.abs((vid.currentTime||0)-t)>0.01){ try{vid.currentTime=t;}catch(e){} }
-    }
-    const aOut=seg(0.30,0.46,p);
-    a.style.opacity=String(1-aOut);
-    a.style.transform='translateY(-50%) translateX('+(-aOut*90)+'px)';
-    const bIn=seg(0.44,0.60,p);
-    b.style.opacity=String(bIn);
-    b.style.transform='translateY(-50%) translateX('+((1-bIn)*90)+'px)';
+    if(dur && vid.readyState>=1){ const t=p*(dur-0.05); if(Math.abs((vid.currentTime||0)-t)>0.01){try{vid.currentTime=t;}catch(e){}} }
+    const out=seg(0.12,0.34,p);
+    content.style.opacity=String(1-out);
+    content.style.transform='translateY('+(-out*40)+'px)';
+    if(cue) cue.style.opacity=String(1-seg(0.04,0.14,p));
+    const inn=seg(0.42,0.62,p), outAlt=seg(0.8,0.98,p);
+    alt.style.opacity=String(Math.min(inn,1-outAlt));
+    alt.style.transform='translateY('+(-50 + (1-inn)*36)+'%)';
   }
-  const onScroll=()=>{ if(!ticking){ ticking=true; requestAnimationFrame(update);} };
-  window.addEventListener('scroll',onScroll,{passive:true});
-  window.addEventListener('resize',onScroll);
+  const onS=()=>{if(!ticking){ticking=true;requestAnimationFrame(update);}};
+  window.addEventListener('scroll',onS,{passive:true});
+  window.addEventListener('resize',onS);
   update();
 })();
-
-/* Accordion */
-document.querySelectorAll('.acc__head').forEach(head=>{
-  head.addEventListener('click',()=>{
-    const item=head.parentElement,body=head.nextElementSibling,isOpen=item.classList.contains('open');
-    document.querySelectorAll('.acc__item.open').forEach(o=>{o.classList.remove('open');o.querySelector('.acc__body').style.maxHeight=null;});
-    if(!isOpen){item.classList.add('open');body.style.maxHeight=body.scrollHeight+'px';}
-  });
-});
-
-/* Count-up stats (GSAP expo.out) */
-const counters=document.querySelectorAll('[data-count]');
-const io=new IntersectionObserver((entries)=>{
-  entries.forEach(en=>{
-    if(en.isIntersecting){
-      const el=en.target,end=+el.dataset.count,suf=el.dataset.suffix||'';
-      const t0=performance.now(),dur=1600;
-      (function step(now){
-        const p=Math.min((now-t0)/dur,1),eased=1-Math.pow(1-p,3);
-        el.textContent=Math.round(eased*end)+suf;
-        if(p<1)requestAnimationFrame(step);
-      })(performance.now());
-      io.unobserve(el);
-    }
-  });
-},{threshold:.6});
-counters.forEach(c=>io.observe(c));
 </script>
 </body>
 </html>
