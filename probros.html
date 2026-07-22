@@ -95,6 +95,20 @@ a{text-decoration:none;color:inherit}
 .hero__scroll i{animation:bob 1.8s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
 
+/* ---------- Scroll-scrub video ---------- */
+.scrollvid{position:relative;height:340vh;background:#000}
+.scrollvid__sticky{position:sticky;top:0;height:100vh;overflow:hidden;background:#000}
+.scrollvid__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;background:#000}
+.scrollvid__scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(0,0,0,.74) 0%,rgba(0,0,0,.38) 42%,rgba(0,0,0,.12) 66%,rgba(0,0,0,.5) 100%)}
+.scrollvid__text{position:absolute;z-index:2;top:50%;max-width:min(540px,84vw);padding:0 clamp(22px,6vw,72px);transform:translateY(-50%);will-change:transform,opacity}
+.scrollvid__text--a{left:0;text-align:left}
+.scrollvid__text--b{right:0;text-align:right;opacity:0}
+.scrollvid__eyebrow{font-family:var(--font-heading);font-weight:700;letter-spacing:.22em;text-transform:uppercase;font-size:13px;color:#c7d0dc;margin-bottom:16px}
+.scrollvid__text h2{font-family:var(--font-display);font-size:clamp(38px,9vw,74px);line-height:.98;letter-spacing:.5px;margin-bottom:20px}
+.scrollvid__text p{font-size:clamp(16px,2.6vw,20px);line-height:1.6;color:#e8e8e8}
+.scrollvid__hint{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:2;color:rgba(255,255,255,.5);font-size:12px;letter-spacing:.28em;text-transform:uppercase}
+@media(prefers-reduced-motion:reduce){.scrollvid__text{transition:none}}
+
 /* ---------- Statement (black) ---------- */
 .statement{background:var(--black);padding:14vh clamp(22px,6vw,90px);text-align:center}
 .statement h2{
@@ -291,6 +305,29 @@ a{text-decoration:none;color:inherit}
 <!-- STATEMENT -->
 <section class="statement">
   <h2 data-aos="fade-up">From corporate AV to permanent sanctuary installs, we design and build audio, video, and lighting systems that connect people through technology and experience.</h2>
+</section>
+
+<!-- SCROLL-SCRUB VIDEO -->
+<section class="scrollvid" aria-label="From the system to the service">
+  <div class="scrollvid__sticky">
+    <video class="scrollvid__video" muted playsinline preload="auto" tabindex="-1"
+           poster="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/scroll-hero-poster.jpg">
+      <source src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/scroll-hero.mp4" type="video/mp4">
+      <source src="assets/scroll-hero.mp4" type="video/mp4">
+    </video>
+    <div class="scrollvid__scrim"></div>
+    <div class="scrollvid__text scrollvid__text--a">
+      <div class="scrollvid__eyebrow">The Craft</div>
+      <h2>It starts with the system.</h2>
+      <p>Line arrays hung to the inch. Rigging, signal flow, and lighting — engineered for your room, not a spec sheet.</p>
+    </div>
+    <div class="scrollvid__text scrollvid__text--b">
+      <div class="scrollvid__eyebrow">The Payoff</div>
+      <h2>So the room feels like this.</h2>
+      <p>Clean sound to the back row. Light that moves with the moment. Technology that disappears — and a service people feel.</p>
+    </div>
+    <div class="scrollvid__hint">Scroll</div>
+  </div>
 </section>
 
 <!-- CIRCLE COLLAGE -->
@@ -554,6 +591,44 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
     }
   });
 });
+
+/* Scroll-scrubbed video: playback follows scroll, text swaps L->R */
+(function(){
+  const sec=document.querySelector('.scrollvid');
+  if(!sec) return;
+  const vid=sec.querySelector('.scrollvid__video');
+  const a=sec.querySelector('.scrollvid__text--a');
+  const b=sec.querySelector('.scrollvid__text--b');
+  let dur=0, ticking=false;
+  const clamp=x=>x<0?0:x>1?1:x;
+  const seg=(e0,e1,x)=>clamp((x-e0)/(e1-e0));
+  vid.addEventListener('loadedmetadata',()=>{dur=vid.duration||0;update();});
+  vid.addEventListener('loadeddata',update);
+  // Prime decoding on first interaction (helps iOS seek without a gesture)
+  let primed=false;
+  const prime=()=>{ if(primed)return; primed=true; const p=vid.play(); if(p&&p.then)p.then(()=>vid.pause()).catch(()=>{}); };
+  window.addEventListener('touchstart',prime,{once:true,passive:true});
+  window.addEventListener('wheel',prime,{once:true,passive:true});
+  function update(){
+    ticking=false;
+    const total=sec.offsetHeight-window.innerHeight;
+    const p=clamp((-sec.getBoundingClientRect().top)/(total||1));
+    if(dur && vid.readyState>=1){
+      const t=p*(dur-0.05);
+      if(Math.abs((vid.currentTime||0)-t)>0.01){ try{vid.currentTime=t;}catch(e){} }
+    }
+    const aOut=seg(0.30,0.46,p);
+    a.style.opacity=String(1-aOut);
+    a.style.transform='translateY(-50%) translateX('+(-aOut*90)+'px)';
+    const bIn=seg(0.44,0.60,p);
+    b.style.opacity=String(bIn);
+    b.style.transform='translateY(-50%) translateX('+((1-bIn)*90)+'px)';
+  }
+  const onScroll=()=>{ if(!ticking){ ticking=true; requestAnimationFrame(update);} };
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll);
+  update();
+})();
 
 /* Accordion */
 document.querySelectorAll('.acc__head').forEach(head=>{
