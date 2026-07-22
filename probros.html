@@ -234,9 +234,11 @@ a{text-decoration:none;color:inherit}
 .marquee::before,.marquee::after{content:"";position:absolute;top:0;bottom:0;width:90px;z-index:2}
 .marquee::before{left:0;background:linear-gradient(90deg,#fff,transparent)}
 .marquee::after{right:0;background:linear-gradient(270deg,#fff,transparent)}
-.marquee__track{display:flex;gap:70px;width:max-content;animation:scroll 26s linear infinite}
+.marquee__track{display:flex;align-items:center;gap:70px;width:max-content;animation:scroll 26s linear infinite}
 .marquee:hover .marquee__track{animation-play-state:paused}
 .marquee__track span{font-family:var(--font-display);font-size:clamp(22px,4vw,34px);letter-spacing:1px;color:#111;white-space:nowrap;opacity:.8}
+.marquee__track img{height:46px;width:auto;max-width:190px;object-fit:contain;opacity:.72;transition:opacity .25s}
+.marquee__track img:hover{opacity:1}
 @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
 /* ---------- Services accordion (grain) ---------- */
@@ -439,8 +441,16 @@ a{text-decoration:none;color:inherit}
 </section>
 <div class="marquee" aria-label="Churches and organizations we've worked with">
   <div class="marquee__track">
-    <span>ELEVATION CHURCH</span><span>LIVE NATION</span><span>BETHLEHEM CHURCH</span><span>OTE</span>
-    <span>ELEVATION CHURCH</span><span>LIVE NATION</span><span>BETHLEHEM CHURCH</span><span>OTE</span>
+    <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/elevation.png" alt="Elevation Church">
+    <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/live-nation.png" alt="Live Nation">
+    <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/bethlehem.png" alt="Bethlehem Church">
+    <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/northpoint.png" alt="Northpoint Church">
+    <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/ote.png" alt="OTE">
+    <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/elevation.png" alt="Elevation Church">
+    <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/live-nation.png" alt="Live Nation">
+    <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/bethlehem.png" alt="Bethlehem Church">
+    <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/northpoint.png" alt="Northpoint Church">
+    <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/ote.png" alt="OTE">
   </div>
 </div>
 
@@ -541,6 +551,16 @@ a{text-decoration:none;color:inherit}
 <script>
 document.documentElement.classList.add('js');
 document.getElementById('yr').textContent=new Date().getFullYear();
+
+/* Client marquee: show the logo image if present, else fall back to the name as text */
+(function(){
+  const swap=img=>{ if(img.dataset.fb)return; img.dataset.fb=1;
+    const s=document.createElement('span'); s.textContent=(img.getAttribute('alt')||'').toUpperCase(); img.replaceWith(s); };
+  document.querySelectorAll('.marquee__track img').forEach(img=>{
+    if(img.complete){ if(img.naturalWidth===0) swap(img); }
+    else { img.addEventListener('error',()=>swap(img)); }
+  });
+})();
 
 /* Scroll reveal (IntersectionObserver — no external library) */
 const revealIO=new IntersectionObserver((entries)=>{
