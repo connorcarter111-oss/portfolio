@@ -125,7 +125,7 @@ h2.dsp{font-size:clamp(32px,5.6vw,60px)}
 .marquee:hover .marquee__track{animation-play-state:paused}
 .marquee__track span{font-family:var(--font-display);font-weight:600;font-size:clamp(20px,3.4vw,30px);letter-spacing:.01em;color:#12141a;white-space:nowrap;opacity:.55;transition:opacity .3s}
 .marquee__track span:hover{opacity:1}
-.marquee__track img{height:40px;width:auto;max-width:170px;object-fit:contain;opacity:.55;transition:opacity .3s;filter:grayscale(1)}
+.marquee__track img{height:50px;width:auto;max-width:180px;object-fit:contain;opacity:.6;transition:opacity .3s}
 .marquee__track img:hover{opacity:1;filter:none}
 @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
@@ -167,8 +167,8 @@ h2.dsp{font-size:clamp(32px,5.6vw,60px)}
 .proj{position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:4/3;background:linear-gradient(150deg,#1a1f2e,#0a0b0d);display:flex;align-items:flex-end;isolation:isolate;transition:transform .55s var(--ease)}
 .proj:hover{transform:translateY(-6px)}
 .proj--wide{aspect-ratio:16/10}
-.proj img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform 1s var(--ease)}
-.proj:hover img{transform:scale(1.06)}
+.proj img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;filter:grayscale(1) contrast(1.03);transition:transform 1s var(--ease),filter .6s var(--ease)}
+.proj:hover img{transform:scale(1.06);filter:grayscale(0) contrast(1)}
 .proj::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,transparent 30%,rgba(6,7,10,.85))}
 .proj__body{padding:clamp(24px,3vw,38px);width:100%}
 .proj__tag{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:#cfcfcf;font-weight:600;margin-bottom:10px}
@@ -451,7 +451,6 @@ h2.dsp{font-size:clamp(32px,5.6vw,60px)}
       <div class="circ c2" data-reveal-scale><img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/gallery/g2.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
       <div class="circ c3" data-reveal-scale><img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/gallery/g3.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
       <div class="circ c4" data-reveal-scale><img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/gallery/g4.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
-      <div class="circ c5" data-reveal-scale><img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/gallery/g5.jpg" alt="" loading="lazy" onerror="this.remove()"></div>
     </div>
   </div>
 </section>
@@ -475,17 +474,17 @@ h2.dsp{font-size:clamp(32px,5.6vw,60px)}
       <a class="proj" data-reveal-scale>
         <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/projects/project-2.jpg" alt="" loading="lazy" onerror="this.remove()">
         <div class="proj__body">
-          <div class="proj__tag">Corporate · AV + Network</div>
-          <h3>Boardrooms that connect first try</h3>
-          <div class="proj__meta">Conferencing, digital signage, and structured cabling across a corporate campus.</div>
+          <div class="proj__tag">Audio · Sanctuary Sound</div>
+          <h3>Sound tuned to the last row</h3>
+          <div class="proj__meta">Line arrays hung and tuned so every seat hears the same clean, intelligible mix.</div>
         </div>
       </a>
       <a class="proj" data-reveal-scale>
         <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/projects/project-3.jpg" alt="" loading="lazy" onerror="this.remove()">
         <div class="proj__body">
-          <div class="proj__tag">Live Events · Video Walls</div>
-          <h3>An arena-grade LED experience</h3>
-          <div class="proj__meta">High-density LED walls, camera switching, and control built for a live audience.</div>
+          <div class="proj__tag">Live · Video &amp; Lighting</div>
+          <h3>A room that moves with the moment</h3>
+          <div class="proj__meta">Stage lighting, IMAG, and sound engineered for a full house and a live audience.</div>
         </div>
       </a>
     </div>
