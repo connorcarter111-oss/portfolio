@@ -693,12 +693,24 @@ counters.forEach(c=>cIO.observe(c));
   let primed=false; const prime=()=>{if(primed)return;primed=true;const p=vid.play();if(p&&p.then)p.then(()=>vid.pause()).catch(()=>{});};
   window.addEventListener('touchstart',prime,{once:true,passive:true});
   window.addEventListener('wheel',prime,{once:true,passive:true});
+  /* Seek coalescing: only ever have ONE seek in flight. Store the latest desired
+     time and, when the browser finishes the current seek, jump straight to the
+     newest target. This kills the queue-backup stutter that made scrubbing feel stuck. */
+  let seeking=false, wantTime=-1;
+  const applySeek=()=>{
+    if(!dur || vid.readyState<2) return;
+    if(seeking) return;
+    if(wantTime<0 || Math.abs((vid.currentTime||0)-wantTime)<0.01) return;
+    seeking=true;
+    try{vid.currentTime=wantTime;}catch(e){seeking=false;}
+  };
+  vid.addEventListener('seeked',()=>{seeking=false;applySeek();});
   let ticking=false;
   function update(){
     ticking=false;
     const total=sec.offsetHeight-window.innerHeight;
     const p=clamp((-sec.getBoundingClientRect().top)/(total||1));
-    if(dur && vid.readyState>=2){ const t=p*(dur-0.05); if(Math.abs((vid.currentTime||0)-t)>0.01){try{vid.currentTime=t;}catch(e){}} }
+    if(dur){ wantTime=p*(dur-0.05); applySeek(); }
     const out=seg(0.12,0.34,p);
     content.style.opacity=String(1-out);
     content.style.transform='translateY('+(-out*40)+'px)';
