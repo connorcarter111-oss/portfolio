@@ -150,6 +150,15 @@ h2.dsp{font-size:clamp(32px,5.6vw,60px)}
 .card::before{content:"";position:absolute;inset:0;z-index:-1;opacity:0;transition:opacity .5s;background:radial-gradient(300px 200px at var(--mx,50%) var(--my,0%),rgba(255,255,255,.09),transparent 70%)}
 .section-light .card::before,.section-paper .card::before{background:radial-gradient(300px 200px at var(--mx,50%) var(--my,0%),rgba(0,0,0,.05),transparent 70%)}
 .card:hover::before{opacity:1}
+/* Mouse-reactive glowing border ("glowing effect", built natively) */
+.card{--glow-angle:90deg;--glow-active:0}
+.card::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;pointer-events:none;z-index:1;
+  background:conic-gradient(from var(--glow-angle) at 50% 50%,transparent 0deg,rgba(255,255,255,.9) 42deg,rgba(255,255,255,0) 98deg,transparent 360deg);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;
+  opacity:var(--glow-active);transition:opacity .3s var(--ease)}
+.section-light .card::after,.section-paper .card::after{background:conic-gradient(from var(--glow-angle) at 50% 50%,transparent 0deg,rgba(10,10,12,.6) 42deg,rgba(10,10,12,0) 98deg,transparent 360deg)}
+@media(prefers-reduced-motion:reduce){.card::after{display:none}}
 .card__ic{width:52px;height:52px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin-bottom:22px;background:rgba(255,255,255,.06);color:#fff}
 .section-light .card__ic,.section-paper .card__ic{background:#f0f0f1;color:#111}
 .card__ic svg{width:26px;height:26px;stroke-width:1.6}
@@ -810,10 +819,29 @@ document.querySelectorAll('a[href^="#"]').forEach(a=>{
   a.addEventListener('click',e=>{const id=a.getAttribute('href');if(id.length>1){const el=document.querySelector(id);if(el){e.preventDefault();el.scrollIntoView({behavior:'smooth'});}}});
 });
 
-/* Card cursor glow */
+/* Card cursor glow (interior spotlight) */
 document.querySelectorAll('.card').forEach(card=>{
   card.addEventListener('pointermove',e=>{const r=card.getBoundingClientRect();card.style.setProperty('--mx',(e.clientX-r.left)+'px');card.style.setProperty('--my',(e.clientY-r.top)+'px');});
 });
+
+/* Mouse-reactive glowing border — lights up nearby cards and points the arc at the cursor */
+(function(){
+  const cards=[...document.querySelectorAll('.card')];
+  if(!cards.length || !matchMedia('(pointer:fine)').matches) return;
+  const PROX=170; let px=0,py=0,ticking=false;
+  function update(){
+    ticking=false;
+    for(const c of cards){
+      const r=c.getBoundingClientRect();
+      const dx=px-(r.left+r.width/2), dy=py-(r.top+r.height/2);
+      const ex=Math.max(0,Math.abs(dx)-r.width/2), ey=Math.max(0,Math.abs(dy)-r.height/2);
+      const active=Math.max(0,1-Math.hypot(ex,ey)/PROX);
+      c.style.setProperty('--glow-active',active.toFixed(3));
+      if(active>0) c.style.setProperty('--glow-angle',(Math.atan2(dy,dx)*180/Math.PI+50).toFixed(1)+'deg');
+    }
+  }
+  window.addEventListener('pointermove',e=>{px=e.clientX;py=e.clientY;if(!ticking){ticking=true;requestAnimationFrame(update);}},{passive:true});
+})();
 
 /* Magnetic buttons (pointer devices) */
 if(matchMedia('(pointer:fine)').matches){
