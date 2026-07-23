@@ -198,6 +198,17 @@ h2.dsp{font-size:clamp(32px,5.6vw,60px)}
 .step__n{font-family:var(--font-display);font-weight:500;font-size:13px;color:#e6e6e6;letter-spacing:.14em;margin-bottom:14px}
 .step h3{font-family:var(--font-display);font-weight:600;font-size:clamp(22px,2.6vw,28px);margin-bottom:10px}
 .step p{color:var(--muted-d);font-size:15.5px;line-height:1.6}
+/* Services chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.chip{font-size:12.5px;font-weight:600;letter-spacing:.02em;padding:7px 13px;border-radius:100px;border:1px solid var(--line);color:var(--ink);transition:border-color .3s}
+.section-dark .chip,.section-ink2 .chip{border-color:rgba(255,255,255,.22);color:#fff}
+/* Culture teaser */
+.culture__row{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-top:8px}
+@media(max-width:820px){.culture__row{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.culture__row{grid-template-columns:1fr}}
+.culture__item{padding-top:22px;border-top:1px solid var(--ink)}
+.culture__item h3{font-family:var(--font-display);font-weight:600;font-size:19px;margin-bottom:8px}
+.culture__item p{font-size:14.5px;color:var(--muted);line-height:1.55}
 
 /* ---------- Testimonials ---------- */
 .testi{overflow:hidden}
@@ -319,10 +330,11 @@ h2.dsp{font-size:clamp(32px,5.6vw,60px)}
       <span class="brand__name">Production Bros Co</span>
     </a>
     <div class="nav__links">
+      <a href="#services" data-nav>Services</a>
       <a href="#solutions" data-nav>Solutions</a>
+      <a href="#strategy" data-nav>Strategy</a>
       <a href="#work" data-nav>Work</a>
       <a href="#industries" data-nav>Industries</a>
-      <a href="#process" data-nav>Process</a>
     </div>
     <div class="nav__cta">
       <a href="#contact" class="btn btn--primary magnetic">Schedule Consultation</a>
@@ -332,10 +344,11 @@ h2.dsp{font-size:clamp(32px,5.6vw,60px)}
 </nav>
 
 <div class="overlay" id="overlay">
+  <a href="#services" data-nav>Services</a>
   <a href="#solutions" data-nav>Solutions</a>
+  <a href="#strategy" data-nav>Strategy</a>
   <a href="#work" data-nav>Work</a>
   <a href="#industries" data-nav>Industries</a>
-  <a href="#process" data-nav>Process</a>
   <a href="#contact" data-nav>Contact</a>
   <a href="#contact" class="btn btn--primary" data-nav>Schedule Consultation</a>
 </div>
@@ -433,65 +446,74 @@ h2.dsp{font-size:clamp(32px,5.6vw,60px)}
   </div>
 </section>
 
-<!-- FEATURED SOLUTIONS -->
-<section class="section section-dark" id="solutions">
+<!-- SERVICES -->
+<section class="section section-dark" id="services">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow" data-reveal>Solutions</span>
-      <h2 class="dsp" data-reveal>Every system, engineered as one.</h2>
-      <p data-reveal>Most spaces are a patchwork of vendors. We design the whole stack together — so it's simpler to run, easier to support, and impossible to tell where one system ends and the next begins.</p>
+      <span class="eyebrow" data-reveal>Services</span>
+      <h2 class="dsp" data-reveal>Site survey to sign-off.</h2>
+      <p data-reveal>We own the full install &mdash; audio, video, lighting, rigging, and fiber &mdash; from the first measurement on site to a commissioned system we prove before we hand it over.</p>
     </div>
     <div class="grid grid-3" data-stagger>
       <div class="card" data-reveal>
-        <div class="card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 10v4M7 6v12M11 3v18M15 7v10M19 10v4" stroke-linecap="round"/></svg></div>
-        <h3>Commercial Audio</h3>
-        <p>Speech-first, feedback-proof sound tuned to the room — from a single space to a whole campus.</p>
+        <div class="card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 21s-6-5.2-6-10a6 6 0 1 1 12 0c0 4.8-6 10-6 10z" stroke-linejoin="round"/><circle cx="12" cy="11" r="2.4"/></svg></div>
+        <h3>Site Surveys</h3>
+        <p>We start in the room &mdash; measurements, sightlines, acoustics, rigging points, and power &mdash; so the design fits the space instead of a guess.</p>
       </div>
       <div class="card" data-reveal>
-        <div class="card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4" stroke-linecap="round"/></svg></div>
-        <h3>Video &amp; LED Walls</h3>
-        <p>Screens, projection, cameras, and LED video walls that look intentional from every seat.</p>
-      </div>
-      <div class="card" data-reveal>
-        <div class="card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4m0 0-5 6m5-6 5 6" stroke-linecap="round"/></svg></div>
-        <h3>Networking &amp; Cabling</h3>
-        <p>Structured cabling and rock-solid networks — the invisible backbone everything else runs on.</p>
+        <div class="card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3l9 5-9 5-9-5 9-5z" stroke-linejoin="round"/><path d="M3 12l9 5 9-5M3 16l9 5 9-5" stroke-linejoin="round"/></svg></div>
+        <h3>AVL Installation</h3>
+        <p>Certified crews install the complete audio, video, and lighting package &mdash; cleanly, labeled, and built to last.</p>
+        <div class="chips"><span class="chip">Audio</span><span class="chip">Video</span><span class="chip">Lighting</span><span class="chip">Rigging</span><span class="chip">Fiber Optics</span></div>
       </div>
       <div class="card" data-reveal>
         <div class="card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 3 5 6v5c0 4.5 3 7.5 7 9 4-1.5 7-4.5 7-9V6z" stroke-linejoin="round"/><path d="M9.5 12l2 2 3.5-4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3>Security &amp; Access</h3>
-        <p>Access control, surveillance, and monitoring that protect people and property, quietly.</p>
-      </div>
-      <div class="card" data-reveal>
-        <div class="card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M5 8h14M5 16h14" stroke-linecap="round"/><circle cx="9" cy="8" r="2.2" fill="currentColor" stroke="none"/><circle cx="15" cy="16" r="2.2" fill="currentColor" stroke="none"/></svg></div>
-        <h3>Automation &amp; Control</h3>
-        <p>One button, one app. Lights, sound, video, and climate that respond the moment you need them.</p>
-      </div>
-      <div class="card" data-reveal>
-        <div class="card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="11" rx="2"/><path d="M8 20h8M12 15v5" stroke-linecap="round"/><circle cx="12" cy="9.5" r="2"/></svg></div>
-        <h3>Conference Rooms</h3>
-        <p>Meeting spaces that just work — walk in, hit start, and every call connects on the first try.</p>
+        <h3>Commissioning</h3>
+        <p>Every system tuned, tested, documented, and signed off &mdash; verified against spec before your team ever touches it.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- WHY PRO BROS -->
-<section class="section section-light">
+<!-- SOLUTIONS -->
+<section class="section section-light" id="solutions">
   <div class="wrap">
     <div class="section-head">
-      <span class="eyebrow" data-reveal>Why Pro Bros</span>
-      <h2 class="dsp" data-reveal>Reliability you can plan around.</h2>
-      <p data-reveal>You're not buying equipment. You're buying the confidence that it works on the day it matters — and the team that answers when it doesn't.</p>
+      <span class="eyebrow" data-reveal>Solutions</span>
+      <h2 class="dsp" data-reveal>How we de-risk the build.</h2>
+      <p data-reveal>The install is only half of it. These are the disciplines that keep a project on time, on budget, and safe &mdash; from first drawing to final certification.</p>
     </div>
     <div class="feat">
       <div class="feat__grid" data-stagger>
-        <div class="feat__item" data-reveal><div class="feat__num">01</div><h3>Fast response</h3><p>When something needs attention, we're already moving — real people, real timelines.</p></div>
-        <div class="feat__item" data-reveal><div class="feat__num">02</div><h3>Certified technicians</h3><p>Manufacturer-trained and field-proven, so it's done right the first time.</p></div>
-        <div class="feat__item" data-reveal><div class="feat__num">03</div><h3>End-to-end design</h3><p>One team from first walkthrough to final sign-off. No finger-pointing, no gaps.</p></div>
-        <div class="feat__item" data-reveal><div class="feat__num">04</div><h3>Nationwide support</h3><p>Multi-site rollouts and remote monitoring that keep every location running.</p></div>
-        <div class="feat__item" data-reveal><div class="feat__num">05</div><h3>Built to last</h3><p>Documented, labeled, and future-ready — designed to grow instead of get replaced.</p></div>
-        <div class="feat__item" data-reveal><div class="feat__num">06</div><h3>Modern technology</h3><p>Current platforms and clean standards, so your systems stay supported for years.</p></div>
+        <div class="feat__item" data-reveal><div class="feat__num">01</div><h3>Design Review</h3><p>We pressure-test drawings and specs before anything ships &mdash; catching conflicts on paper, not on site.</p></div>
+        <div class="feat__item" data-reveal><div class="feat__num">02</div><h3>Logistics Coordination</h3><p>Gear, freight, and crews sequenced so the right things arrive in the right order, every time.</p></div>
+        <div class="feat__item" data-reveal><div class="feat__num">03</div><h3>Project Management</h3><p>One accountable lead owning schedule, budget, and communication from kickoff to closeout.</p></div>
+        <div class="feat__item" data-reveal><div class="feat__num">04</div><h3>Rigging H&amp;M Packages</h3><p>Engineered hoist &amp; motor packages with the load calcs and paperwork to hang it safely.</p></div>
+        <div class="feat__item" data-reveal><div class="feat__num">05</div><h3>Quality Control &amp; Certification</h3><p>Documented QC and certification so the finished system meets code and spec &mdash; provably.</p></div>
+        <div class="feat__item" data-reveal><div class="feat__num">06</div><h3>Custom Fabrication</h3><p>Bespoke mounts, plates, and enclosures built in-house when off-the-shelf won&rsquo;t do.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STRATEGY -->
+<section class="section section-ink2" id="strategy">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow" data-reveal>Strategy</span>
+      <h2 class="dsp" data-reveal>We&rsquo;re a technology company.</h2>
+      <p data-reveal>The install is the beginning. We build the software and systems that make the whole operation smarter, repeatable, and ready to scale.</p>
+    </div>
+    <div class="grid grid-2" data-stagger>
+      <div class="card" data-reveal>
+        <div class="card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M8 8l-4 4 4 4M16 8l4 4-4 4M13 5l-2 14" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>Software Development</h3>
+        <p>Custom control, monitoring, and integration software built around how you actually run &mdash; turning disconnected gear into one intelligent system.</p>
+      </div>
+      <div class="card" data-reveal>
+        <div class="card__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="7" height="6" rx="1.5"/><rect x="14" y="14" width="7" height="6" rx="1.5"/><path d="M10 7h4a2 2 0 0 1 2 2v5" stroke-linecap="round"/></svg></div>
+        <h3>Operational Systems</h3>
+        <p>The processes, documentation, and workflows that turn a great install into a repeatable operation you can scale across sites.</p>
       </div>
     </div>
   </div>
@@ -507,10 +529,10 @@ h2.dsp{font-size:clamp(32px,5.6vw,60px)}
     </svg>
     <h2 data-reveal>Engineered to <span class="u">disappear</span>.</h2>
     <nav class="pillnav" data-reveal aria-label="Explore">
+      <a href="#services">Services</a>
       <a href="#solutions">Solutions</a>
+      <a href="#strategy">Strategy</a>
       <a href="#work">Work</a>
-      <a href="#industries">Industries</a>
-      <a href="#process">Process</a>
       <a href="#contact">Contact</a>
     </nav>
   </div>
@@ -532,36 +554,61 @@ h2.dsp{font-size:clamp(32px,5.6vw,60px)}
   </div>
 </section>
 
+<!-- CULTURE -->
+<section class="section section-light" id="culture">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow" data-reveal>Culture</span>
+      <h2 class="dsp" data-reveal>More than an install.</h2>
+      <p data-reveal>Pro Bros is a brand and a community &mdash; the people, the stories, and the standard behind the work.</p>
+    </div>
+    <div class="culture__row" data-stagger>
+      <div class="culture__item" data-reveal><h3>Merch</h3><p>Apparel and gear that carry the Pro Bros standard off the jobsite.</p></div>
+      <div class="culture__item" data-reveal><h3>Podcast</h3><p>Conversations on the craft, the industry, and the people behind the builds.</p></div>
+      <div class="culture__item" data-reveal><h3>Training Modules</h3><p>Structured learning that levels up crews and clients alike.</p></div>
+      <div class="culture__item" data-reveal><h3>Lifestyle Brand</h3><p>A culture of pride, precision, and doing it right &mdash; on and off the clock.</p></div>
+    </div>
+  </div>
+</section>
+
 <!-- FEATURED PROJECTS -->
 <section class="section section-ink2" id="work">
   <div class="wrap">
     <div class="section-head">
       <span class="eyebrow" data-reveal>Selected work</span>
-      <h2 class="dsp" data-reveal>Spaces we made effortless.</h2>
+      <h2 class="dsp" data-reveal>Projects we&rsquo;re proud of.</h2>
     </div>
     <div class="grid grid-2" data-stagger>
       <a class="proj proj--wide" data-reveal-scale style="grid-column:1/-1">
+        <img src="https://raw.githubusercontent.com/connorcarter111-oss/portfolio/main/assets/projects/project-3.jpg" alt="" loading="lazy" onerror="this.remove()">
+        <div class="proj__body">
+          <div class="proj__tag">Live Entertainment &middot; Live Nation</div>
+          <h3>The Dome &mdash; Virginia Beach</h3>
+          <div class="proj__meta">A flagship Live Nation venue outfitted for national touring &mdash; audio, video, and lighting built for a full house, night after night.</div>
+        </div>
+      </a>
+      <a class="proj" data-reveal-scale>
         <img src="https://raw.githubusercontent.com/connorcarter111-oss/portfolio/main/assets/projects/project-1.jpg" alt="" loading="lazy" onerror="this.remove()">
         <div class="proj__body">
-          <div class="proj__tag">Worship · Full Integration</div>
-          <h3>A sanctuary that runs itself on Sunday</h3>
-          <div class="proj__meta">Line-array audio, IMAG video, stage lighting, and streaming — one system a volunteer team runs with confidence.</div>
+          <div class="proj__tag">House of Worship &middot; Full AVL</div>
+          <h3>Elevation Church &mdash; Raleigh Campus</h3>
+          <div class="proj__meta">A new multisite campus with complete audio, video, and lighting integration, ready for weekend production.</div>
         </div>
       </a>
       <a class="proj" data-reveal-scale>
         <img src="https://raw.githubusercontent.com/connorcarter111-oss/portfolio/main/assets/projects/project-2.jpg" alt="" loading="lazy" onerror="this.remove()">
         <div class="proj__body">
-          <div class="proj__tag">Audio · Sanctuary Sound</div>
-          <h3>Sound tuned to the last row</h3>
-          <div class="proj__meta">Line arrays hung and tuned so every seat hears the same clean, intelligible mix.</div>
+          <div class="proj__tag">Audio &middot; L-ISA Immersive</div>
+          <h3>North Point &mdash; L-ISA PA</h3>
+          <div class="proj__meta">An L-ISA immersive line-array system tuned so every seat sits inside the mix, not in front of it.</div>
         </div>
       </a>
-      <a class="proj" data-reveal-scale>
-        <img src="https://raw.githubusercontent.com/connorcarter111-oss/portfolio/main/assets/projects/project-3.jpg" alt="" loading="lazy" onerror="this.remove()">
+      <a class="proj proj--wide" data-reveal-scale style="grid-column:1/-1">
+        <img src="https://raw.githubusercontent.com/connorcarter111-oss/portfolio/main/assets/gallery/g2.jpg" alt="" loading="lazy" onerror="this.remove()">
         <div class="proj__body">
-          <div class="proj__tag">Live · Video &amp; Lighting</div>
-          <h3>A room that moves with the moment</h3>
-          <div class="proj__meta">Stage lighting, IMAG, and sound engineered for a full house and a live audience.</div>
+          <div class="proj__tag">Government &middot; AV Integration</div>
+          <h3>City of Atlanta</h3>
+          <div class="proj__meta">Civic AV integration built for reliability, accessibility, and the public record.</div>
         </div>
       </a>
     </div>
@@ -577,13 +624,13 @@ h2.dsp{font-size:clamp(32px,5.6vw,60px)}
     </div>
     <div class="ind" data-stagger>
       <div class="ind__tile" data-reveal><span class="n">01</span><span class="t">House of Worship</span></div>
-      <div class="ind__tile" data-reveal><span class="n">02</span><span class="t">Corporate</span></div>
-      <div class="ind__tile" data-reveal><span class="n">03</span><span class="t">Education</span></div>
-      <div class="ind__tile" data-reveal><span class="n">04</span><span class="t">Hospitality</span></div>
-      <div class="ind__tile" data-reveal><span class="n">05</span><span class="t">Government</span></div>
-      <div class="ind__tile" data-reveal><span class="n">06</span><span class="t">Retail</span></div>
-      <div class="ind__tile" data-reveal><span class="n">07</span><span class="t">Manufacturing</span></div>
-      <div class="ind__tile" data-reveal><span class="n">08</span><span class="t">Live Events</span></div>
+      <div class="ind__tile" data-reveal><span class="n">02</span><span class="t">Performing Arts</span></div>
+      <div class="ind__tile" data-reveal><span class="n">03</span><span class="t">Live Entertainment</span></div>
+      <div class="ind__tile" data-reveal><span class="n">04</span><span class="t">Themed Entertainment</span></div>
+      <div class="ind__tile" data-reveal><span class="n">05</span><span class="t">Sports</span></div>
+      <div class="ind__tile" data-reveal><span class="n">06</span><span class="t">Broadcast</span></div>
+      <div class="ind__tile" data-reveal><span class="n">07</span><span class="t">Education</span></div>
+      <div class="ind__tile" data-reveal><span class="n">08</span><span class="t">Government</span></div>
     </div>
   </div>
 </section>
@@ -596,10 +643,10 @@ h2.dsp{font-size:clamp(32px,5.6vw,60px)}
       <h2 class="dsp" data-reveal>Four steps. One accountable team.</h2>
     </div>
     <div class="steps" data-stagger>
-      <div class="step" data-reveal><div class="step__dot"></div><div class="step__n">01</div><h3>Design</h3><p>We walk the space, learn how you use it, and engineer a system around the outcome.</p></div>
-      <div class="step" data-reveal><div class="step__dot"></div><div class="step__n">02</div><h3>Engineer</h3><p>Signal flow, networks, and gear specced to spec — documented before a wire is pulled.</p></div>
-      <div class="step" data-reveal><div class="step__dot"></div><div class="step__n">03</div><h3>Install</h3><p>Clean, labeled, on-schedule installation by certified techs who sweat the details.</p></div>
-      <div class="step" data-reveal><div class="step__dot"></div><div class="step__n">04</div><h3>Support</h3><p>Training, monitoring, and managed service that keep it running long after go-live.</p></div>
+      <div class="step" data-reveal><div class="step__dot"></div><div class="step__n">01</div><h3>Survey</h3><p>We walk the space and capture every constraint &mdash; acoustics, sightlines, rigging, and power.</p></div>
+      <div class="step" data-reveal><div class="step__dot"></div><div class="step__n">02</div><h3>Design</h3><p>Signal flow, networks, and gear engineered to spec and documented before a wire is pulled.</p></div>
+      <div class="step" data-reveal><div class="step__dot"></div><div class="step__n">03</div><h3>Install</h3><p>Clean, labeled, on-schedule installation by certified crews who sweat the details.</p></div>
+      <div class="step" data-reveal><div class="step__dot"></div><div class="step__n">04</div><h3>Commission</h3><p>Tuned, tested, certified, and supported &mdash; proven against spec, then kept running.</p></div>
     </div>
   </div>
 </section>
