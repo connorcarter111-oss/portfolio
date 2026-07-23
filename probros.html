@@ -200,16 +200,49 @@ h2.dsp{font-size:clamp(32px,5.6vw,60px)}
 .step p{color:var(--muted-d);font-size:15.5px;line-height:1.6}
 
 /* ---------- Testimonials ---------- */
-.tmarquee{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
-.tmarquee__track{display:flex;gap:20px;width:max-content;animation:scroll 60s linear infinite}
-.tmarquee:hover .tmarquee__track{animation-play-state:paused}
-.quote{width:min(420px,84vw);flex:none;background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:32px;display:flex;flex-direction:column;gap:18px}
-.quote p{font-size:17px;line-height:1.6;color:#1a1d24}
-.quote__by{display:flex;align-items:center;gap:12px;margin-top:auto}
-.quote__av{width:42px;height:42px;border-radius:50%;background:#dcdcdc;flex:none}
-.quote__by b{font-family:var(--font-display);font-weight:600;font-size:15px;display:block}
-.quote__by span{font-size:13.5px;color:var(--muted)}
-.stars{color:var(--ink);font-size:15px;letter-spacing:2px}
+.testi{overflow:hidden}
+.testi__wrap{display:grid;grid-template-columns:minmax(260px,400px) 1fr;gap:clamp(34px,6vw,84px);align-items:center}
+.testi__media{position:relative}
+.testi__frame{position:relative;aspect-ratio:4/5;border-radius:var(--r);overflow:hidden;background:var(--paper2);
+  clip-path:polygon(0 0,100% 0,100% 84%,86% 100%,0 100%)}
+.testi__frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);
+  opacity:0;transform:scale(1.07);transition:opacity .9s var(--ease),transform 1.3s var(--ease)}
+.testi__frame img.is-active{opacity:1;transform:scale(1)}
+.testi__avatar{position:absolute;right:-7%;bottom:9%;width:clamp(74px,9vw,108px);height:clamp(74px,9vw,108px);
+  border-radius:50%;overflow:hidden;border:5px solid var(--bg);background:var(--paper2);
+  box-shadow:0 20px 46px -18px rgba(0,0,0,.45);z-index:2}
+.testi__avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:grayscale(1) contrast(1.05);
+  opacity:0;transition:opacity .6s var(--ease)}
+.testi__avatar img.is-active{opacity:1}
+.testi__body{position:relative;min-width:0}
+.testi__mark{position:absolute;top:-.32em;left:-.04em;font-family:var(--font-display);font-weight:700;line-height:1;
+  font-size:clamp(170px,25vw,300px);color:transparent;-webkit-text-stroke:2px var(--line);
+  pointer-events:none;user-select:none;z-index:0}
+.testi__body>*{position:relative;z-index:1}
+.testi__slides{position:relative;margin-top:6px}
+.testi__quote{font-family:var(--font-display);font-weight:600;letter-spacing:-.02em;line-height:1.16;
+  font-size:clamp(23px,3.3vw,40px);color:var(--ink);position:absolute;inset:0;pointer-events:none;
+  opacity:0;transform:translateY(16px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.testi__quote.is-active{opacity:1;transform:none;position:relative;pointer-events:auto}
+.testi__by{margin-top:30px;min-height:46px}
+.testi__name{display:block;font-family:var(--font-display);font-weight:600;font-size:18px;color:var(--ink)}
+.testi__role{font-size:15px;color:var(--muted)}
+.testi__nav{display:flex;align-items:center;gap:22px;margin-top:42px;flex-wrap:wrap}
+.testi__arrow{width:50px;height:50px;border-radius:50%;border:1px solid var(--line);background:transparent;color:var(--ink);
+  display:inline-flex;align-items:center;justify-content:center;cursor:pointer;
+  transition:transform .3s var(--ease),background .3s,color .3s,border-color .3s}
+.testi__arrow:hover{background:var(--ink);color:#fff;transform:translateY(-2px);border-color:var(--ink)}
+.testi__arrow svg{width:18px;height:18px}
+.testi__ticks{display:flex;align-items:center;gap:7px}
+.testi__ticks span{width:2px;height:18px;background:var(--paper2);transition:background .4s var(--ease),height .4s var(--ease)}
+.testi__ticks span.on{background:var(--ink);height:30px}
+.testi__index{font-family:var(--font-display);font-weight:600;font-size:15px;color:var(--muted);margin-left:2px;font-variant-numeric:tabular-nums}
+.testi__index b{color:var(--ink);font-weight:700}
+@media(max-width:820px){
+  .testi__wrap{grid-template-columns:1fr;gap:40px}
+  .testi__media{max-width:340px}
+  .testi__mark{font-size:clamp(130px,34vw,200px)}
+}
 
 /* ---------- Stats ---------- */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
@@ -342,18 +375,60 @@ h2.dsp{font-size:clamp(32px,5.6vw,60px)}
   </div>
   <div class="marquee" aria-label="Clients">
     <div class="marquee__track">
-      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/elevation.png" alt="Elevation Church">
       <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/live-nation.png" alt="Live Nation">
-      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/northpoint.png" alt="North Point Community Church">
-      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/village.png" alt="Village Church">
-      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/bethlehem.png" alt="Bethlehem Church">
-      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/ote.png" alt="OTE">
+      <span>State Farm Arena</span>
       <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/elevation.png" alt="Elevation Church">
-      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/live-nation.png" alt="Live Nation">
-      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/northpoint.png" alt="North Point Community Church">
-      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/village.png" alt="Village Church">
-      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/bethlehem.png" alt="Bethlehem Church">
+      <span>Nashville Predators</span>
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/northpoint-ministries.png" alt="North Point Ministries">
+      <span>Deloitte</span>
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/passioncity.png" alt="Passion City Church">
+      <span>Virginia Tech</span>
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/epic.png" alt="EPIC">
+      <span>SiriusXM</span>
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/christfellowship.png" alt="Christ Fellowship Church">
+      <span>City of Atlanta</span>
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/12stone.png" alt="12Stone Church">
+      <span>Lakepointe Church</span>
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/buckhead.png" alt="Buckhead Church">
+      <span>Gwinnett Church</span>
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/woodstockcity.png" alt="Woodstock City Church">
+      <span>Cobb County Courthouse</span>
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/brownsbridge.png" alt="Browns Bridge Church">
+      <span>Victory Church</span>
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/eastcobb.png" alt="East Cobb Church">
+      <span>Decatur City Church</span>
       <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/ote.png" alt="OTE">
+      <span>Athens Church</span>
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/alpharetta.png" alt="Alpharetta High School">
+      <span>FCHS</span>
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/northpoint.png" alt="North Point Community Church">
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/live-nation.png" alt="Live Nation">
+      <span>State Farm Arena</span>
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/elevation.png" alt="Elevation Church">
+      <span>Nashville Predators</span>
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/northpoint-ministries.png" alt="North Point Ministries">
+      <span>Deloitte</span>
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/passioncity.png" alt="Passion City Church">
+      <span>Virginia Tech</span>
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/epic.png" alt="EPIC">
+      <span>SiriusXM</span>
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/christfellowship.png" alt="Christ Fellowship Church">
+      <span>City of Atlanta</span>
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/12stone.png" alt="12Stone Church">
+      <span>Lakepointe Church</span>
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/buckhead.png" alt="Buckhead Church">
+      <span>Gwinnett Church</span>
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/woodstockcity.png" alt="Woodstock City Church">
+      <span>Cobb County Courthouse</span>
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/brownsbridge.png" alt="Browns Bridge Church">
+      <span>Victory Church</span>
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/eastcobb.png" alt="East Cobb Church">
+      <span>Decatur City Church</span>
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/ote.png" alt="OTE">
+      <span>Athens Church</span>
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/alpharetta.png" alt="Alpharetta High School">
+      <span>FCHS</span>
+      <img src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/clients/northpoint.png" alt="North Point Community Church">
     </div>
   </div>
 </section>
@@ -530,21 +605,41 @@ h2.dsp{font-size:clamp(32px,5.6vw,60px)}
 </section>
 
 <!-- TESTIMONIALS -->
-<section class="section section-light">
-  <div class="wrap">
-    <div class="section-head">
-      <span class="eyebrow" data-reveal>Testimonials</span>
-      <h2 class="dsp" data-reveal>The room speaks for itself.</h2>
+<section class="section section-light testi" id="testimonials">
+  <div class="wrap testi__wrap">
+    <div class="testi__media" data-reveal-scale>
+      <div class="testi__frame">
+        <img class="is-active" src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/gallery/g3.jpg" alt="" loading="lazy">
+        <img class="" src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/gallery/g4.jpg" alt="" loading="lazy">
+        <img class="" src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/gallery/g2.jpg" alt="" loading="lazy">
+        <img class="" src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/gallery/g1.jpg" alt="" loading="lazy">
+      </div>
+      <div class="testi__avatar">
+        <img class="is-active" src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/gallery/g1.jpg" alt="" loading="lazy">
+        <img class="" src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/gallery/g2.jpg" alt="" loading="lazy">
+        <img class="" src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/gallery/g3.jpg" alt="" loading="lazy">
+        <img class="" src="https://cdn.jsdelivr.net/gh/connorcarter111-oss/portfolio@main/assets/gallery/g4.jpg" alt="" loading="lazy">
+      </div>
     </div>
-  </div>
-  <div class="tmarquee">
-    <div class="tmarquee__track">
-      <div class="quote"><div class="stars">★★★★★</div><p>"They handed us a system our volunteers actually run. Sunday mornings just work now — no scrambling, no dead mics."</p><div class="quote__by"><span class="quote__av"></span><span><b>Worship Production Lead</b><span>House of Worship</span></span></div></div>
-      <div class="quote"><div class="stars">★★★★★</div><p>"Every conference room connects on the first try. That sounds small until you've lived without it."</p><div class="quote__by"><span class="quote__av"></span><span><b>Director of IT</b><span>Corporate Campus</span></span></div></div>
-      <div class="quote"><div class="stars">★★★★★</div><p>"One partner for audio, video, and network. When we call, someone who knows our building picks up."</p><div class="quote__by"><span class="quote__av"></span><span><b>Facilities Manager</b><span>Multi-site Client</span></span></div></div>
-      <div class="quote"><div class="stars">★★★★★</div><p>"The install was spotless — labeled, documented, on time. It's the cleanest rack I've ever seen."</p><div class="quote__by"><span class="quote__av"></span><span><b>Operations Director</b><span>Live Events</span></span></div></div>
-      <div class="quote"><div class="stars">★★★★★</div><p>"They handed us a system our volunteers actually run. Sunday mornings just work now — no scrambling, no dead mics."</p><div class="quote__by"><span class="quote__av"></span><span><b>Worship Production Lead</b><span>House of Worship</span></span></div></div>
-      <div class="quote"><div class="stars">★★★★★</div><p>"Every conference room connects on the first try. That sounds small until you've lived without it."</p><div class="quote__by"><span class="quote__av"></span><span><b>Director of IT</b><span>Corporate Campus</span></span></div></div>
+    <div class="testi__body">
+      <span class="eyebrow" data-reveal>Testimonials</span>
+      <span class="testi__mark" aria-hidden="true">“</span>
+      <div class="testi__slides" data-reveal>
+        <blockquote class="testi__quote is-active" data-name="Production Director" data-role="House of Worship">“They handed us a system our volunteers actually run. Sunday mornings just work now — no scrambling, no dead mics.”</blockquote>
+        <blockquote class="testi__quote" data-name="Technical Director" data-role="Live Entertainment">“The install was spotless — labeled, documented, commissioned, and on time. It's the cleanest signal path we've ever run.”</blockquote>
+        <blockquote class="testi__quote" data-name="Director of Technology" data-role="Corporate Campus">“Every room connects on the first try. That sounds small until you've lived a season without it.”</blockquote>
+        <blockquote class="testi__quote" data-name="Operations Manager" data-role="Sports & Arena">“One partner for audio, video, lighting, rigging, and network. When we call, someone who already knows our building picks up.”</blockquote>
+      </div>
+      <div class="testi__by" data-reveal>
+        <b class="testi__name">Production Director</b>
+        <span class="testi__role">House of Worship</span>
+      </div>
+      <div class="testi__nav" data-reveal>
+        <button class="testi__arrow" data-dir="-1" aria-label="Previous testimonial"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg></button>
+        <div class="testi__ticks"><span class="on"></span><span></span><span></span><span></span></div>
+        <button class="testi__arrow" data-dir="1" aria-label="Next testimonial"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></button>
+        <span class="testi__index"><b>01</b> / 04</span>
+      </div>
     </div>
   </div>
 </section>
@@ -723,6 +818,33 @@ counters.forEach(c=>cIO.observe(c));
   window.addEventListener('scroll',onS,{passive:true});
   window.addEventListener('resize',onS);
   update();
+})();
+
+/* Testimonials slider */
+(function(){
+  const root=document.querySelector('.testi'); if(!root) return;
+  const quotes=[...root.querySelectorAll('.testi__quote')];
+  const media=[...root.querySelectorAll('.testi__frame img')];
+  const avs=[...root.querySelectorAll('.testi__avatar img')];
+  const ticks=[...root.querySelectorAll('.testi__ticks span')];
+  const nameEl=root.querySelector('.testi__name'), roleEl=root.querySelector('.testi__role');
+  const idxEl=root.querySelector('.testi__index b');
+  const total=quotes.length; let i=0, timer;
+  const pad=n=>String(n).padStart(2,'0');
+  function go(n){
+    i=(n+total)%total;
+    quotes.forEach((q,k)=>q.classList.toggle('is-active',k===i));
+    media.forEach((m,k)=>m.classList.toggle('is-active',k===i));
+    avs.forEach((a,k)=>a.classList.toggle('is-active',k===i));
+    ticks.forEach((t,k)=>t.classList.toggle('on',k===i));
+    nameEl.textContent=quotes[i].dataset.name; roleEl.textContent=quotes[i].dataset.role;
+    idxEl.textContent=pad(i+1);
+  }
+  function reset(){clearInterval(timer);timer=setInterval(()=>go(i+1),6500);}
+  root.querySelectorAll('.testi__arrow').forEach(b=>b.addEventListener('click',()=>{go(i+Number(b.dataset.dir));reset();}));
+  root.addEventListener('mouseenter',()=>clearInterval(timer));
+  root.addEventListener('mouseleave',reset);
+  go(0); reset();
 })();
 </script>
 </body>
