@@ -150,12 +150,66 @@ h2.dsp{font-size:clamp(32px,5.6vw,60px)}
 @media(max-width:860px){.showcase__chip{display:none}.dash__body{grid-template-columns:1fr}.dash__side{display:none}.showcase__panel{--tilt:0deg}}
 @media(max-width:560px){.dash__stats,.rooms{grid-template-columns:1fr 1fr}}
 @media(prefers-reduced-motion:reduce){.showcase__panel{--tilt:0deg!important;--ty:0!important;--sc:1!important}.meter i,.showcase__chip,.showcase__glow,.dash__bar .pill .live{animation:none}}
+/* ---------- Bento feature grid ---------- */
+.bento{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:172px;gap:16px}
+.bento__cell{position:relative;border:1px solid var(--line);border-radius:var(--r);background:#fff;padding:24px;overflow:hidden;display:flex;flex-direction:column;transition:transform .5s var(--ease),box-shadow .5s var(--ease)}
+.bento__cell:hover{transform:translateY(-5px);box-shadow:0 40px 80px -44px rgba(10,12,16,.28)}
+.b-lg{grid-column:span 2;grid-row:span 2}
+.b-wide{grid-column:span 2}
+.bento__cell h3{font-family:var(--font-display);font-weight:600;font-size:20px;letter-spacing:-.01em}
+.bento__cell p{font-size:14.5px;color:var(--muted);line-height:1.55;margin-top:7px;max-width:34ch}
+.bento__k{font-family:var(--font-display);font-weight:600;font-size:clamp(34px,4.6vw,50px);line-height:1;letter-spacing:-.02em}
+.bento__lab{font-size:12.5px;color:var(--muted);letter-spacing:.03em;margin-top:8px}
+.bento__spacer{flex:1}
+/* signal-flow */
+.flow{margin-top:auto}
+.flow__track{position:relative;height:2px;background:var(--line);border-radius:2px;margin:0 4px 16px;overflow:visible}
+.flow__pulse{position:absolute;top:50%;width:64px;height:2px;transform:translateY(-50%);background:linear-gradient(90deg,transparent,var(--ink),transparent);animation:flowmove 2.8s linear infinite}
+@keyframes flowmove{from{left:-64px}to{left:100%}}
+.flow__nodes{display:flex;justify-content:space-between}
+.flow__nodes span{position:relative;font-size:11.5px;font-weight:600;color:var(--ink);padding-top:16px;text-align:center;flex:1}
+.flow__nodes span::before{content:"";position:absolute;top:-8px;left:50%;transform:translateX(-50%);width:9px;height:9px;border-radius:50%;background:var(--ink)}
+/* radar */
+.radar{position:relative;width:56px;height:56px;margin-top:auto}
+.radar b{position:absolute;inset:0;border-radius:50%;border:1.5px solid var(--ink);animation:radar 2.6s ease-out infinite}
+.radar b:nth-child(2){animation-delay:1.3s}
+.radar i{position:absolute;top:50%;left:50%;width:11px;height:11px;background:var(--ink);border-radius:50%;transform:translate(-50%,-50%)}
+@keyframes radar{0%{transform:scale(.28);opacity:.75}100%{transform:scale(1);opacity:0}}
+/* nationwide dots */
+.sitedots{display:flex;flex-wrap:wrap;gap:9px;margin-top:auto;max-width:280px}
+.sitedots i{width:9px;height:9px;border-radius:50%;background:var(--ink);opacity:.22;animation:dotpulse 3.2s ease-in-out infinite}
+@keyframes dotpulse{0%,100%{opacity:.18}50%{opacity:1}}
+@media(max-width:820px){.bento{grid-template-columns:repeat(2,1fr);grid-auto-rows:160px}.b-lg{grid-row:span 2}}
+@media(max-width:520px){.bento{grid-template-columns:1fr}.b-lg,.b-wide{grid-column:span 1}.b-lg{grid-row:span 2}}
+@media(prefers-reduced-motion:reduce){.flow__pulse,.radar b,.sitedots i{animation:none}}
+/* ---------- AV rack showcase ---------- */
+.rack{padding:16px}
+.rack__u{display:flex;align-items:center;gap:14px;padding:13px 15px;border:1px solid rgba(255,255,255,.09);border-radius:8px;background:rgba(255,255,255,.025);margin-bottom:8px;color:#fff}
+.rack__u:last-child{margin-bottom:0}
+.rack__ear{width:6px;height:26px;border-radius:2px;background:rgba(255,255,255,.22);flex:none}
+.rack__u .nm{flex:1;font-weight:600;font-size:14px}
+.rack__u .tag{font-size:11.5px;color:rgba(255,255,255,.5)}
+.rack__leds{display:flex;gap:5px}
+.rack__leds i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.28)}
+.rack__leds i.on{background:#fff;box-shadow:0 0 7px rgba(255,255,255,.7);animation:blink 2.2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.35}}
 /* ---------- Section base ---------- */
 .section{padding:clamp(80px,12vw,150px) 0;position:relative}
 .section>.wrap{position:relative;z-index:1}
 /* ambient drifting glow adds depth to the dark sections */
 .section-dark::before,.section-ink2::before{content:"";position:absolute;top:0;left:50%;transform:translateX(-50%);width:min(1080px,120vw);height:60%;pointer-events:none;z-index:0;background:radial-gradient(58% 60% at 50% 0%,rgba(255,255,255,.06),transparent 72%);animation:floaty 12s ease-in-out infinite alternate}
 @media(prefers-reduced-motion:reduce){.section-dark::before,.section-ink2::before{animation:none}}
+/* animated technical grid backdrop on dark sections (Linear-style texture) */
+.section-dark::after,.section-ink2::after{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.6;
+  background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+  background-size:58px 58px;
+  -webkit-mask-image:radial-gradient(130% 90% at 50% 0%,#000,transparent 78%);mask-image:radial-gradient(130% 90% at 50% 0%,#000,transparent 78%);
+  animation:griddrift 26s linear infinite}
+@keyframes griddrift{from{background-position:0 0,0 0}to{background-position:58px 58px,58px 58px}}
+@media(prefers-reduced-motion:reduce){.section-dark::after,.section-ink2::after{animation:none}}
+/* 3D tilt on project photos */
+#work .grid{perspective:1500px}
+.proj{transform-style:preserve-3d}
 .section-light{background:var(--bg);color:var(--ink)}
 .section-paper{background:var(--paper);color:var(--ink)}
 .section-dark{background:var(--ink);color:#fff}
@@ -632,6 +686,42 @@ h2.dsp{font-size:clamp(32px,5.6vw,60px)}
   </div>
 </section>
 
+<!-- BENTO / WHY -->
+<section class="section section-paper" id="why">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow" data-reveal>Why Pro Bros</span>
+      <h2 class="dsp" data-reveal>Built different.</h2>
+    </div>
+    <div class="bento" data-stagger>
+      <div class="bento__cell b-lg" data-reveal>
+        <h3>One team, survey to support.</h3>
+        <p>No handoffs, no finger-pointing. The same people who walk your space design it, install it, and stand behind it.</p>
+        <div class="flow">
+          <div class="flow__track"><span class="flow__pulse"></span></div>
+          <div class="flow__nodes"><span>Survey</span><span>Design</span><span>Install</span><span>Support</span></div>
+        </div>
+      </div>
+      <div class="bento__cell" data-reveal>
+        <h3>Experience</h3>
+        <div class="bento__spacer"></div>
+        <div class="bento__k"><span data-count="10">0</span>+</div>
+        <div class="bento__lab">Years in the field</div>
+      </div>
+      <div class="bento__cell" data-reveal>
+        <h3>Always on</h3>
+        <div class="radar"><b></b><b></b><i></i></div>
+        <div class="bento__lab">24/7 remote monitoring</div>
+      </div>
+      <div class="bento__cell b-wide" data-reveal>
+        <h3>Nationwide coverage</h3>
+        <p>Multi-site rollouts and support, coordinated from one place.</p>
+        <div class="sitedots"><i style="animation-delay:-0.00s"></i><i style="animation-delay:-0.13s"></i><i style="animation-delay:-0.26s"></i><i style="animation-delay:-0.39s"></i><i style="animation-delay:-0.52s"></i><i style="animation-delay:-0.65s"></i><i style="animation-delay:-0.78s"></i><i style="animation-delay:-0.91s"></i><i style="animation-delay:-1.04s"></i><i style="animation-delay:-1.17s"></i><i style="animation-delay:-1.30s"></i><i style="animation-delay:-1.43s"></i><i style="animation-delay:-1.56s"></i><i style="animation-delay:-1.69s"></i><i style="animation-delay:-1.82s"></i><i style="animation-delay:-1.95s"></i><i style="animation-delay:-2.08s"></i><i style="animation-delay:-2.21s"></i><i style="animation-delay:-2.34s"></i><i style="animation-delay:-2.47s"></i><i style="animation-delay:-2.60s"></i><i style="animation-delay:-2.73s"></i><i style="animation-delay:-2.86s"></i><i style="animation-delay:-2.99s"></i><i style="animation-delay:-3.12s"></i><i style="animation-delay:-0.05s"></i></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- STATEMENT BAND (condensed display + underline + pill nav + cable line-art) -->
 <section class="statement-band">
   <div class="wrap">
@@ -724,6 +814,25 @@ h2.dsp{font-size:clamp(32px,5.6vw,60px)}
           <div class="proj__meta">Fiber and copper dressed to perfection &mdash; the invisible system every show depends on.</div>
         </div>
       </a>
+    </div>
+  </div>
+</section>
+
+<!-- RACK SHOWCASE (3D scroll-tilt) -->
+<section class="section section-dark showcase" id="anatomy">
+  <div class="wrap">
+    <div class="section-head" style="max-width:720px;margin-left:auto;margin-right:auto;text-align:center">
+      <span class="eyebrow" data-reveal>Anatomy</span>
+      <h2 class="dsp" data-reveal>Engineered rack, unit by unit.</h2>
+      <p data-reveal>Behind every clean install is a rack designed like a product &mdash; labeled, documented, and built to be serviced in seconds.</p>
+    </div>
+  </div>
+  <div class="showcase__stage" data-reveal-scale>
+    <div class="showcase__glow"></div>
+    <div class="showcase__chip chip-1"><b>0U</b><span>Wasted space</span></div>
+    <div class="showcase__chip chip-2"><b>100%</b><span>Labeled &amp; documented</span></div>
+    <div class="showcase__panel" style="max-width:720px">
+      <div class="rack"><div class="rack__u"><span class="rack__ear"></span><span class="nm">Digital Console</span><span class="tag">32-channel</span><span class="rack__leds"><i class="on"></i><i class="on"></i><i class="on"></i></span></div><div class="rack__u"><span class="rack__ear"></span><span class="nm">DSP Processor</span><span class="tag">Dante / AES67</span><span class="rack__leds"><i class="on"></i><i class="on"></i><i></i><i></i></span></div><div class="rack__u"><span class="rack__ear"></span><span class="nm">Network Switch</span><span class="tag">Redundant PoE++</span><span class="rack__leds"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div><div class="rack__u"><span class="rack__ear"></span><span class="nm">Amplifier Array</span><span class="tag">4 × Multi-channel</span><span class="rack__leds"><i class="on"></i><i class="on"></i><i></i></span></div><div class="rack__u"><span class="rack__ear"></span><span class="nm">Video Matrix</span><span class="tag">4K / HDBaseT</span><span class="rack__leds"><i class="on"></i><i></i><i></i></span></div><div class="rack__u"><span class="rack__ear"></span><span class="nm">Patch &amp; Power</span><span class="tag">UPS-backed</span><span class="rack__leds"><i class="on"></i><i class="on"></i></span></div></div>
     </div>
   </div>
 </section>
@@ -919,6 +1028,17 @@ document.querySelectorAll('.card').forEach(card=>{
   card.addEventListener('pointermove',e=>{const r=card.getBoundingClientRect();card.style.setProperty('--mx',(e.clientX-r.left)+'px');card.style.setProperty('--my',(e.clientY-r.top)+'px');});
 });
 
+/* 3D tilt on project photos (pointer-fine) */
+if(matchMedia('(pointer:fine)').matches && !matchMedia('(prefers-reduced-motion:reduce)').matches){
+  document.querySelectorAll('.proj').forEach(p=>{
+    p.addEventListener('pointermove',e=>{const r=p.getBoundingClientRect();
+      const rx=(((e.clientY-r.top)/r.height)-.5)*-7, ry=(((e.clientX-r.left)/r.width)-.5)*7;
+      p.style.transition='transform .12s var(--ease)';
+      p.style.transform=`perspective(1100px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg)`;});
+    p.addEventListener('pointerleave',()=>{p.style.transition='transform .5s var(--ease)';p.style.transform='';});
+  });
+}
+
 /* Mouse-reactive glowing border — lights up nearby cards and points the arc at the cursor */
 (function(){
   const cards=[...document.querySelectorAll('.card,.ind__tile,.proj')];
@@ -999,19 +1119,21 @@ counters.forEach(c=>cIO.observe(c));
   update();
 })();
 
-/* 3D platform showcase: tilt the panel flat as it scrolls into view */
+/* 3D showcases: tilt each panel flat as it scrolls into view */
 (function(){
-  const sec=document.querySelector('.showcase'); if(!sec) return;
-  const panel=sec.querySelector('.showcase__panel'); if(!panel) return;
+  const secs=[...document.querySelectorAll('.showcase')]; if(!secs.length) return;
   if(matchMedia('(prefers-reduced-motion:reduce)').matches) return;
   let ticking=false;
   function upd(){
-    ticking=false;
-    const r=sec.getBoundingClientRect(), vh=window.innerHeight;
-    const p=Math.max(0,Math.min(1,(vh - r.top)/(vh*0.85)));
-    panel.style.setProperty('--tilt',((1-p)*30).toFixed(2)+'deg');
-    panel.style.setProperty('--ty',((1-p)*36).toFixed(1)+'px');
-    panel.style.setProperty('--sc',(0.965+p*0.035).toFixed(3));
+    ticking=false; const vh=window.innerHeight;
+    for(const sec of secs){
+      const panel=sec.querySelector('.showcase__panel'); if(!panel) continue;
+      const r=sec.getBoundingClientRect();
+      const p=Math.max(0,Math.min(1,(vh - r.top)/(vh*0.85)));
+      panel.style.setProperty('--tilt',((1-p)*30).toFixed(2)+'deg');
+      panel.style.setProperty('--ty',((1-p)*36).toFixed(1)+'px');
+      panel.style.setProperty('--sc',(0.965+p*0.035).toFixed(3));
+    }
   }
   window.addEventListener('scroll',()=>{if(!ticking){ticking=true;requestAnimationFrame(upd);}},{passive:true});
   window.addEventListener('resize',upd); upd();
